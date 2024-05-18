@@ -18,24 +18,23 @@ features:
 #       path:
 #         prefix: /
 name: know-your-rpc
-region: nearest available
-services:
+workers:
 - environment_slug: go
   github:
     branch: main
     deploy_on_push: true
-    repo: git-user-name/api
-  http_port: 8080
-  instance_count: 2
-  instance_size_slug: professional-xs
-  name: api
-  run_command: bin/api
+    repo: koonopek/know-your-rpc
+  instance_count: 1
+  instance_size_slug: basic-xxs
+  name: writer
+  run_command: writer/main
+  build_command: go build  -o writer/main writer/main.go 
   source_dir: /
-static_sites:
-- environment_slug: html
-  github:
-    branch: master
-    deploy_on_push: true
-    repo: git-user-name/website
-  name: website
-  source_dir: /
+# static_sites:
+# - environment_slug: html
+#   github:
+#     branch: master
+#     deploy_on_push: true
+#     repo: git-user-name/website
+#   name: website
+#   source_dir: /
