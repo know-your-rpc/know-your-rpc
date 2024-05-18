@@ -20,16 +20,17 @@ features:
 name: know-your-rpc
 workers:
 - environment_slug: go
+  name: writer
   github:
     branch: main
     deploy_on_push: true
     repo: koonopek/know-your-rpc
   instance_count: 1
   instance_size_slug: basic-xxs
-  name: writer
-  run_command: writer/main
-  build_command: go build  -o writer/main writer/main.go 
-  source_dir: /
+  run_command: bin/main
+  build_command: go build -o bin/main main.go
+  source_dir: writer
+
 # static_sites:
 # - environment_slug: html
 #   github:
