@@ -1,0 +1,41 @@
+alerts:
+- rule: DEPLOYMENT_FAILED
+features:
+- buildpack-stack=ubuntu-22
+# ingress:
+#   rules:
+#   - component:
+#       name: api
+#     match:
+#       path:
+#         prefix: /api
+#   - component:
+#       name: website
+#     cors:
+#       allow_origins:
+#       - prefix: https://internal.example-app.com
+#     match:
+#       path:
+#         prefix: /
+name: know-your-rpc
+region: nearest available
+services:
+- environment_slug: go
+  github:
+    branch: main
+    deploy_on_push: true
+    repo: git-user-name/api
+  http_port: 8080
+  instance_count: 2
+  instance_size_slug: professional-xs
+  name: api
+  run_command: bin/api
+  source_dir: /
+static_sites:
+- environment_slug: html
+  github:
+    branch: master
+    deploy_on_push: true
+    repo: git-user-name/website
+  name: website
+  source_dir: /
