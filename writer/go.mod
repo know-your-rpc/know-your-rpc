@@ -1,8 +1,6 @@
 module koonopek/know_your_rpc/writer
 
-go 1.22
-
-toolchain go1.22.1
+go 1.21
 
 require (
 	github.com/InfluxCommunity/influxdb3-go v0.7.0 // indirect
