@@ -3,12 +3,12 @@ module koonopek/know_your_rpc/writer
 go 1.22
 
 require (
-	github.com/InfluxCommunity/influxdb3-go v0.6.0
+	github.com/InfluxCommunity/influxdb3-go v0.7.0
 	github.com/elliotchance/pie/v2 v2.8.0
 )
 
 require (
-	github.com/apache/arrow/go/v14 v14.0.2 // indirect
+	github.com/apache/arrow/go/v15 v15.0.2 // indirect
 	github.com/goccy/go-json v0.10.2 // indirect
 	github.com/google/flatbuffers v24.3.7+incompatible // indirect
 	github.com/influxdata/line-protocol/v2 v2.2.1 // indirect

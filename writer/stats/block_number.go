@@ -43,7 +43,8 @@ func (blockNumberBenchmark PerChainBlockNumberBenchmarks) ToPoints() []*influxdb
 			SetTag("isError", strconv.FormatBool(perRpc.IsError)).
 			SetDoubleField("blockNumber", blockNumberAsFloat64).
 			SetDoubleField("diffWithMedian", diffWithMedian).
-			SetUIntegerField("wholeRequestDuration", uint64(perRpc.WholeRequestDuration))
+			SetUIntegerField("wholeRequestDuration", uint64(perRpc.WholeRequestDuration)).
+			SetTimestamp(timestamp)
 
 		points = append(points, point)
 	}
