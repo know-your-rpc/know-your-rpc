@@ -33,7 +33,12 @@ func main() {
 	}
 
 	// collect data for eth every 1min
-	setInterval(func() { collectBlockNumberStats(influxClient, rpcInfoMap, "1") }, INTERVAL)
+	// todo could by optimize by writing points only once
+	setInterval(func() {
+		collectBlockNumberStats(influxClient, rpcInfoMap, "1")
+		collectBlockNumberStats(influxClient, rpcInfoMap, "56")
+		collectBlockNumberStats(influxClient, rpcInfoMap, "42161")
+	}, INTERVAL)
 }
 
 func collectBlockNumberStats(influxClient *influxdb3.Client, rpcsMap *utils.RpcInfoMap, chainId string) {
@@ -48,10 +53,10 @@ func collectBlockNumberStats(influxClient *influxdb3.Client, rpcsMap *utils.RpcI
 	pointsCount, err := influx.WritePoints(influxClient, "stats-block-number-1", blocNumberStats)
 
 	if err != nil {
-		fmt.Printf("failed to write points to influx")
+		fmt.Printf("failed to write points to influx\n")
 	}
 
-	fmt.Printf("wrote %d points to influx", pointsCount)
+	fmt.Printf("wrote %d points to influx\n", pointsCount)
 }
 
 func setInterval(intervalAction func(), interval time.Duration) {
