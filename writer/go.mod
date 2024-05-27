@@ -1,6 +1,6 @@
 module koonopek/know_your_rpc/writer
 
-go 1.21
+go 1.22
 
 require (
 	github.com/InfluxCommunity/influxdb3-go v0.6.0
