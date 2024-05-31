@@ -1,6 +1,7 @@
 package stats
 
 import (
+	"encoding/json"
 	"fmt"
 	"koonopek/know_your_rpc/writer/rpc"
 	"koonopek/know_your_rpc/writer/utils"
@@ -109,8 +110,15 @@ func benchGetBlocNumber(rpcUrl string) PerRpcBlockNumberBenchmark {
 		return PerRpcBlockNumberBenchmark{-1, *big.NewInt(0), true, rpcUrl}
 	}
 
-	blockNumberInHex := parseJsonString(result.Result)
-	blockNumber, ok := hexToBigInt(blockNumberInHex)
+	blockNumberInHex := new(string)
+	err = json.Unmarshal(result.Result, blockNumberInHex)
+
+	if err != nil {
+		fmt.Printf("rpcUrl=%s failed error=parsing response\n", rpcUrl)
+		return PerRpcBlockNumberBenchmark{-1, *big.NewInt(0), true, rpcUrl}
+	}
+
+	blockNumber, ok := hexToBigInt([]byte(*blockNumberInHex))
 
 	if !ok {
 		return PerRpcBlockNumberBenchmark{-1, *big.NewInt(0), true, rpcUrl}
@@ -136,9 +144,4 @@ func hexToBigInt(with0x []byte) (*big.Int, bool) {
 	i := new(big.Int)
 
 	return i.SetString(string(hexWithout0x), 16)
-}
-
-// removes "
-func parseJsonString(jsonString []byte) []byte {
-	return jsonString[1 : len(jsonString)-1]
 }

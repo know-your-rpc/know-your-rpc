@@ -5,7 +5,6 @@ import (
 	"koonopek/know_your_rpc/writer/influx"
 	"koonopek/know_your_rpc/writer/stats"
 	"koonopek/know_your_rpc/writer/utils"
-	"os"
 	"time"
 
 	"github.com/InfluxCommunity/influxdb3-go/influxdb3"
@@ -34,7 +33,7 @@ func main() {
 
 	// collect data for eth every 1min
 	// todo could by optimize by writing points only once
-	setInterval(func() {
+	utils.SetInterval(func() {
 		collectBlockNumberStats(influxClient, rpcInfoMap, "1")
 		collectBlockNumberStats(influxClient, rpcInfoMap, "56")
 		collectBlockNumberStats(influxClient, rpcInfoMap, "42161")
@@ -50,29 +49,12 @@ func collectBlockNumberStats(influxClient *influxdb3.Client, rpcsMap *utils.RpcI
 	}
 
 	blocNumberStats := stats.BenchmarkBlockNumber(rpcs, chainId)
-	pointsCount, err := influx.WritePoints(influxClient, "stats-block-number-1", blocNumberStats)
+	bucketName := "stats-block-number"
+	pointsCount, err := influx.WritePoints(influxClient, bucketName, blocNumberStats)
 
 	if err != nil {
 		fmt.Printf("failed to write points to influx\n")
 	}
 
 	fmt.Printf("wrote %d points to influx\n", pointsCount)
-}
-
-func setInterval(intervalAction func(), interval time.Duration) {
-	ticker := time.Tick(interval)
-
-	for range ticker {
-		intervalAction()
-	}
-}
-
-func MustGetEnv(envName string) string {
-	envValue, ok := os.LookupEnv(envName)
-
-	if !ok {
-		panic(fmt.Sprintf("failed to get name=%s env", envName))
-	}
-
-	return envValue
 }

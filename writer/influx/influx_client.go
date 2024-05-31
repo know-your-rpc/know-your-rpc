@@ -3,7 +3,7 @@ package influx
 import (
 	"context"
 	"fmt"
-	"os"
+	"koonopek/know_your_rpc/writer/utils"
 
 	"github.com/InfluxCommunity/influxdb3-go/influxdb3"
 )
@@ -14,8 +14,8 @@ type ToInfluxPoints interface {
 
 func MakeInfluxDbClient() (*influxdb3.Client, error) {
 	// Create client
-	url := os.Getenv("INFLUXDB_URL")
-	token := os.Getenv("INFLUXDB_TOKEN")
+	url := utils.MustGetEnv("INFLUXDB_URL")
+	token := utils.MustGetEnv("INFLUXDB_TOKEN")
 
 	// Create a new client using an InfluxDB server base URL and an authentication token
 	client, err := influxdb3.New(influxdb3.ClientConfig{
