@@ -32,7 +32,6 @@ type PerChainBlockNumberBenchmarks struct {
 
 func (blockNumberBenchmark PerChainBlockNumberBenchmarks) ToPoints() []*influxdb3.Point {
 	points := make([]*influxdb3.Point, 0, len(blockNumberBenchmark.PerRpcBlockNumberBenchmarks))
-	timestamp := time.Now()
 
 	for _, perRpc := range blockNumberBenchmark.PerRpcBlockNumberBenchmarks {
 		blockNumberAsFloat64 := float64(perRpc.BlockNumber.Int64())
@@ -45,7 +44,7 @@ func (blockNumberBenchmark PerChainBlockNumberBenchmarks) ToPoints() []*influxdb
 			SetDoubleField("blockNumber", blockNumberAsFloat64).
 			SetDoubleField("diffWithMedian", diffWithMedian).
 			SetUIntegerField("wholeRequestDuration", uint64(perRpc.WholeRequestDuration)).
-			SetTimestamp(timestamp)
+			SetTimestamp(blockNumberBenchmark.StartTimestamp)
 
 		points = append(points, point)
 	}
@@ -53,7 +52,7 @@ func (blockNumberBenchmark PerChainBlockNumberBenchmarks) ToPoints() []*influxdb
 	pointMedian := influxdb3.NewPointWithMeasurement("blockNumber_median").
 		SetTag("chainId", blockNumberBenchmark.ChainId).
 		SetDoubleField("blockNumberMedian", float64(blockNumberBenchmark.Median)).
-		SetTimestamp(timestamp)
+		SetTimestamp(blockNumberBenchmark.StartTimestamp)
 
 	points = append(points, pointMedian)
 
