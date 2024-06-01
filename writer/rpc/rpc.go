@@ -36,6 +36,10 @@ type rpcCallResponseEnvelope struct {
 	Result  json.RawMessage `json:"result"`
 }
 
+var rpcHttpClient = http.Client{
+	Timeout: 5 * time.Second,
+}
+
 // TODO: use better tracking with http request context
 // https://pkg.go.dev/net/http/httptrace
 func RpcCall(rpcUrl string, method string, params []string) (RpcCallResult, error) {
@@ -49,7 +53,7 @@ func RpcCall(rpcUrl string, method string, params []string) (RpcCallResult, erro
 
 	startTime := time.Now()
 
-	resp, err := http.Post(rpcUrl, "application/json", bytes.NewBuffer(reqBody))
+	resp, err := rpcHttpClient.Post(rpcUrl, "application/json", bytes.NewBuffer(reqBody))
 	if err != nil {
 		return RpcCallResult{}, err
 	}
