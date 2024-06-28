@@ -4,28 +4,25 @@ import (
 	"context"
 	"fmt"
 	"koonopek/know_your_rpc/server/server"
-	"math"
 	"net/http"
 	"text/template"
 
 	"github.com/InfluxCommunity/influxdb3-go/influxdb3"
 )
 
-type blockNumberMedianQueryTemplate struct {
+type blockNumberErrorRateQueryTemplate struct {
 	From    int `validate:"required,number,gt=0"`
 	To      int `validate:"required,number,gt=0"`
 	BinTime int `validate:"required,number,lt=10000,gt=0"`
 }
 
-func CreateBlockNumberDiffFromMedianQuery(serverContext *server.ServerContext) func(w http.ResponseWriter, r *http.Request) {
-	queryTemplate, err := template.New("query").Parse(`SELECT date_bin(INTERVAL '{{.BinTime}} seconds', time) as _time, min("diffWithMedian") as minmedian, max("diffWithMedian") as maxmedian , "rpcUrl"
+func CreateBlockNumberErrorRateQuery(serverContext *server.ServerContext) func(w http.ResponseWriter, r *http.Request) {
+	queryTemplate, err := template.New("query").Parse(`SELECT date_bin(INTERVAL '{{.BinTime}} seconds', time) as _time, sum("isError"::BOOLEAN::DOUBLE) as errors ,  count(*) as all , "rpcUrl"
 				FROM "blockNumber"
 				WHERE
 				time >= {{.From}}::TIMESTAMP
 				AND
 				time <= {{.To}}::TIMESTAMP
-				AND
-				"isError" = 'false'
 				AND
 				"chainId" = '1'
 				GROUP BY 1, "rpcUrl"
@@ -47,8 +44,7 @@ func CreateBlockNumberDiffFromMedianQuery(serverContext *server.ServerContext) f
 		if shouldReturn {
 			return
 		}
-
-		queryTemplateInput := blockNumberMedianQueryTemplate{
+		queryTemplateInput := blockNumberErrorRateQueryTemplate{
 			From:    from,
 			To:      to,
 			BinTime: binTime,
@@ -67,13 +63,9 @@ func CreateBlockNumberDiffFromMedianQuery(serverContext *server.ServerContext) f
 			w.WriteHeader(http.StatusInternalServerError)
 			return
 		}
+
 		output := CollectPerRpcResponseToChartData(queryIterator, func(value map[string]interface{}) float64 {
-			y := value["minmedian"].(float64)
-			if math.Abs(value["maxmedian"].(float64)) > math.Abs(value["minmedian"].(float64)) {
-				y = value["maxmedian"].(float64)
-			}
-			y = CapValue(y, -30.0, 10)
-			return y
+			return value["errors"].(float64) / float64(value["all"].(int64)) * 100.0
 		})
 
 		WriteHttpResponse(output, w)

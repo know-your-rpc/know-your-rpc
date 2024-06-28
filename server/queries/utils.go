@@ -6,7 +6,9 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+	"strconv"
 	"text/template"
+	"time"
 
 	"github.com/InfluxCommunity/influxdb3-go/influxdb3"
 	"github.com/apache/arrow/go/v15/arrow"
@@ -28,20 +30,10 @@ type ChartJsDataSet struct {
 type RpcUrlToChartJsPoints = map[string][]ChartJsPoint
 
 const DEFAULT_INTERVAL = "48"
-const MAX_POINTS = 1000
+const MAX_POINTS = 400
 const POINTS_PER_SECOND float64 = 0.36
 
 var Validator = validator.New(validator.WithRequiredStructEnabled())
-
-func CapValue(value float64, min float64, max float64) float64 {
-	if value > max {
-		return max
-	}
-	if value < min {
-		return min
-	}
-	return value
-}
 
 func GetQueryParam(query url.Values, name string, defaultValue string) string {
 	if query.Has(name) {
@@ -108,4 +100,41 @@ func CollectPerRpcResponseToChartData(queryIterator *influxdb3.QueryIterator, ca
 		output = append(output, ChartJsDataSet{Label: k, Fill: false, Data: v})
 	}
 	return output
+}
+
+func CapValue(value float64, min float64, max float64) float64 {
+	if value > max {
+		return max
+	}
+	if value < min {
+		return min
+	}
+	return value
+}
+
+func ParseTimeQuery(queryParams url.Values, w http.ResponseWriter) (int, int, int, bool) {
+	from, err := strconv.Atoi(GetQueryParam(queryParams, "from", strconv.Itoa(int(time.Now().Unix()-2*24*3600))))
+	if err != nil {
+		fmt.Printf("failed to read from query param=from error=%s\n", err.Error())
+		w.WriteHeader(http.StatusBadRequest)
+		return 0, 0, 0, true
+	}
+	to, err := strconv.Atoi(GetQueryParam(queryParams, "to", strconv.Itoa(int(time.Now().Unix()))))
+	if err != nil {
+		fmt.Printf("failed to read from query param=to error=%s\n", err.Error())
+		w.WriteHeader(http.StatusBadRequest)
+		return 0, 0, 0, true
+	}
+
+	period := float64(to - from)
+	if period < 0 || period > MAX_PERIOD {
+		fmt.Printf("period is < 0 or > MAX_PERIOD")
+		w.WriteHeader(http.StatusBadRequest)
+		return 0, 0, 0, true
+	}
+
+	binTime := int(CapValue(1.0/(MAX_POINTS/period*POINTS_PER_SECOND), 10, 100000))
+	fmt.Printf("binTime=%d \n", binTime)
+
+	return from, to, binTime, false
 }

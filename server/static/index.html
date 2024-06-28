@@ -17,23 +17,35 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/moment@^2"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-moment@^1"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-autocolors"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-zoom/2.0.1/chartjs-plugin-zoom.min.js"></script>
+
+
     <script type="module" src="./app.js"></script>
     <title>Know your rpc</title>
 </head>
 
 <body>
 
-    <header>
-        <h1>Dawaj hajs kapusniaku</h1>
+    <header class="container-fluid" style="text-align: center;">
+        <h1>KNOW YOUR RPC</h1>
     </header>
 
 
     <main class="container-fluid">
 
-        <timeseries-chart id="block-numbers" data-url="/api/stats/block-numbers/median-diff" data-stepsize="1"
+        <timeseries-chart id="block-numbers-duration" data-url="/api/stats/block-numbers/duration" data-stepsize="10"
+            data-title="BLOCK NUMBER DURATION"
+            data-info="- duration of eth_getBlockNumber request till reading last byte in milliseconds <br/> - capped to [0;3000]" />
+
+
+        <timeseries-chart id="block-numbers-median" data-url="/api/stats/block-numbers/median-diff" data-stepsize="1"
             data-title="BLOCK NUMBER SYNC"
             data-info="- block number deviation from median <br/> - capped to [-30;10]" />
+
+        <timeseries-chart id="block-numbers-error-rate" data-url="/api/stats/block-numbers/error-rate"
+            data-stepsize="0.01" data-title="BLOCK NUMBER ERROR RATE" data-info="- error rate of eth_getBlockNumber" />
 
     </main>
 

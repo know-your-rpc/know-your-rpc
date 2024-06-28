@@ -24,6 +24,10 @@ func main() {
 
 	handler.HandleFunc("/api/stats/block-numbers/median-diff", queries.CreateBlockNumberDiffFromMedianQuery(serverContext))
 
+	handler.HandleFunc("/api/stats/block-numbers/duration", queries.CreateBlockNumberDurationQuery(serverContext))
+
+	handler.HandleFunc("/api/stats/block-numbers/error-rate", queries.CreateBlockNumberErrorRateQuery(serverContext))
+
 	handler.Handle("/", http.FileServer(http.Dir("static")))
 
 	addr := fmt.Sprintf(":%s", utils.GetEnvOrDefault("PORT", "8080"))
