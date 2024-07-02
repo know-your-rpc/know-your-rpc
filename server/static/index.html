@@ -28,12 +28,67 @@
 
 <body>
 
-    <header class="container-fluid" style="text-align: center;">
-        <h1>KNOW YOUR RPC</h1>
-    </header>
-
-
     <main class="container-fluid">
+        <header>
+            <div class="grid">
+                <div></div>
+                <div style="text-align: center;">
+                    <h1>KNOW YOUR RPC</h1>
+                </div>
+                <div></div>
+            </div>
+
+        </header>
+
+
+
+        <article>
+            <header>
+                <div style="text-align: center;">
+                    <h3>TOP TEN RPCS</h3>
+                </div>
+
+
+                <div class="grid">
+                    <div style="text-align: left;">
+                        <button id="${this.canvasId}-btn-reset-zoom" class="small-button">Reset zoom</button>
+                    </div>
+
+                    <div style="text-align: right;">
+                        <button id="${this.canvasId}-btn-toggle" class="small-button">Toggle all</button>
+                    </div>
+
+                </div>
+            </header>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th scope="col">LP</th>
+                        <th scope="col">RPC URL</th>
+                        <th scope="col">ERROR RATE</th>
+                        <th scope="col">DURATION</th>
+                        <th scope="col">BLOCKS BEHIND</th>
+                    </tr>
+                </thead>
+                <tbody id="top_table_body">
+                </tbody>
+                <!-- <tfoot>
+                                        <tr>
+                                            <th scope="row">Average</th>
+                                            <td>9,126</td>
+                                            <td>0.91</td>
+                                            <td>341</td>
+                                        </tr>
+                                    </tfoot> -->
+            </table>
+
+            <footer>
+                <small>sorted by error rate</small>
+            </footer>
+        </article>
+
+
 
         <timeseries-chart id="block-numbers-duration" data-url="/api/stats/block-numbers/duration" data-stepsize="10"
             data-title="BLOCK NUMBER DURATION"
