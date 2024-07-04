@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"koonopek/know_your_rpc/writer/config"
 	"koonopek/know_your_rpc/writer/influx"
 	"koonopek/know_your_rpc/writer/stats"
 	"koonopek/know_your_rpc/writer/utils"
@@ -31,12 +32,18 @@ func main() {
 		panic(err.Error())
 	}
 
-	// collect data for eth every 1min
-	// todo could by optimize by writing points only once
 	utils.SetInterval(func() {
-		collectBlockNumberStats(influxClient, rpcInfoMap, "1")
-		collectBlockNumberStats(influxClient, rpcInfoMap, "56")
-		collectBlockNumberStats(influxClient, rpcInfoMap, "42161")
+		startTime := time.Now()
+
+		for _, chain := range config.SUPPORTED_CHAINS {
+			collectBlockNumberStats(influxClient, rpcInfoMap, chain.ChainId)
+		}
+
+		duration := time.Since(startTime)
+
+		if duration > INTERVAL {
+			fmt.Printf(">>>[IMPORTANT] Collecting data take more then INTERVAL=%d duration=%d \n", INTERVAL, duration)
+		}
 	}, INTERVAL)
 }
 

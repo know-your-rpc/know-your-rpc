@@ -37,9 +37,11 @@
                 </div>
                 <div></div>
             </div>
-
         </header>
 
+
+        <input type="search" name="input-chain-id" id="input-chain-id" placeholder="Chain ID or name"
+            style="margin-bottom: 5em; margin-top: 5em;" aria-label="Chain ID or name" />
 
 
         <article>
@@ -47,8 +49,6 @@
                 <div style="text-align: center;">
                     <h3>TOP TEN RPCS</h3>
                 </div>
-
-
                 <div class="grid">
                     <div style="text-align: left;">
                         <button id="${this.canvasId}-btn-reset-zoom" class="small-button">Reset zoom</button>
@@ -72,23 +72,14 @@
                     </tr>
                 </thead>
                 <tbody id="top_table_body">
+                    <!-- here is injected js table -->
                 </tbody>
-                <!-- <tfoot>
-                                        <tr>
-                                            <th scope="row">Average</th>
-                                            <td>9,126</td>
-                                            <td>0.91</td>
-                                            <td>341</td>
-                                        </tr>
-                                    </tfoot> -->
             </table>
 
             <footer>
                 <small>sorted by error rate</small>
             </footer>
         </article>
-
-
 
         <timeseries-chart id="block-numbers-duration" data-url="/api/stats/block-numbers/duration" data-stepsize="10"
             data-title="BLOCK NUMBER DURATION"

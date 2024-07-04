@@ -83,14 +83,6 @@ class TimeSeriesChart extends HTMLElement {
         window.document.getElementById(`${this.canvasId}-btn-reset-zoom`).addEventListener('click', this.resetZoom.bind(this));
     }
 
-    attr(name) {
-        const attributeValue = this.getAttribute(name);
-        if (!attributeValue) {
-            throw new Error(`Missing attribute name=${name} component-id=${this.id}`)
-        }
-        return attributeValue;
-    }
-
     async fetchDataSets() {
         return await fetchDataSet({ url: this.dataset.url, from: this.currentStartX, to: this.currentEndX });
     }
@@ -100,7 +92,6 @@ class TimeSeriesChart extends HTMLElement {
         const fetchedDataSets = await this.fetchDataSets();
 
         this.chart = createChart(this.canvasId, this.options, fetchedDataSets);
-        console.log(this.chart)
     }
 
     async onZoom() {
