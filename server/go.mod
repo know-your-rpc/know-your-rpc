@@ -7,13 +7,13 @@ toolchain go1.22.1
 require (
 	github.com/InfluxCommunity/influxdb3-go v0.7.0
 	github.com/apache/arrow/go/v15 v15.0.2
+	github.com/go-playground/validator/v10 v10.21.0
 )
 
 require (
 	github.com/gabriel-vasile/mimetype v1.4.3 // indirect
 	github.com/go-playground/locales v0.14.1 // indirect
 	github.com/go-playground/universal-translator v0.18.1 // indirect
-	github.com/go-playground/validator/v10 v10.21.0 // indirect
 	github.com/goccy/go-json v0.10.2 // indirect
 	github.com/google/flatbuffers v24.3.7+incompatible // indirect
 	github.com/influxdata/line-protocol/v2 v2.2.1 // indirect

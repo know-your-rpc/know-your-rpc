@@ -112,29 +112,31 @@ func CapValue(value float64, min float64, max float64) float64 {
 	return value
 }
 
-func ParseTimeQuery(queryParams url.Values, w http.ResponseWriter) (int, int, int, bool) {
+func ParseBasicQueryParams(queryParams url.Values, w http.ResponseWriter) (int, int, int, string, bool) {
 	from, err := strconv.Atoi(GetQueryParam(queryParams, "from", strconv.Itoa(int(time.Now().Unix()-2*24*3600))))
 	if err != nil {
 		fmt.Printf("failed to read from query param=from error=%s\n", err.Error())
 		w.WriteHeader(http.StatusBadRequest)
-		return 0, 0, 0, true
+		return 0, 0, 0, "", true
 	}
 	to, err := strconv.Atoi(GetQueryParam(queryParams, "to", strconv.Itoa(int(time.Now().Unix()))))
 	if err != nil {
 		fmt.Printf("failed to read from query param=to error=%s\n", err.Error())
 		w.WriteHeader(http.StatusBadRequest)
-		return 0, 0, 0, true
+		return 0, 0, 0, "", true
 	}
 
 	period := float64(to - from)
 	if period < 0 || period > MAX_PERIOD {
 		fmt.Printf("period is < 0 or > MAX_PERIOD")
 		w.WriteHeader(http.StatusBadRequest)
-		return 0, 0, 0, true
+		return 0, 0, 0, "", true
 	}
+
+	chainId := GetQueryParam(queryParams, "chainId", "1")
 
 	binTime := int(CapValue(1.0/(MAX_POINTS/period*POINTS_PER_SECOND), 10, 100000))
 	fmt.Printf("binTime=%d \n", binTime)
 
-	return from, to, binTime, false
+	return from, to, binTime, chainId, false
 }

@@ -30,6 +30,8 @@ func main() {
 
 	handler.HandleFunc("/api/stats/top-rpcs", queries.CreateTopRpcsQuery(serverContext))
 
+	handler.HandleFunc("/api/supported-chains", queries.CreateSupportedChainsQuery(serverContext))
+
 	handler.Handle("/", http.FileServer(http.Dir("static")))
 
 	addr := fmt.Sprintf(":%s", utils.GetEnvOrDefault("PORT", "8080"))

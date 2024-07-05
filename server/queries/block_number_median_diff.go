@@ -12,9 +12,10 @@ import (
 )
 
 type blockNumberMedianQueryTemplate struct {
-	From    int `validate:"required,number,gt=0"`
-	To      int `validate:"required,number,gt=0"`
-	BinTime int `validate:"required,number,lt=10000,gt=0"`
+	From    int    `validate:"required,number,gt=0"`
+	To      int    `validate:"required,number,gt=0"`
+	BinTime int    `validate:"required,number,lt=10000,gt=0"`
+	ChainId string `validate:"required,number,gt=0"`
 }
 
 func CreateBlockNumberDiffFromMedianQuery(serverContext *server.ServerContext) func(w http.ResponseWriter, r *http.Request) {
@@ -27,7 +28,7 @@ func CreateBlockNumberDiffFromMedianQuery(serverContext *server.ServerContext) f
 				AND
 				"isError" = 'false'
 				AND
-				"chainId" = '1'
+				"chainId" = '{{.ChainId}}'
 				GROUP BY 1, "rpcUrl"
 				ORDER BY 1 DESC;`)
 
@@ -43,7 +44,7 @@ func CreateBlockNumberDiffFromMedianQuery(serverContext *server.ServerContext) f
 
 		queryParams := r.URL.Query()
 
-		from, to, binTime, shouldReturn := ParseTimeQuery(queryParams, w)
+		from, to, binTime, chainId, shouldReturn := ParseBasicQueryParams(queryParams, w)
 		if shouldReturn {
 			return
 		}
@@ -52,6 +53,7 @@ func CreateBlockNumberDiffFromMedianQuery(serverContext *server.ServerContext) f
 			From:    from,
 			To:      to,
 			BinTime: binTime,
+			ChainId: chainId,
 		}
 
 		queryBuffer, err := PopulateQueryTemplate(queryTemplateInput, queryTemplate)

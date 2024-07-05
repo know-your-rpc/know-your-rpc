@@ -1,6 +1,6 @@
 import { getRequest } from "./utils.js";
 
-window.addEventListener('DOMContentLoaded', renderTopTable);
+window.addEventListener('DOMContentLoaded', () => renderTopTable("1"));
 
 const MAX_RPC_COUNT = 8;
 const TABLE_BODY_ID = "top_table_body";
@@ -16,12 +16,16 @@ function tr({ avgDiffFromMedian, avgRequestDuration, errorRate, rpcUrl }, index)
             </tr>`;
 }
 
-export async function renderTopTable() {
-    const topRpcResponse = await getRequest("/api/stats/top-rpcs");
-    console.log("dupa")
+export async function renderTopTable(chainId) {
+    const topRpcResponse = await getRequest("/api/stats/top-rpcs", { chainId });
 
     const rows = topRpcResponse.slice(0, MAX_RPC_COUNT).reverse().map(tr).join("");
 
     // @ts-ignore
     window.document.getElementById(TABLE_BODY_ID).innerHTML = rows;
 }
+
+// @ts-ignore
+window.addEventListener("_update_chain_id", ({ detail: { chainId } }) => {
+    renderTopTable(chainId);
+});

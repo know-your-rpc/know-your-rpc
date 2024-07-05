@@ -1,13 +1,13 @@
 import { getRequest } from './utils.js';
 import './render_top_table.js';
+import './chain_search.js';
 
 const autocolors = window['chartjs-plugin-autocolors'];
 Chart.register(autocolors);
 
-
 // @ts-nocheck
-async function fetchDataSet({ url, from, to }) {
-    const data = await getRequest(url, { from, to });
+async function fetchDataSet({ url, from, to, chainId }) {
+    const data = await getRequest(url, { from, to, chainId });
 
     return data;
 }
@@ -40,7 +40,7 @@ function getDefaultTimeline() {
 }
 
 class TimeSeriesChart extends HTMLElement {
-
+    chainId = "1";
     currentStartX = getDefaultTimeline().start;
     currentEndX = getDefaultTimeline().end;
 
@@ -81,10 +81,16 @@ class TimeSeriesChart extends HTMLElement {
     attachListeners() {
         window.document.getElementById(`${this.canvasId}-btn-toggle`).addEventListener('click', this.toggleVisibilityAll.bind(this));
         window.document.getElementById(`${this.canvasId}-btn-reset-zoom`).addEventListener('click', this.resetZoom.bind(this));
+        // @ts-ignore
+        window.addEventListener("_update_chain_id", ({ detail: { chainId } }) => {
+            this.chart.destroy();
+            this.chainId = chainId;
+            this.connectedCallback()
+        });
     }
 
     async fetchDataSets() {
-        return await fetchDataSet({ url: this.dataset.url, from: this.currentStartX, to: this.currentEndX });
+        return await fetchDataSet({ url: this.dataset.url, from: this.currentStartX, to: this.currentEndX, chainId: this.chainId });
     }
 
     async connectedCallback() {
@@ -169,22 +175,22 @@ class TimeSeriesChart extends HTMLElement {
                 x: {
                     type: 'timeseries',
                     position: 'bottom',
-                    time: { unit: 'second' }
-                },
-                y: {
-                    type: 'linear',
-                    max: Number(this.dataset.max),
-                    min: Number(this.dataset.min),
-                    ticks: {
-                        stepSize: this.dataset.stepsize,
+                    time: {
+                        unit: 'second',
                     }
+                },
+            },
+            y: {
+                type: 'linear',
+                max: Number(this.dataset.max),
+                min: Number(this.dataset.min),
+                ticks: {
+                    stepSize: this.dataset.stepsize,
                 }
             }
         }
     }
 }
+}
 
 window.customElements.define('timeseries-chart', TimeSeriesChart);
-
-// TODO: choose regin
-// TODO: choose chainId

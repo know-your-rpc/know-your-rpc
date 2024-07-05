@@ -11,9 +11,10 @@ import (
 )
 
 type blockNumberErrorRateQueryTemplate struct {
-	From    int `validate:"required,number,gt=0"`
-	To      int `validate:"required,number,gt=0"`
-	BinTime int `validate:"required,number,lt=10000,gt=0"`
+	From    int    `validate:"required,number,gt=0"`
+	To      int    `validate:"required,number,gt=0"`
+	BinTime int    `validate:"required,number,lt=10000,gt=0"`
+	ChainId string `validate:"required,number,gt=0"`
 }
 
 func CreateBlockNumberErrorRateQuery(serverContext *server.ServerContext) func(w http.ResponseWriter, r *http.Request) {
@@ -24,7 +25,7 @@ func CreateBlockNumberErrorRateQuery(serverContext *server.ServerContext) func(w
 				AND
 				time <= {{.To}}::TIMESTAMP
 				AND
-				"chainId" = '1'
+				"chainId" = '{{.ChainId}}'
 				GROUP BY 1, "rpcUrl"
 				ORDER BY 1 DESC;`)
 
@@ -40,7 +41,7 @@ func CreateBlockNumberErrorRateQuery(serverContext *server.ServerContext) func(w
 
 		queryParams := r.URL.Query()
 
-		from, to, binTime, shouldReturn := ParseTimeQuery(queryParams, w)
+		from, to, binTime, chainId, shouldReturn := ParseBasicQueryParams(queryParams, w)
 		if shouldReturn {
 			return
 		}
@@ -48,6 +49,7 @@ func CreateBlockNumberErrorRateQuery(serverContext *server.ServerContext) func(w
 			From:    from,
 			To:      to,
 			BinTime: binTime,
+			ChainId: chainId,
 		}
 
 		queryBuffer, err := PopulateQueryTemplate(queryTemplateInput, queryTemplate)

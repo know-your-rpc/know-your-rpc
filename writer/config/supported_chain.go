@@ -6,7 +6,7 @@ type ChainConfig struct {
 }
 
 var SUPPORTED_CHAINS = []ChainConfig{
-	{ChainId: "1", Name: "ethereum"},
+	{ChainId: "1", Name: "Ethereum"},
 	{ChainId: "56", Name: "BNB Smart Chain Mainnet"},
 	{ChainId: "42161", Name: "Arbitrum One"},
 	{ChainId: "8453", Name: "Base"},

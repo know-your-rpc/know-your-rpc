@@ -14,9 +14,10 @@ const MAX_REQUEST_DURATION = 1_000
 const MAX_OUT_OF_SYNC = 1
 
 type topTenErrorRateQueryTemplate struct {
-	From    int `validate:"required,number,gt=0"`
-	To      int `validate:"required,number,gt=0"`
-	BinTime int `validate:"required,number,gt=0"`
+	From    int    `validate:"required,number,gt=0"`
+	To      int    `validate:"required,number,gt=0"`
+	BinTime int    `validate:"required,number,gt=0"`
+	ChainId string `validate:"required,number,gt=0"`
 }
 
 type TopTenRpcStats struct {
@@ -33,7 +34,7 @@ func CreateTopRpcsQuery(serverContext *server.ServerContext) func(w http.Respons
 				AND
 				time <= {{.To}}::TIMESTAMP
 				AND
-				"chainId" = '1'
+				"chainId" = '{{.ChainId}}'
 				GROUP BY 1, "rpcUrl"
 				ORDER BY 1, errors, avgduration  DESC;`)
 
@@ -49,7 +50,7 @@ func CreateTopRpcsQuery(serverContext *server.ServerContext) func(w http.Respons
 
 		queryParams := r.URL.Query()
 
-		from, to, _, shouldReturn := ParseTimeQuery(queryParams, w)
+		from, to, _, chainId, shouldReturn := ParseBasicQueryParams(queryParams, w)
 		if shouldReturn {
 			return
 		}
@@ -60,6 +61,7 @@ func CreateTopRpcsQuery(serverContext *server.ServerContext) func(w http.Respons
 			From:    from,
 			To:      to,
 			BinTime: binTime,
+			ChainId: chainId,
 		}
 
 		queryBuffer, err := PopulateQueryTemplate(queryTemplateInput, queryTemplate)
