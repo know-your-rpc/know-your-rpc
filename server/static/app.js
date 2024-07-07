@@ -191,6 +191,5 @@ class TimeSeriesChart extends HTMLElement {
         }
     }
 }
-}
 
 window.customElements.define('timeseries-chart', TimeSeriesChart);
