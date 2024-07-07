@@ -9,18 +9,10 @@ WORKDIR /app
 COPY . .
 RUN go mod download
 
-RUN cd "$PACKAGE" && CGO_ENABLED=0 GOOS=linux go build -o main
+WORKDIR "/app/$PACKAGE"
 
-FROM golang:1.22.1
-
-ARG PACKAGE
-
-WORKDIR /app
-
-# only top level this is temporary use something better later
-COPY --from=build "/app/$PACKAGE/*.json" .
-COPY --from=build "/app/$PACKAGE/main" main
+RUN CGO_ENABLED=0 GOOS=linux go build -o main
 
 EXPOSE 8080
 
-CMD ["/app/main"]
+CMD ["./main"]
