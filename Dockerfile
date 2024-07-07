@@ -17,6 +17,8 @@ ARG PACKAGE
 
 WORKDIR /app
 
+# only top level this is temporary use something better later
+COPY --from=build "/app/$PACKAGE/*.json" .
 COPY --from=build "/app/$PACKAGE/main" main
 
 EXPOSE 8080
