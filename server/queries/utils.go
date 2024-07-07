@@ -30,7 +30,7 @@ type ChartJsDataSet struct {
 type RpcUrlToChartJsPoints = map[string][]ChartJsPoint
 
 const DEFAULT_INTERVAL = "48"
-const MAX_POINTS = 400
+const MAX_POINTS = 200
 const POINTS_PER_SECOND float64 = 0.36
 
 var Validator = validator.New(validator.WithRequiredStructEnabled())
