@@ -1,0 +1,1 @@
+doctl app update fa45d1b6-7956-4c41-9ef7-275b666787eb --spec spec.yml
