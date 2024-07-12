@@ -29,8 +29,8 @@ type ChartJsDataSet struct {
 
 type RpcUrlToChartJsPoints = map[string][]ChartJsPoint
 
-const DEFAULT_INTERVAL = "48"
-const MAX_POINTS = 200
+const DEFAULT_INTERVAL = 48 * time.Hour
+const MAX_POINTS = 400
 const POINTS_PER_SECOND float64 = 0.36
 
 var Validator = validator.New(validator.WithRequiredStructEnabled())
@@ -113,13 +113,14 @@ func CapValue(value float64, min float64, max float64) float64 {
 }
 
 func ParseBasicQueryParams(queryParams url.Values, w http.ResponseWriter) (int, int, int, string, bool) {
-	from, err := strconv.Atoi(GetQueryParam(queryParams, "from", strconv.Itoa(int(time.Now().Unix()-2*24*3600))))
+	now := time.Now().Unix()
+	from, err := strconv.Atoi(GetQueryParam(queryParams, "from", strconv.Itoa(int(now-int64(DEFAULT_INTERVAL.Seconds())))))
 	if err != nil {
 		fmt.Printf("failed to read from query param=from error=%s\n", err.Error())
 		w.WriteHeader(http.StatusBadRequest)
 		return 0, 0, 0, "", true
 	}
-	to, err := strconv.Atoi(GetQueryParam(queryParams, "to", strconv.Itoa(int(time.Now().Unix()))))
+	to, err := strconv.Atoi(GetQueryParam(queryParams, "to", strconv.Itoa(int(now))))
 	if err != nil {
 		fmt.Printf("failed to read from query param=to error=%s\n", err.Error())
 		w.WriteHeader(http.StatusBadRequest)

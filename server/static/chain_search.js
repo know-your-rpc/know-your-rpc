@@ -14,8 +14,6 @@ class ChainSearch extends HTMLElement {
             style="margin-bottom: 5em; margin-top: 5em;" aria-label="Chain ID or name" >
   <summary id="search-chain-output">Chain id or name eg. Ethereum</summary>
   <ul id="search-chain-options">
-    <li><a data-chainId=1 href="#">Ethereum</a></li>
-    <li><a data-chainId=2 href="#">Arb</a></li>
   </ul>
 </details>
         `;
@@ -26,7 +24,6 @@ class ChainSearch extends HTMLElement {
     }
 
     isActive() {
-
         return this.inputElement?.getAttribute("open") !== null;
     }
 

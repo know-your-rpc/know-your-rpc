@@ -19,6 +19,8 @@ function tr({ avgDiffFromMedian, avgRequestDuration, errorRate, rpcUrl }, index)
 export async function renderTopTable(chainId) {
     const topRpcResponse = await getRequest("/api/stats/top-rpcs", { chainId });
 
+    console.log({ topRpcResponse })
+
     const rows = topRpcResponse.slice(0, MAX_RPC_COUNT).reverse().map(tr).join("");
 
     // @ts-ignore

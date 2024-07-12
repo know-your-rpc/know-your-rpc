@@ -58,20 +58,22 @@
                 </div>
             </header>
 
-            <table style="font-size: small;">
-                <thead>
-                    <tr>
-                        <th scope="col">LP</th>
-                        <th scope="col">RPC URL</th>
-                        <th scope="col">ERROR RATE</th>
-                        <th scope="col">DURATION</th>
-                        <th scope="col">BLOCKS BEHIND</th>
-                    </tr>
-                </thead>
-                <tbody id="top_table_body">
-                    <!-- here is injected js table -->
-                </tbody>
-            </table>
+            <div class="overflow-auto">
+                <table style="font-size: small;">
+                    <thead>
+                        <tr>
+                            <th scope="col">LP</th>
+                            <th scope="col">RPC URL</th>
+                            <th scope="col">ERROR RATE</th>
+                            <th scope="col">DURATION</th>
+                            <th scope="col">BLOCKS BEHIND</th>
+                        </tr>
+                    </thead>
+                    <tbody id="top_table_body">
+                        <!-- here is injected js table -->
+                    </tbody>
+                </table>
+            </div>
 
             <footer>
                 <small>sorted by error rate</small>

@@ -8,10 +8,11 @@ import (
 	"text/template"
 
 	"github.com/InfluxCommunity/influxdb3-go/influxdb3"
+	"github.com/elliotchance/pie/v2"
 )
 
 const MAX_REQUEST_DURATION = 1_000
-const MAX_OUT_OF_SYNC = 1
+const MAX_OUT_OF_SYNC = 10
 
 type topTenErrorRateQueryTemplate struct {
 	From    int    `validate:"required,number,gt=0"`
@@ -28,7 +29,7 @@ type TopTenRpcStats struct {
 }
 
 func CreateTopRpcsQuery(serverContext *server.ServerContext) func(w http.ResponseWriter, r *http.Request) {
-	queryTemplate, err := template.New("query").Parse(`SELECT date_bin(INTERVAL '{{.BinTime}} seconds', time) as _time, sum("isError"::BOOLEAN::DOUBLE) as errors ,  count(*) as all , avg("diffWithMedian") as avgdiff, avg("wholeRequestDuration") as avgduration, "rpcUrl" FROM "blockNumber"
+	queryTemplate, err := template.New("query").Parse(`SELECT date_bin_gapfill(INTERVAL '{{.BinTime}} seconds', time) as _time, locf(sum("isError"::BOOLEAN::DOUBLE)) as errors ,  locf(count(*)) as all , avg("diffWithMedian") as avgdiff, locf(avg("wholeRequestDuration")) as avgduration, "rpcUrl" FROM "blockNumber"
 				WHERE
 				time >= {{.From}}::TIMESTAMP
 				AND
@@ -86,9 +87,11 @@ func CreateTopRpcsQuery(serverContext *server.ServerContext) func(w http.Respons
 			avgRequestDuration := value["avgduration"].(float64)
 
 			// we skip value of limts
-			if avgDiffFromMedian > MAX_OUT_OF_SYNC || avgRequestDuration > MAX_REQUEST_DURATION {
+			if pie.Abs(avgDiffFromMedian) > MAX_OUT_OF_SYNC || avgRequestDuration > MAX_REQUEST_DURATION {
 				continue
 			}
+
+			fmt.Printf("processing rpcUrl=%s\n", value["rpcUrl"].(string))
 
 			output = append(output, TopTenRpcStats{
 				RpcUrl:             value["rpcUrl"].(string),
@@ -98,6 +101,21 @@ func CreateTopRpcsQuery(serverContext *server.ServerContext) func(w http.Respons
 			})
 		}
 
-		WriteHttpResponse(output, w)
+		sortedResult := pie.SortUsing(output, func(a TopTenRpcStats, b TopTenRpcStats) bool {
+			if a.ErrorRate-b.ErrorRate >= 0.01 {
+				return false
+			}
+
+			if a.AvgRequestDuration-b.AvgRequestDuration >= 10 {
+				return false
+			}
+
+			if a.AvgDiffFromMedian-b.AvgDiffFromMedian >= 0.5 {
+				return false
+			}
+			return true
+		})
+
+		WriteHttpResponse(sortedResult, w)
 	}
 }
