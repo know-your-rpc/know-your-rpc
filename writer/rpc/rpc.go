@@ -37,7 +37,7 @@ type rpcCallResponseEnvelope struct {
 }
 
 var rpcHttpClient = http.Client{
-	Timeout: 5 * time.Second,
+	Timeout: 2 * time.Second,
 }
 
 // TODO: use better tracking with http request context
