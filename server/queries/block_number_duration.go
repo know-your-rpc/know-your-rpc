@@ -4,11 +4,14 @@ import (
 	"context"
 	"fmt"
 	"koonopek/know_your_rpc/server/server"
+	"koonopek/know_your_rpc/writer/utils"
 	"math"
 	"net/http"
+	"strings"
 	"text/template"
 
 	"github.com/InfluxCommunity/influxdb3-go/influxdb3"
+	"github.com/elliotchance/pie/v2"
 )
 
 const DEFAULT_AGGREGATION = "avg"
@@ -19,6 +22,7 @@ type blockNumberDurationQueryTemplate struct {
 	To      int    `validate:"required,number,gt=0"`
 	BinTime int    `validate:"required,number,lt=10000,gt=0"`
 	ChainId string `validate:"required,number,gt=0"`
+	RpcUrls string `validate:"required"`
 }
 
 func CreateBlockNumberDurationQuery(serverContext *server.ServerContext) func(w http.ResponseWriter, r *http.Request) {
@@ -31,6 +35,8 @@ func CreateBlockNumberDurationQuery(serverContext *server.ServerContext) func(w 
 				AND
 				"isError" = 'false'
 				AND
+				"rpcUrl" IN ({{.RpcUrls}})
+				AND
 				"chainId" = '{{.ChainId}}'
 				GROUP BY 1, "rpcUrl"
 				ORDER BY 1 DESC;`)
@@ -38,6 +44,9 @@ func CreateBlockNumberDurationQuery(serverContext *server.ServerContext) func(w 
 	if err != nil {
 		panic("failed to create query template")
 	}
+	// authorize
+	// get bucket and use WHERE rpcUrl in ""
+	// on writer get all buckets and merge duplicates on chain id
 
 	return func(w http.ResponseWriter, r *http.Request) {
 		if r.Method != "GET" {
@@ -52,6 +61,18 @@ func CreateBlockNumberDurationQuery(serverContext *server.ServerContext) func(w 
 			return
 		}
 
+		userAddress, shouldReturn := getAuthorizedBucketKey(r, w)
+		if shouldReturn {
+			return
+		}
+		rpcUrls, err := server.ReadRpcUrlsForUser(userAddress, chainId)
+
+		if err != nil {
+			fmt.Printf("failed to read rpc urls for user userAddress=%s chainId=%s error=%s\n", userAddress, chainId, err.Error())
+			w.WriteHeader(http.StatusInternalServerError)
+			return
+		}
+
 		aggr := GetQueryParam(queryParams, "aggr", DEFAULT_AGGREGATION)
 
 		queryTemplateInput := blockNumberDurationQueryTemplate{
@@ -59,11 +80,12 @@ func CreateBlockNumberDurationQuery(serverContext *server.ServerContext) func(w 
 			To:      to,
 			BinTime: binTime,
 			ChainId: chainId,
+			RpcUrls: strings.Join(pie.Map(rpcUrls, func(info utils.RpcInfo) string { return fmt.Sprintf("'%s'", info.URL) }), ","),
 		}
 
 		queryBuffer, err := PopulateQueryTemplate(queryTemplateInput, queryTemplate)
 		if err != nil {
-			fmt.Printf("%s", err.Error())
+			fmt.Printf("failed to populate query template error=%s", err.Error())
 			w.WriteHeader(http.StatusBadRequest)
 			return
 		}
@@ -90,4 +112,26 @@ func CreateBlockNumberDurationQuery(serverContext *server.ServerContext) func(w 
 
 		WriteHttpResponse(output, w)
 	}
+}
+
+func getAuthorizedBucketKey(r *http.Request, w http.ResponseWriter) (string, bool) {
+	if r.Header.Get("Authorization") != "" {
+		splitted := strings.Split(r.Header.Get("Authorization"), "#")
+		if len(splitted) != 2 {
+			fmt.Printf("wrong formatted authorization header authorization_header=%s", r.Header.Get("Authorization"))
+			w.WriteHeader(http.StatusBadRequest)
+			return "", true
+		}
+		signature := splitted[0]
+		msg := splitted[1]
+		signer, err := ExtractSigner(signature, msg)
+		if err != nil {
+			fmt.Printf("failed to extract signer")
+			w.WriteHeader(http.StatusUnauthorized)
+			return "", true
+		}
+
+		return signer, false
+	}
+	return "public", false
 }

@@ -1,0 +1,2203 @@
+{
+  "userData": {},
+  "rpcUrls": {
+    "1": [
+      {
+        "url": "https://endpoints.omniatech.io/v1/eth/mainnet/public"
+      },
+      {
+        "url": "https://rpc.ankr.com/eth"
+      },
+      {
+        "url": "https://go.getblock.io/d9fde9abc97545f4887f56ae54f3c2c0"
+      },
+      {
+        "url": "https://eth-mainnet.nodereal.io/v1/1659dfb40aa24bbb8153a677b98064d7"
+      },
+      {
+        "url": "https://ethereum-rpc.publicnode.com"
+      },
+      {
+        "url": "https://1rpc.io/eth"
+      },
+      {
+        "url": "https://rpc.builder0x69.io/"
+      },
+      {
+        "url": "https://rpc.mevblocker.io"
+      },
+      {
+        "url": "https://rpc.flashbots.net/"
+      },
+      {
+        "url": "https://virginia.rpc.blxrbdn.com/"
+      },
+      {
+        "url": "https://uk.rpc.blxrbdn.com/"
+      },
+      {
+        "url": "https://singapore.rpc.blxrbdn.com/"
+      },
+      {
+        "url": "https://eth.rpc.blxrbdn.com/"
+      },
+      {
+        "url": "https://cloudflare-eth.com/"
+      },
+      {
+        "url": "https://eth-mainnet.public.blastapi.io"
+      },
+      {
+        "url": "https://api.securerpc.com/v1"
+      },
+      {
+        "url": "https://openapi.bitstack.com/v1/wNFxbiJyQsSeLrX8RRCHi7NpRxrlErZk/DjShIqLishPCTB9HiMkPHXjUM9CNM9Na/ETH/mainnet"
+      },
+      {
+        "url": "https://eth-pokt.nodies.app"
+      },
+      {
+        "url": "https://eth-mainnet-public.unifra.io"
+      },
+      {
+        "url": "https://ethereum.blockpi.network/v1/rpc/public"
+      },
+      {
+        "url": "https://rpc.payload.de"
+      },
+      {
+        "url": "https://api.zmok.io/mainnet/oaen6dy8ff6hju9k"
+      },
+      {
+        "url": "https://eth-mainnet.g.alchemy.com/v2/demo"
+      },
+      {
+        "url": "https://eth.api.onfinality.io/public"
+      },
+      {
+        "url": "https://core.gashawk.io/rpc"
+      },
+      {
+        "url": "https://mainnet.eth.cloud.ava.do/"
+      },
+      {
+        "url": "https://ethereumnodelight.app.runonflux.io"
+      },
+      {
+        "url": "https://eth-mainnet.rpcfast.com?api_key=xbhWBI1Wkguk8SNMu1bvvLurPGLXmgwYeC4S6g2H7WdwFigZSmPWVZRxrskEQwIf"
+      },
+      {
+        "url": "https://main-light.eth.linkpool.io"
+      },
+      {
+        "url": "https://rpc.eth.gateway.fm"
+      },
+      {
+        "url": "https://rpc.chain49.com/ethereum?api_key=14d1a8b86d8a4b4797938332394203dc"
+      },
+      {
+        "url": "https://eth.meowrpc.com"
+      },
+      {
+        "url": "https://eth.drpc.org"
+      },
+      {
+        "url": "https://mainnet.gateway.tenderly.co"
+      },
+      {
+        "url": "https://rpc.tenderly.co/fork/c63af728-a183-4cfb-b24e-a92801463484"
+      },
+      {
+        "url": "https://gateway.tenderly.co/public/mainnet"
+      },
+      {
+        "url": "https://api.zan.top/node/v1/eth/mainnet/public"
+      },
+      {
+        "url": "https://eth-mainnet.diamondswap.org/rpc"
+      },
+      {
+        "url": "https://rpc.notadegen.com/eth"
+      },
+      {
+        "url": "https://eth.merkle.io"
+      },
+      {
+        "url": "https://rpc.lokibuilder.xyz/wallet"
+      },
+      {
+        "url": "https://services.tokenview.io/vipapi/nodeservice/eth?apikey=qVHq2o6jpaakcw3lRstl"
+      },
+      {
+        "url": "https://eth.nodeconnect.org/"
+      },
+      {
+        "url": "https://api.stateless.solutions/ethereum/v1/demo"
+      },
+      {
+        "url": "https://rpc.polysplit.cloud/v1/chain/1"
+      },
+      {
+        "url": "https://public.stackup.sh/api/v1/node/ethereum-mainnet"
+      },
+      {
+        "url": "https://eth1.lava.build/lava-referer-ed07f753-8c19-4309-b632-5a4a421aa589/"
+      },
+      {
+        "url": "https://eth1.lava.build/lava-referer-16223de7-12c0-49f3-8d87-e5f1e6a0eb3b/"
+      },
+      {
+        "url": "https://eth1.lava.build/lava-referer-67d3f842-d21f-489d-b4f2-cf902ea4b1e5/"
+      },
+      {
+        "url": "https://api.tatum.io/v3/blockchain/node/ethereum-mainnet"
+      },
+      {
+        "url": "https://eth.nownodes.io"
+      },
+      {
+        "url": "https://ethereum.rpc.subquery.network/public"
+      },
+      {
+        "url": "https://rpc.graffiti.farm"
+      }
+    ],
+    "5": [
+      {
+        "url": "https://rpc.ankr.com/eth_goerli"
+      },
+      {
+        "url": "https://endpoints.omniatech.io/v1/eth/goerli/public"
+      },
+      {
+        "url": "https://goerli.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161"
+      },
+      {
+        "url": "https://eth-goerli.public.blastapi.io"
+      },
+      {
+        "url": "https://eth-goerli.g.alchemy.com/v2/demo"
+      },
+      {
+        "url": "https://eth-goerli.api.onfinality.io/public"
+      },
+      {
+        "url": "https://rpc.goerli.eth.gateway.fm"
+      },
+      {
+        "url": "https://ethereum-goerli-rpc.publicnode.com"
+      },
+      {
+        "url": "https://goerli.gateway.tenderly.co"
+      },
+      {
+        "url": "https://gateway.tenderly.co/public/goerli"
+      },
+      {
+        "url": "https://api.zan.top/node/v1/eth/goerli/public"
+      },
+      {
+        "url": "https://builder-rpc1.0xblockswap.com"
+      },
+      {
+        "url": "https://builder-rpc2.0xblockswap.com"
+      }
+    ],
+    "10": [
+      {
+        "url": "https://mainnet.optimism.io/"
+      },
+      {
+        "url": "https://optimism-mainnet.public.blastapi.io"
+      },
+      {
+        "url": "https://rpc.ankr.com/optimism"
+      },
+      {
+        "url": "https://1rpc.io/op"
+      },
+      {
+        "url": "https://op-pokt.nodies.app"
+      },
+      {
+        "url": "https://opt-mainnet.g.alchemy.com/v2/demo"
+      },
+      {
+        "url": "https://optimism.blockpi.network/v1/rpc/public"
+      },
+      {
+        "url": "https://endpoints.omniatech.io/v1/op/mainnet/public"
+      },
+      {
+        "url": "https://optimism.api.onfinality.io/public"
+      },
+      {
+        "url": "https://rpc.optimism.gateway.fm"
+      },
+      {
+        "url": "https://optimism-rpc.publicnode.com"
+      },
+      {
+        "url": "https://optimism.meowrpc.com"
+      },
+      {
+        "url": "https://api.zan.top/node/v1/opt/mainnet/public"
+      },
+      {
+        "url": "https://optimism.drpc.org"
+      },
+      {
+        "url": "https://optimism.gateway.tenderly.co"
+      },
+      {
+        "url": "https://gateway.tenderly.co/public/optimism"
+      },
+      {
+        "url": "https://api.stateless.solutions/optimism/v1/demo"
+      },
+      {
+        "url": "https://public.stackup.sh/api/v1/node/optimism-mainnet"
+      },
+      {
+        "url": "https://api.tatum.io/v3/blockchain/node/optimism-mainnet"
+      }
+    ],
+    "20": [
+      {
+        "url": "https://api.elastos.io/esc"
+      },
+      {
+        "url": "https://api.trinity-tech.io/esc"
+      },
+      {
+        "url": "https://api2.elastos.io/esc"
+      },
+      {
+        "url": "https://api2.elastos.net/esc"
+      },
+      {
+        "url": "https://api2.elastos.io/eth"
+      },
+      {
+        "url": "https://api2.elastos.net/eth"
+      },
+      {
+        "url": "https://rpc.glidefinance.io/"
+      }
+    ],
+    "25": [
+      {
+        "url": "https://evm.cronos.org"
+      },
+      {
+        "url": "https://cronos-rpc.elk.finance/"
+      },
+      {
+        "url": "https://cronos.blockpi.network/v1/rpc/public"
+      },
+      {
+        "url": "https://cronos-evm-rpc.publicnode.com"
+      },
+      {
+        "url": "https://1rpc.io/cro"
+      },
+      {
+        "url": "https://rpc.vvs.finance"
+      },
+      {
+        "url": "https://mmf-rpc.xstaking.sg"
+      },
+      {
+        "url": "https://rpc.nebkas.ro"
+      }
+    ],
+    "40": [
+      {
+        "url": "https://mainnet.telos.net/evm"
+      },
+      {
+        "url": "https://mainnet15.telos.net/evm"
+      },
+      {
+        "url": "https://rpc3.us.telos.net/evm"
+      },
+      {
+        "url": "https://evm.telos.detroitledger.tech/evm"
+      },
+      {
+        "url": "https://mainnet-us.telos.net/evm"
+      },
+      {
+        "url": "https://mainnet-eu.telos.net/evm"
+      },
+      {
+        "url": "https://mainnet-asia.telos.net/evm"
+      },
+      {
+        "url": "https://1rpc.io/telos/evm"
+      }
+    ],
+    "50": [
+      {
+        "url": "https://rpc.xdcrpc.com"
+      },
+      {
+        "url": "https://rpc1.xinfin.network"
+      },
+      {
+        "url": "https://erpc.xinfin.network"
+      },
+      {
+        "url": "https://erpc.xdcrpc.com"
+      },
+      {
+        "url": "https://rpc.xdc.org"
+      },
+      {
+        "url": "https://earpc.xinfin.network/"
+      },
+      {
+        "url": "https://erpc.xinfin.network/"
+      },
+      {
+        "url": "https://rpc.ankr.com/xdc"
+      },
+      {
+        "url": "https://api.tatum.io/v3/blockchain/node/xdc-mainnet"
+      }
+    ],
+    "51": [
+      {
+        "url": "https://erpc.apothem.network"
+      },
+      {
+        "url": "https://apothem.xdcrpc.com"
+      },
+      {
+        "url": "https://earpc.apothem.network/"
+      },
+      {
+        "url": "https://erpc.apothem.network/"
+      }
+    ],
+    "52": [
+      {
+        "url": "https://rpc.coinex.net/"
+      },
+      {
+        "url": "https://rpc1.coinex.net/"
+      },
+      {
+        "url": "https://rpc2.coinex.net/"
+      },
+      {
+        "url": "https://rpc3.coinex.net/"
+      },
+      {
+        "url": "https://rpc4.coinex.net/"
+      }
+    ],
+    "55": [
+      {
+        "url": "https://rpc-1.zyx.network/"
+      },
+      {
+        "url": "https://rpc-2.zyx.network/"
+      },
+      {
+        "url": "https://rpc-3.zyx.network/"
+      },
+      {
+        "url": "https://rpc-5.zyx.network/"
+      }
+    ],
+    "56": [
+      {
+        "url": "https://bsc-dataseed.bnbchain.org/"
+      },
+      {
+        "url": "https://bsc-dataseed1.defibit.io/"
+      },
+      {
+        "url": "https://bsc-dataseed1.ninicoin.io/"
+      },
+      {
+        "url": "https://bsc-dataseed2.defibit.io/"
+      },
+      {
+        "url": "https://bsc-dataseed3.defibit.io/"
+      },
+      {
+        "url": "https://bsc-dataseed4.defibit.io/"
+      },
+      {
+        "url": "https://bsc-dataseed2.ninicoin.io/"
+      },
+      {
+        "url": "https://bsc-dataseed3.ninicoin.io/"
+      },
+      {
+        "url": "https://bsc-dataseed4.ninicoin.io/"
+      },
+      {
+        "url": "https://bsc-dataseed1.bnbchain.org/"
+      },
+      {
+        "url": "https://bsc-dataseed2.bnbchain.org/"
+      },
+      {
+        "url": "https://bsc-dataseed3.bnbchain.org/"
+      },
+      {
+        "url": "https://bsc-dataseed4.bnbchain.org/"
+      },
+      {
+        "url": "https://bsc-dataseed6.dict.life/"
+      },
+      {
+        "url": "https://rpc-bsc.48.club"
+      },
+      {
+        "url": "https://koge-rpc-bsc.48.club"
+      },
+      {
+        "url": "https://endpoints.omniatech.io/v1/bsc/mainnet/public"
+      },
+      {
+        "url": "https://bsc-pokt.nodies.app"
+      },
+      {
+        "url": "https://bsc-mainnet.nodereal.io/v1/64a9df0874fb4a93b9d0a3849de012d3"
+      },
+      {
+        "url": "https://rpc.ankr.com/bsc"
+      },
+      {
+        "url": "https://go.getblock.io/cc778cdbdf5c4b028ec9456e0e6c0cf3"
+      },
+      {
+        "url": "https://bscrpc.com"
+      },
+      {
+        "url": "https://bsc.rpcgator.com/"
+      },
+      {
+        "url": "https://binance.nodereal.io"
+      },
+      {
+        "url": "https://bsc-mainnet.rpcfast.com?api_key=xbhWBI1Wkguk8SNMu1bvvLurPGLXmgwYeC4S6g2H7WdwFigZSmPWVZRxrskEQwIf"
+      },
+      {
+        "url": "https://nodes.vefinetwork.org/smartchain"
+      },
+      {
+        "url": "https://1rpc.io/bnb"
+      },
+      {
+        "url": "https://bsc.rpc.blxrbdn.com/"
+      },
+      {
+        "url": "https://bsc.blockpi.network/v1/rpc/public"
+      },
+      {
+        "url": "https://bnb.api.onfinality.io/public"
+      },
+      {
+        "url": "https://bsc-rpc.publicnode.com"
+      },
+      {
+        "url": "https://bsc-mainnet.public.blastapi.io"
+      },
+      {
+        "url": "https://bsc.meowrpc.com"
+      },
+      {
+        "url": "https://api.zan.top/node/v1/bsc/mainnet/public"
+      },
+      {
+        "url": "https://bsc.drpc.org"
+      },
+      {
+        "url": "https://services.tokenview.io/vipapi/nodeservice/bsc?apikey=qVHq2o6jpaakcw3lRstl"
+      },
+      {
+        "url": "https://rpc.polysplit.cloud/v1/chain/56"
+      },
+      {
+        "url": "https://public.stackup.sh/api/v1/node/bsc-mainnet"
+      },
+      {
+        "url": "https://api.tatum.io/v3/blockchain/node/bsc-mainnet"
+      },
+      {
+        "url": "https://bsc.nownodes.io"
+      }
+    ],
+    "57": [
+      {
+        "url": "https://rpc.syscoin.org"
+      },
+      {
+        "url": "https://rpc.ankr.com/syscoin"
+      },
+      {
+        "url": "https://syscoin-evm.publicnode.com"
+      },
+      {
+        "url": "https://rpc.pollum.services"
+      }
+    ],
+    "58": [
+      {
+        "url": "https://dappnode1.ont.io:10339"
+      },
+      {
+        "url": "https://dappnode2.ont.io:10339"
+      },
+      {
+        "url": "https://dappnode3.ont.io:10339"
+      },
+      {
+        "url": "https://dappnode4.ont.io:10339"
+      }
+    ],
+    "61": [
+      {
+        "url": "https://etc.mytokenpocket.vip"
+      },
+      {
+        "url": "https://rpc.etcinscribe.com"
+      },
+      {
+        "url": "https://etc.etcdesktop.com"
+      },
+      {
+        "url": "https://besu-de.etc-network.info"
+      },
+      {
+        "url": "https://geth-de.etc-network.info"
+      },
+      {
+        "url": "https://besu-oc.etc-network.info"
+      },
+      {
+        "url": "https://besu-at.etc-network.info"
+      },
+      {
+        "url": "https://geth-at.etc-network.info"
+      },
+      {
+        "url": "https://services.tokenview.io/vipapi/nodeservice/etc?apikey=qVHq2o6jpaakcw3lRstl"
+      },
+      {
+        "url": "https://etc.rivet.link"
+      }
+    ],
+    "66": [
+      {
+        "url": "https://exchainrpc.okex.org"
+      },
+      {
+        "url": "https://oktc-mainnet.public.blastapi.io"
+      },
+      {
+        "url": "https://okt-chain.api.onfinality.io/public"
+      },
+      {
+        "url": "https://1rpc.io/oktc"
+      }
+    ],
+    "79": [
+      {
+        "url": "https://dataserver-us-1.zenithchain.co/"
+      },
+      {
+        "url": "https://dataserver-asia-3.zenithchain.co/"
+      },
+      {
+        "url": "https://dataserver-asia-4.zenithchain.co/"
+      },
+      {
+        "url": "https://dataserver-asia-2.zenithchain.co/"
+      }
+    ],
+    "97": [
+      {
+        "url": "https://endpoints.omniatech.io/v1/bsc/testnet/public"
+      },
+      {
+        "url": "https://bsctestapi.terminet.io/rpc"
+      },
+      {
+        "url": "https://bsc-testnet.public.blastapi.io"
+      },
+      {
+        "url": "https://bsc-testnet-rpc.publicnode.com"
+      },
+      {
+        "url": "https://api.zan.top/node/v1/bsc/testnet/public"
+      },
+      {
+        "url": "https://bsc-testnet.blockpi.network/v1/rpc/public"
+      },
+      {
+        "url": "https://public.stackup.sh/api/v1/node/bsc-testnet"
+      }
+    ],
+    "100": [
+      {
+        "url": "https://rpc.gnosischain.com"
+      },
+      {
+        "url": "https://xdai-archive.blockscout.com"
+      },
+      {
+        "url": "https://gnosis-pokt.nodies.app"
+      },
+      {
+        "url": "https://rpc.gnosis.gateway.fm"
+      },
+      {
+        "url": "https://gnosis-mainnet.public.blastapi.io"
+      },
+      {
+        "url": "https://rpc.ankr.com/gnosis"
+      },
+      {
+        "url": "https://rpc.ap-southeast-1.gateway.fm/v4/gnosis/non-archival/mainnet"
+      },
+      {
+        "url": "https://gnosis.blockpi.network/v1/rpc/public"
+      },
+      {
+        "url": "https://gnosis.api.onfinality.io/public"
+      },
+      {
+        "url": "https://gnosis.drpc.org"
+      },
+      {
+        "url": "https://endpoints.omniatech.io/v1/gnosis/mainnet/public"
+      },
+      {
+        "url": "https://gnosis-rpc.publicnode.com"
+      },
+      {
+        "url": "https://1rpc.io/gnosis"
+      },
+      {
+        "url": "https://api.tatum.io/v3/blockchain/node/gno-mainnet"
+      }
+    ],
+    "122": [
+      {
+        "url": "https://rpc.fuse.io"
+      },
+      {
+        "url": "https://fuse-pokt.nodies.app"
+      },
+      {
+        "url": "https://fuse-mainnet.chainstacklabs.com"
+      },
+      {
+        "url": "https://fuse.api.onfinality.io/public"
+      },
+      {
+        "url": "https://fuse.liquify.com"
+      }
+    ],
+    "137": [
+      {
+        "url": "https://rpc-mainnet.maticvigil.com"
+      },
+      {
+        "url": "https://endpoints.omniatech.io/v1/matic/mainnet/public"
+      },
+      {
+        "url": "https://polygon-rpc.com"
+      },
+      {
+        "url": "https://rpc-mainnet.matic.network"
+      },
+      {
+        "url": "https://rpc-mainnet.matic.quiknode.pro"
+      },
+      {
+        "url": "https://matic-mainnet-full-rpc.bwarelabs.com"
+      },
+      {
+        "url": "https://matic-mainnet-archive-rpc.bwarelabs.com"
+      },
+      {
+        "url": "https://polygon-pokt.nodies.app"
+      },
+      {
+        "url": "https://rpc.ankr.com/polygon"
+      },
+      {
+        "url": "https://polygon-mainnet.public.blastapi.io"
+      },
+      {
+        "url": "https://polygonapi.terminet.io/rpc"
+      },
+      {
+        "url": "https://1rpc.io/matic"
+      },
+      {
+        "url": "https://polygon-mainnet.rpcfast.com?api_key=xbhWBI1Wkguk8SNMu1bvvLurPGLXmgwYeC4S6g2H7WdwFigZSmPWVZRxrskEQwIf"
+      },
+      {
+        "url": "https://polygon-bor-rpc.publicnode.com"
+      },
+      {
+        "url": "https://polygon-mainnet-public.unifra.io"
+      },
+      {
+        "url": "https://polygon-mainnet.g.alchemy.com/v2/demo"
+      },
+      {
+        "url": "https://polygon.blockpi.network/v1/rpc/public"
+      },
+      {
+        "url": "https://polygon.api.onfinality.io/public"
+      },
+      {
+        "url": "https://polygon.rpc.blxrbdn.com/"
+      },
+      {
+        "url": "https://polygon.drpc.org"
+      },
+      {
+        "url": "https://polygon.gateway.tenderly.co"
+      },
+      {
+        "url": "https://gateway.tenderly.co/public/polygon"
+      },
+      {
+        "url": "https://api.zan.top/node/v1/polygon/mainnet/public"
+      },
+      {
+        "url": "https://polygon.meowrpc.com"
+      },
+      {
+        "url": "https://getblock.io/nodes/matic/"
+      },
+      {
+        "url": "https://api.stateless.solutions/polygon/v1/demo"
+      },
+      {
+        "url": "https://public.stackup.sh/api/v1/node/polygon-mainnet"
+      },
+      {
+        "url": "https://api.tatum.io/v3/blockchain/node/polygon-mainnet"
+      },
+      {
+        "url": "https://polygon.rpc.subquery.network/public"
+      }
+    ],
+    "169": [
+      {
+        "url": "https://pacific-rpc.manta.network/http"
+      },
+      {
+        "url": "https://1rpc.io/manta"
+      },
+      {
+        "url": "https://manta-pacific-gascap.calderachain.xyz/http"
+      },
+      {
+        "url": "https://www.tencentcloud-rpc.com/v2/manta/manta-rpc"
+      },
+      {
+        "url": "https://r1.pacific.manta.systems/http"
+      },
+      {
+        "url": "https://manta.nirvanalabs.xyz/mantapublic"
+      }
+    ],
+    "204": [
+      {
+        "url": "https://opbnb-mainnet-rpc.bnbchain.org"
+      },
+      {
+        "url": "https://opbnb.drpc.org"
+      },
+      {
+        "url": "https://opbnb-rpc.publicnode.com"
+      },
+      {
+        "url": "https://1rpc.io/opbnb"
+      }
+    ],
+    "223": [
+      {
+        "url": "https://rpc.bsquared.network"
+      },
+      {
+        "url": "https://b2-mainnet.alt.technology"
+      },
+      {
+        "url": "https://b2-mainnet-public.s.chainbase.com"
+      },
+      {
+        "url": "https://mainnet.b2-rpc.com"
+      }
+    ],
+    "250": [
+      {
+        "url": "https://rpcapi.fantom.network"
+      },
+      {
+        "url": "https://endpoints.omniatech.io/v1/fantom/mainnet/public"
+      },
+      {
+        "url": "https://fantom-pokt.nodies.app"
+      },
+      {
+        "url": "https://rpc.ftm.tools/"
+      },
+      {
+        "url": "https://rpc.ankr.com/fantom"
+      },
+      {
+        "url": "https://rpc.fantom.network"
+      },
+      {
+        "url": "https://rpc2.fantom.network"
+      },
+      {
+        "url": "https://rpc3.fantom.network"
+      },
+      {
+        "url": "https://fantom-mainnet.public.blastapi.io"
+      },
+      {
+        "url": "https://1rpc.io/ftm"
+      },
+      {
+        "url": "https://fantom.blockpi.network/v1/rpc/public"
+      },
+      {
+        "url": "https://fantom-rpc.publicnode.com"
+      },
+      {
+        "url": "https://fantom.api.onfinality.io/public"
+      },
+      {
+        "url": "https://rpc.fantom.gateway.fm"
+      },
+      {
+        "url": "https://fantom.drpc.org"
+      },
+      {
+        "url": "https://api.tatum.io/v3/blockchain/node/fantom-mainnet"
+      }
+    ],
+    "288": [
+      {
+        "url": "https://mainnet.boba.network/"
+      },
+      {
+        "url": "https://boba-ethereum.gateway.tenderly.co"
+      },
+      {
+        "url": "https://gateway.tenderly.co/public/boba-ethereum"
+      },
+      {
+        "url": "https://1rpc.io/boba/eth"
+      }
+    ],
+    "314": [
+      {
+        "url": "https://api.node.glif.io"
+      },
+      {
+        "url": "https://node.filutils.com/rpc/v1"
+      },
+      {
+        "url": "https://rpc.ankr.com/filecoin"
+      },
+      {
+        "url": "https://filecoin.chainup.net/rpc/v1"
+      },
+      {
+        "url": "https://infura.sftproject.io/filecoin/rpc/v1"
+      },
+      {
+        "url": "https://api.chain.love/rpc/v1"
+      }
+    ],
+    "321": [
+      {
+        "url": "https://rpc-mainnet.kcc.network"
+      },
+      {
+        "url": "https://kcc.mytokenpocket.vip"
+      },
+      {
+        "url": "https://kcc-rpc.com"
+      },
+      {
+        "url": "https://services.tokenview.io/vipapi/nodeservice/kcs?apikey=qVHq2o6jpaakcw3lRstl"
+      }
+    ],
+    "324": [
+      {
+        "url": "https://zksync-era.blockpi.network/v1/rpc/public"
+      },
+      {
+        "url": "https://go.getblock.io/f76c09905def4618a34946bf71851542"
+      },
+      {
+        "url": "https://zksync.meowrpc.com"
+      },
+      {
+        "url": "https://zksync.drpc.org"
+      },
+      {
+        "url": "https://1rpc.io/zksync2-era"
+      },
+      {
+        "url": "https://endpoints.omniatech.io/v1/zksync-era/mainnet/public"
+      }
+    ],
+    "336": [
+      {
+        "url": "https://rpc.shiden.astar.network:8545/"
+      },
+      {
+        "url": "https://shiden.public.blastapi.io"
+      },
+      {
+        "url": "https://shiden-rpc.dwellir.com"
+      },
+      {
+        "url": "https://shiden.api.onfinality.io/public"
+      }
+    ],
+    "369": [
+      {
+        "url": "https://rpc.pulsechain.com"
+      },
+      {
+        "url": "https://pulse-s.projectpi.xyz"
+      },
+      {
+        "url": "https://pulsechain-rpc.publicnode.com"
+      },
+      {
+        "url": "https://rpc-pulsechain.g4mm4.io"
+      },
+      {
+        "url": "https://evex.cloud/pulserpc"
+      }
+    ],
+    "420": [
+      {
+        "url": "https://endpoints.omniatech.io/v1/op/goerli/public"
+      },
+      {
+        "url": "https://opt-goerli.g.alchemy.com/v2/demo"
+      },
+      {
+        "url": "https://optimism-goerli.public.blastapi.io"
+      },
+      {
+        "url": "https://rpc.goerli.optimism.gateway.fm"
+      },
+      {
+        "url": "https://optimism-goerli-rpc.publicnode.com"
+      },
+      {
+        "url": "https://api.zan.top/node/v1/opt/goerli/public"
+      },
+      {
+        "url": "https://optimism-goerli.gateway.tenderly.co"
+      },
+      {
+        "url": "https://gateway.tenderly.co/public/optimism-goerli"
+      }
+    ],
+    "463": [
+      {
+        "url": "https://mainnet-rpc.areon.network"
+      },
+      {
+        "url": "https://mainnet-rpc2.areon.network"
+      },
+      {
+        "url": "https://mainnet-rpc3.areon.network"
+      },
+      {
+        "url": "https://mainnet-rpc4.areon.network"
+      },
+      {
+        "url": "https://mainnet-rpc5.areon.network"
+      }
+    ],
+    "592": [
+      {
+        "url": "https://evm.astar.network/"
+      },
+      {
+        "url": "https://rpc.astar.network:8545"
+      },
+      {
+        "url": "https://astar.public.blastapi.io"
+      },
+      {
+        "url": "https://getblock.io/nodes/bsc/"
+      },
+      {
+        "url": "https://1rpc.io/astr"
+      },
+      {
+        "url": "https://astar-mainnet.g.alchemy.com/v2/demo"
+      },
+      {
+        "url": "https://astar.api.onfinality.io/public"
+      },
+      {
+        "url": "https://astar-rpc.dwellir.com"
+      }
+    ],
+    "1001": [
+      {
+        "url": "https://public-en-baobab.klaytn.net"
+      },
+      {
+        "url": "https://klaytn-baobab-rpc.allthatnode.com:8551"
+      },
+      {
+        "url": "https://rpc.ankr.com/klaytn_testnet"
+      },
+      {
+        "url": "https://klaytn-baobab.blockpi.network/v1/rpc/public"
+      },
+      {
+        "url": "https://klaytn.api.onfinality.io/public"
+      }
+    ],
+    "1088": [
+      {
+        "url": "https://andromeda.metis.io/?owner=1088"
+      },
+      {
+        "url": "https://metis-mainnet.public.blastapi.io"
+      },
+      {
+        "url": "https://metis.api.onfinality.io/public"
+      },
+      {
+        "url": "https://metis-pokt.nodies.app"
+      }
+    ],
+    "1100": [
+      {
+        "url": "https://jsonrpc.dymension.nodestake.org"
+      },
+      {
+        "url": "https://evm-archive.dymd.bitszn.com"
+      },
+      {
+        "url": "https://dymension.liquify.com/json-rpc"
+      },
+      {
+        "url": "https://dymension-evm.kynraze.com"
+      }
+    ],
+    "1101": [
+      {
+        "url": "https://rpc.ankr.com/polygon_zkevm"
+      },
+      {
+        "url": "https://rpc.polygon-zkevm.gateway.fm"
+      },
+      {
+        "url": "https://1rpc.io/polygon/zkevm"
+      },
+      {
+        "url": "https://polygon-zkevm.blockpi.network/v1/rpc/public"
+      },
+      {
+        "url": "https://polygon-zkevm-mainnet.public.blastapi.io"
+      },
+      {
+        "url": "https://api.zan.top/node/v1/polygonzkevm/mainnet/public"
+      },
+      {
+        "url": "https://polygon-zkevm.drpc.org"
+      },
+      {
+        "url": "https://endpoints.omniatech.io/v1/polygon-zkevm/mainnet/public"
+      }
+    ],
+    "1116": [
+      {
+        "url": "https://rpc.coredao.org"
+      },
+      {
+        "url": "https://core.public.infstones.com"
+      },
+      {
+        "url": "https://1rpc.io/core"
+      },
+      {
+        "url": "https://rpc.ankr.com/core"
+      }
+    ],
+    "1284": [
+      {
+        "url": "https://rpc.api.moonbeam.network"
+      },
+      {
+        "url": "https://moonbeam.api.onfinality.io/public"
+      },
+      {
+        "url": "https://moonbeam.unitedbloc.com:3000"
+      },
+      {
+        "url": "https://moonbeam.public.blastapi.io"
+      },
+      {
+        "url": "https://rpc.ankr.com/moonbeam"
+      },
+      {
+        "url": "https://1rpc.io/glmr"
+      },
+      {
+        "url": "https://moonbeam-rpc.dwellir.com"
+      },
+      {
+        "url": "https://endpoints.omniatech.io/v1/moonbeam/mainnet/public"
+      },
+      {
+        "url": "https://moonbeam-rpc.publicnode.com"
+      }
+    ],
+    "1285": [
+      {
+        "url": "https://moonriver.api.onfinality.io/public"
+      },
+      {
+        "url": "https://moonriver.unitedbloc.com:2000"
+      },
+      {
+        "url": "https://moonriver.public.blastapi.io"
+      },
+      {
+        "url": "https://moonriver-rpc.dwellir.com"
+      },
+      {
+        "url": "https://moonriver-rpc.publicnode.com"
+      }
+    ],
+    "1287": [
+      {
+        "url": "https://rpc.testnet.moonbeam.network"
+      },
+      {
+        "url": "https://moonbase.unitedbloc.com:1000"
+      },
+      {
+        "url": "https://moonbase-alpha.public.blastapi.io"
+      },
+      {
+        "url": "https://moonbeam-alpha.api.onfinality.io/public"
+      }
+    ],
+    "2000": [
+      {
+        "url": "https://rpc.dogechain.dog"
+      },
+      {
+        "url": "https://rpc-us.dogechain.dog"
+      },
+      {
+        "url": "https://rpc-sg.dogechain.dog"
+      },
+      {
+        "url": "https://rpc.dogechain.dog"
+      },
+      {
+        "url": "https://rpc01-sg.dogechain.dog"
+      },
+      {
+        "url": "https://rpc02-sg.dogechain.dog"
+      },
+      {
+        "url": "https://rpc03-sg.dogechain.dog"
+      },
+      {
+        "url": "https://dogechain.ankr.com"
+      },
+      {
+        "url": "https://dogechain-sj.ankr.com"
+      },
+      {
+        "url": "https://api.tatum.io/v3/blockchain/node/doge-mainnet"
+      }
+    ],
+    "2021": [
+      {
+        "url": "https://mainnet2.edgewa.re/evm"
+      },
+      {
+        "url": "https://mainnet3.edgewa.re/evm"
+      },
+      {
+        "url": "https://edgeware-evm0.jelliedowl.net/"
+      },
+      {
+        "url": "https://edgeware-evm1.jelliedowl.net/"
+      },
+      {
+        "url": "https://edgeware-evm2.jelliedowl.net/"
+      },
+      {
+        "url": "https://edgeware-evm3.jelliedowl.net/"
+      },
+      {
+        "url": "https://edgeware.api.onfinality.io/public"
+      }
+    ],
+    "2222": [
+      {
+        "url": "https://evm.kava.io"
+      },
+      {
+        "url": "https://kava.api.onfinality.io/public"
+      },
+      {
+        "url": "https://kava-evm-rpc.publicnode.com"
+      },
+      {
+        "url": "https://kava-pokt.nodies.app"
+      },
+      {
+        "url": "https://evm.kava.chainstacklabs.com"
+      },
+      {
+        "url": "https://rpc.ankr.com/kava_evm"
+      },
+      {
+        "url": "https://evm.kava-rpc.com"
+      }
+    ],
+    "4002": [
+      {
+        "url": "https://rpc.testnet.fantom.network/"
+      },
+      {
+        "url": "https://endpoints.omniatech.io/v1/fantom/testnet/public"
+      },
+      {
+        "url": "https://rpc.ankr.com/fantom_testnet"
+      },
+      {
+        "url": "https://fantom-testnet.public.blastapi.io"
+      },
+      {
+        "url": "https://fantom-testnet-rpc.publicnode.com"
+      },
+      {
+        "url": "https://fantom.api.onfinality.io/public"
+      }
+    ],
+    "4689": [
+      {
+        "url": "https://rpc.ankr.com/iotex"
+      },
+      {
+        "url": "https://babel-api.mainnet.iotex.io"
+      },
+      {
+        "url": "https://babel-api.mainnet.iotex.one"
+      },
+      {
+        "url": "https://babel-api.fastblocks.io"
+      },
+      {
+        "url": "https://iotexrpc.com"
+      },
+      {
+        "url": "https://iotex-network.rpc.thirdweb.com"
+      },
+      {
+        "url": "https://iotex.api.onfinality.io/public"
+      }
+    ],
+    "5000": [
+      {
+        "url": "https://rpc.mantle.xyz"
+      },
+      {
+        "url": "https://mantle-mainnet.public.blastapi.io"
+      },
+      {
+        "url": "https://mantle-rpc.publicnode.com"
+      },
+      {
+        "url": "https://mantle.drpc.org"
+      },
+      {
+        "url": "https://rpc.ankr.com/mantle"
+      },
+      {
+        "url": "https://1rpc.io/mantle"
+      }
+    ],
+    "7700": [
+      {
+        "url": "https://canto.gravitychain.io/"
+      },
+      {
+        "url": "https://canto.evm.chandrastation.com/"
+      },
+      {
+        "url": "https://jsonrpc.canto.nodestake.top/"
+      },
+      {
+        "url": "https://canto.dexvaults.com/"
+      },
+      {
+        "url": "https://canto-rpc.ansybl.io"
+      }
+    ],
+    "7777": [
+      {
+        "url": "https://testnet1.rotw.games"
+      },
+      {
+        "url": "https://testnet2.rotw.games"
+      },
+      {
+        "url": "https://testnet3.rotw.games"
+      },
+      {
+        "url": "https://testnet4.rotw.games"
+      },
+      {
+        "url": "https://testnet5.rotw.games"
+      }
+    ],
+    "8217": [
+      {
+        "url": "https://public-en-cypress.klaytn.net"
+      },
+      {
+        "url": "https://klaytn-mainnet-rpc.allthatnode.com:8551"
+      },
+      {
+        "url": "https://rpc.ankr.com/klaytn "
+      },
+      {
+        "url": "https://klaytn.blockpi.network/v1/rpc/public"
+      },
+      {
+        "url": "https://klaytn.api.onfinality.io/public"
+      },
+      {
+        "url": "https://1rpc.io/klay"
+      },
+      {
+        "url": "https://klaytn-pokt.nodies.app"
+      },
+      {
+        "url": "https://klaytn.drpc.org"
+      },
+      {
+        "url": "https://api.tatum.io/v3/blockchain/node/klaytn-cypress"
+      }
+    ],
+    "8453": [
+      {
+        "url": "https://mainnet.base.org"
+      },
+      {
+        "url": "https://developer-access-mainnet.base.org"
+      },
+      {
+        "url": "https://base-mainnet.diamondswap.org/rpc"
+      },
+      {
+        "url": "https://base.blockpi.network/v1/rpc/public"
+      },
+      {
+        "url": "https://1rpc.io/base"
+      },
+      {
+        "url": "https://base-pokt.nodies.app"
+      },
+      {
+        "url": "https://base.meowrpc.com"
+      },
+      {
+        "url": "https://base-mainnet.public.blastapi.io"
+      },
+      {
+        "url": "https://base.gateway.tenderly.co"
+      },
+      {
+        "url": "https://gateway.tenderly.co/public/base"
+      },
+      {
+        "url": "https://rpc.notadegen.com/base"
+      },
+      {
+        "url": "https://base-rpc.publicnode.com"
+      },
+      {
+        "url": "https://base.drpc.org"
+      },
+      {
+        "url": "https://endpoints.omniatech.io/v1/base/mainnet/public"
+      },
+      {
+        "url": "https://base.api.onfinality.io/public"
+      },
+      {
+        "url": "https://public.stackup.sh/api/v1/node/base-mainnet"
+      },
+      {
+        "url": "https://api.tatum.io/v3/blockchain/node/base-mainnet"
+      },
+      {
+        "url": "https://base.rpc.subquery.network/public"
+      }
+    ],
+    "8899": [
+      {
+        "url": "https://rpc-l1.jibchain.net"
+      },
+      {
+        "url": "https://jib-rpc.inan.in.th"
+      },
+      {
+        "url": "https://rpc-l1.jbc.aomwara.in.th"
+      },
+      {
+        "url": "https://rpc-l1.jbc.xpool.pw"
+      }
+    ],
+    "9000": [
+      {
+        "url": "https://evmos-testnet-json.qubelabs.io"
+      },
+      {
+        "url": "https://evmos-tjson.antrixy.org"
+      },
+      {
+        "url": "https://evmos-testnet-rpc.kingsuper.services"
+      },
+      {
+        "url": "https://rpc.evmos.test.theamsolutions.info"
+      },
+      {
+        "url": "https://api.evmos-test.theamsolutions.info"
+      },
+      {
+        "url": "https://rpc.evmos.testnet.node75.org"
+      },
+      {
+        "url": "https://rpc-evm.testnet.evmos.dragonstake.io"
+      },
+      {
+        "url": "https://evmos-testnet-rpc.stake-town.com"
+      },
+      {
+        "url": "https://evmos-testnet-jsonrpc.stake-town.com"
+      },
+      {
+        "url": "https://api.evmos-test.theamsolutions.info"
+      },
+      {
+        "url": "https://jsonrpc-t.evmos.nodestake.top"
+      },
+      {
+        "url": "https://evmos-testnet-jsonrpc.autostake.com"
+      },
+      {
+        "url": "https://evmos-testnet-jsonrpc.alkadeta.com"
+      },
+      {
+        "url": "https://evm-rpc.evmost.silentvalidator.com"
+      },
+      {
+        "url": "https://testnet-evm-rpc-evmos.hoodrun.io"
+      },
+      {
+        "url": "https://alphab.ai/rpc/eth/evmos_testnet"
+      },
+      {
+        "url": "https://t-evmos-jsonrpc.kalia.network"
+      },
+      {
+        "url": "https://jsonrpc-evmos-testnet.mzonder.com"
+      },
+      {
+        "url": "https://evmos-testnet.lava.build/lava-referer-16223de7-12c0-49f3-8d87-e5f1e6a0eb3b"
+      }
+    ],
+    "9001": [
+      {
+        "url": "https://evmos.lava.build"
+      },
+      {
+        "url": "https://evmos-mainnet-jsonrpc.autostake.com"
+      },
+      {
+        "url": "https://evmos-pokt.nodies.app"
+      },
+      {
+        "url": "https://evmos-mainnet.public.blastapi.io"
+      },
+      {
+        "url": "https://evmos-evm-rpc.publicnode.com"
+      },
+      {
+        "url": "https://jsonrpc-evmos.goldenratiostaking.net"
+      },
+      {
+        "url": "https://evmos.api.onfinality.io/public"
+      },
+      {
+        "url": "https://evmos-jsonrpc.cyphercore.io"
+      },
+      {
+        "url": "https://eth.bd.evmos.org:8545/"
+      },
+      {
+        "url": "https://evmos-json-rpc.stakely.io"
+      },
+      {
+        "url": "https://jsonrpc-evmos-ia.cosmosia.notional.ventures"
+      },
+      {
+        "url": "https://json-rpc.evmos.blockhunters.org"
+      },
+      {
+        "url": "https://evmos-json-rpc.agoranodes.com"
+      },
+      {
+        "url": "https://evmos-json.antrixy.org"
+      },
+      {
+        "url": "https://jsonrpc.evmos.nodestake.top"
+      },
+      {
+        "url": "https://evmos-jsonrpc.alkadeta.com"
+      },
+      {
+        "url": "https://evmos-json.qubelabs.io"
+      },
+      {
+        "url": "https://evmos-rpc.theamsolutions.info"
+      },
+      {
+        "url": "https://evmos-api.theamsolutions.info"
+      },
+      {
+        "url": "https://evmos-jsonrpc.theamsolutions.info"
+      },
+      {
+        "url": "https://evm-rpc-evmos.hoodrun.io"
+      },
+      {
+        "url": "https://evmos-json-rpc.0base.dev"
+      },
+      {
+        "url": "https://json-rpc.evmos.tcnetwork.io"
+      },
+      {
+        "url": "https://rpc-evm.evmos.dragonstake.io"
+      },
+      {
+        "url": "https://evmosevm.rpc.stakin-nodes.com"
+      },
+      {
+        "url": "https://evmos-jsonrpc.stake-town.com"
+      },
+      {
+        "url": "https://json-rpc-evmos.mainnet.validatrium.club"
+      },
+      {
+        "url": "https://rpc-evmos.imperator.co"
+      },
+      {
+        "url": "https://evm-rpc.evmos.silentvalidator.com"
+      },
+      {
+        "url": "https://alphab.ai/rpc/eth/evmos"
+      },
+      {
+        "url": "https://evmos-jsonrpc.kalia.network"
+      },
+      {
+        "url": "https://jsonrpc-evmos.mzonder.com"
+      },
+      {
+        "url": "https://evmos.lava.build/lava-referer-16223de7-12c0-49f3-8d87-e5f1e6a0eb3b/"
+      }
+    ],
+    "10000": [
+      {
+        "url": "https://smartbch.fountainhead.cash/mainnet"
+      },
+      {
+        "url": "https://global.uat.cash"
+      },
+      {
+        "url": "https://rpc.uatvo.com"
+      },
+      {
+        "url": "https://api.tatum.io/v3/blockchain/node/bch-mainnet "
+      }
+    ],
+    "10200": [
+      {
+        "url": "https://rpc.chiadochain.net"
+      },
+      {
+        "url": "https://rpc.chiado.gnosis.gateway.fm"
+      },
+      {
+        "url": "https://gnosis-chiado-rpc.publicnode.com"
+      },
+      {
+        "url": "https://1rpc.io/gnosis"
+      }
+    ],
+    "17000": [
+      {
+        "url": "https://endpoints.omniatech.io/v1/eth/holesky/public"
+      },
+      {
+        "url": "https://ethereum-holesky.blockpi.network/v1/rpc/public"
+      },
+      {
+        "url": "https://ethereum-holesky-rpc.publicnode.com"
+      },
+      {
+        "url": "https://1rpc.io/holesky"
+      },
+      {
+        "url": "https://holesky-rpc.nocturnode.tech"
+      }
+    ],
+    "18159": [
+      {
+        "url": "https://mainnet-rpc.memescan.io/"
+      },
+      {
+        "url": "https://mainnet-rpc2.memescan.io/"
+      },
+      {
+        "url": "https://mainnet-rpc3.memescan.io/"
+      },
+      {
+        "url": "https://mainnet-rpc4.memescan.io/"
+      }
+    ],
+    "32520": [
+      {
+        "url": "https://rpc.icecreamswap.com"
+      },
+      {
+        "url": "https://nodes.vefinetwork.org/bitgert"
+      },
+      {
+        "url": "https://flux-rpc.brisescan.com"
+      },
+      {
+        "url": "https://flux-rpc1.brisescan.com"
+      },
+      {
+        "url": "https://flux-rpc2.brisescan.com"
+      },
+      {
+        "url": "https://rpc-1.chainrpc.com"
+      },
+      {
+        "url": "https://rpc-2.chainrpc.com"
+      },
+      {
+        "url": "https://node1.serverrpc.com"
+      },
+      {
+        "url": "https://node2.serverrpc.com"
+      }
+    ],
+    "42161": [
+      {
+        "url": "https://arb1.arbitrum.io/rpc"
+      },
+      {
+        "url": "https://rpc.ankr.com/arbitrum"
+      },
+      {
+        "url": "https://1rpc.io/arb"
+      },
+      {
+        "url": "https://arb-pokt.nodies.app"
+      },
+      {
+        "url": "https://arb-mainnet.g.alchemy.com/v2/demo"
+      },
+      {
+        "url": "https://arbitrum.blockpi.network/v1/rpc/public"
+      },
+      {
+        "url": "https://arbitrum-one.public.blastapi.io"
+      },
+      {
+        "url": "https://endpoints.omniatech.io/v1/arbitrum/one/public"
+      },
+      {
+        "url": "https://arb-mainnet-public.unifra.io"
+      },
+      {
+        "url": "https://rpc.arb1.arbitrum.gateway.fm"
+      },
+      {
+        "url": "https://arbitrum-one-rpc.publicnode.com"
+      },
+      {
+        "url": "https://arbitrum.meowrpc.com"
+      },
+      {
+        "url": "https://api.zan.top/node/v1/arb/one/public"
+      },
+      {
+        "url": "https://arbitrum.drpc.org"
+      },
+      {
+        "url": "https://public.stackup.sh/api/v1/node/arbitrum-one"
+      },
+      {
+        "url": "https://api.stateless.solutions/arbitrum-one/v1/demo"
+      },
+      {
+        "url": "https://arbitrum.rpc.subquery.network/public"
+      }
+    ],
+    "42170": [
+      {
+        "url": "https://nova.arbitrum.io/rpc"
+      },
+      {
+        "url": "https://arbitrum-nova.public.blastapi.io"
+      },
+      {
+        "url": "https://arbitrum-nova.blockpi.network/v1/rpc/public"
+      },
+      {
+        "url": "https://arbitrum-nova-rpc.publicnode.com"
+      },
+      {
+        "url": "https://arbitrum-nova.drpc.org"
+      },
+      {
+        "url": "https://api.tatum.io/v3/blockchain/node/arb-nova-mainnet"
+      }
+    ],
+    "42220": [
+      {
+        "url": "https://forno.celo.org"
+      },
+      {
+        "url": "https://rpc.ankr.com/celo"
+      },
+      {
+        "url": "https://1rpc.io/celo"
+      },
+      {
+        "url": "https://celo.api.onfinality.io/public"
+      },
+      {
+        "url": "https://api.tatum.io/v3/blockchain/node/celo-mainnet"
+      }
+    ],
+    "43113": [
+      {
+        "url": "https://api.avax-test.network/ext/bc/C/rpc"
+      },
+      {
+        "url": "https://endpoints.omniatech.io/v1/avax/fuji/public"
+      },
+      {
+        "url": "https://rpc.ankr.com/avalanche_fuji"
+      },
+      {
+        "url": "https://rpc.ankr.com/avalanche_fuji-c"
+      },
+      {
+        "url": "https://avalanchetestapi.terminet.io/ext/bc/C/rpc"
+      },
+      {
+        "url": "https://ava-testnet.public.blastapi.io/ext/bc/C/rpc"
+      },
+      {
+        "url": "https://avalanche-fuji-c-chain-rpc.publicnode.com"
+      },
+      {
+        "url": "https://avalanche-fuji.blockpi.network/v1/rpc/public"
+      },
+      {
+        "url": "https://api.zan.top/node/v1/avax/fuji/public/ext/bc/C/rpc"
+      },
+      {
+        "url": "https://public.stackup.sh/api/v1/node/avalanche-fuji"
+      }
+    ],
+    "43114": [
+      {
+        "url": "https://api.avax.network/ext/bc/C/rpc"
+      },
+      {
+        "url": "https://avalanche.public-rpc.com"
+      },
+      {
+        "url": "https://rpc.ankr.com/avalanche"
+      },
+      {
+        "url": "https://ava-mainnet.public.blastapi.io/ext/bc/C/rpc"
+      },
+      {
+        "url": "https://avalancheapi.terminet.io/ext/bc/C/rpc"
+      },
+      {
+        "url": "https://avalanche-c-chain-rpc.publicnode.com"
+      },
+      {
+        "url": "https://1rpc.io/avax/c"
+      },
+      {
+        "url": "https://avalanche.blockpi.network/v1/rpc/public"
+      },
+      {
+        "url": "https://avax-pokt.nodies.app/ext/bc/C/rpc"
+      },
+      {
+        "url": "https://avalanche.api.onfinality.io/public/ext/bc/C/rpc"
+      },
+      {
+        "url": "https://endpoints.omniatech.io/v1/avax/mainnet/public"
+      },
+      {
+        "url": "https://avax.meowrpc.com"
+      },
+      {
+        "url": "https://api.zan.top/node/v1/avax/mainnet/public/ext/bc/C/rpc"
+      },
+      {
+        "url": "https://avalanche.drpc.org"
+      },
+      {
+        "url": "https://public.stackup.sh/api/v1/node/avalanche-mainnet"
+      },
+      {
+        "url": "https://api.tatum.io/v3/blockchain/node/avax-mainnet"
+      }
+    ],
+    "59144": [
+      {
+        "url": "https://linea.blockpi.network/v1/rpc/public"
+      },
+      {
+        "url": "https://1rpc.io/linea"
+      },
+      {
+        "url": "https://linea.drpc.org"
+      },
+      {
+        "url": "https://linea.decubate.com"
+      }
+    ],
+    "80001": [
+      {
+        "url": "https://rpc-mumbai.maticvigil.com"
+      },
+      {
+        "url": "https://endpoints.omniatech.io/v1/matic/mumbai/public"
+      },
+      {
+        "url": "https://rpc.ankr.com/polygon_mumbai"
+      },
+      {
+        "url": "https://polygontestapi.terminet.io/rpc"
+      },
+      {
+        "url": "https://polygon-testnet.public.blastapi.io"
+      },
+      {
+        "url": "https://polygon-mumbai.g.alchemy.com/v2/demo"
+      },
+      {
+        "url": "https://polygon-mumbai-bor-rpc.publicnode.com"
+      },
+      {
+        "url": "https://polygon-mumbai-pokt.nodies.app"
+      },
+      {
+        "url": "https://polygon-mumbai.gateway.tenderly.co"
+      },
+      {
+        "url": "https://gateway.tenderly.co/public/polygon-mumbai"
+      },
+      {
+        "url": "https://api.zan.top/node/v1/polygon/mumbai/public"
+      },
+      {
+        "url": "https://polygon-mumbai.api.onfinality.io/public"
+      },
+      {
+        "url": "https://public.stackup.sh/api/v1/node/polygon-mumbai"
+      }
+    ],
+    "81457": [
+      {
+        "url": "https://rpc.blast.io"
+      },
+      {
+        "url": "https://blast.din.dev/rpc"
+      },
+      {
+        "url": "https://blastl2-mainnet.public.blastapi.io"
+      },
+      {
+        "url": "https://blast.blockpi.network/v1/rpc/public"
+      },
+      {
+        "url": "https://blast.blockpi.network/v1/rpc/public"
+      },
+      {
+        "url": "https://rpc.ankr.com/blast"
+      },
+      {
+        "url": "https://blast.gasswap.org"
+      }
+    ],
+    "84531": [
+      {
+        "url": "https://base-goerli.diamondswap.org/rpc"
+      },
+      {
+        "url": "https://base-goerli.public.blastapi.io"
+      },
+      {
+        "url": "https://1rpc.io/base-goerli"
+      },
+      {
+        "url": "https://base-goerli.gateway.tenderly.co"
+      },
+      {
+        "url": "https://gateway.tenderly.co/public/base-goerli"
+      },
+      {
+        "url": "https://base-goerli-rpc.publicnode.com"
+      },
+      {
+        "url": "https://endpoints.omniatech.io/v1/base/goerli/public"
+      }
+    ],
+    "420420": [
+      {
+        "url": "https://mainnet.kekchain.com"
+      },
+      {
+        "url": "https://rpc2.kekchain.com"
+      },
+      {
+        "url": "https://kek.interchained.org"
+      },
+      {
+        "url": "https://kekchain.interchained.org"
+      }
+    ],
+    "421613": [
+      {
+        "url": "https://endpoints.omniatech.io/v1/arbitrum/goerli/public"
+      },
+      {
+        "url": "https://arb-goerli.g.alchemy.com/v2/demo"
+      },
+      {
+        "url": "https://arbitrum-goerli.public.blastapi.io"
+      },
+      {
+        "url": "https://rpc.goerli.arbitrum.gateway.fm"
+      },
+      {
+        "url": "https://arbitrum-goerli-rpc.publicnode.com"
+      },
+      {
+        "url": "https://api.zan.top/node/v1/arb/goerli/public"
+      }
+    ],
+    "534351": [
+      {
+        "url": "https://scroll-sepolia.blockpi.network/v1/rpc/public"
+      },
+      {
+        "url": "https://scroll-testnet-public.unifra.io"
+      },
+      {
+        "url": "https://rpc.ankr.com/scroll_sepolia_testnet"
+      },
+      {
+        "url": "https://scroll-public.scroll-testnet.quiknode.pro/"
+      },
+      {
+        "url": "https://scroll-sepolia.chainstacklabs.com"
+      },
+      {
+        "url": "https://scroll-sepolia.drpc.org"
+      },
+      {
+        "url": "https://scroll-testnet.rpc.grove.city/v1/a7a7c8e2"
+      }
+    ],
+    "534352": [
+      {
+        "url": "https://rpc.scroll.io"
+      },
+      {
+        "url": "https://rpc-scroll.icecreamswap.com"
+      },
+      {
+        "url": "https://scroll-mainnet.public.blastapi.io/"
+      },
+      {
+        "url": "https://scroll-mainnet-public.unifra.io"
+      },
+      {
+        "url": "https://scroll.blockpi.network/v1/rpc/public"
+      },
+      {
+        "url": "https://1rpc.io/scroll"
+      },
+      {
+        "url": "https://scroll.drpc.org"
+      },
+      {
+        "url": "https://scroll-mainnet.rpc.grove.city/v1/a7a7c8e2"
+      }
+    ],
+    "11155111": [
+      {
+        "url": "https://eth-sepolia.g.alchemy.com/v2/demo"
+      },
+      {
+        "url": "https://endpoints.omniatech.io/v1/eth/sepolia/public"
+      },
+      {
+        "url": "https://ethereum-sepolia.blockpi.network/v1/rpc/public"
+      },
+      {
+        "url": "https://eth-sepolia.public.blastapi.io"
+      },
+      {
+        "url": "https://eth-sepolia-public.unifra.io"
+      },
+      {
+        "url": "https://sepolia.gateway.tenderly.co"
+      },
+      {
+        "url": "https://gateway.tenderly.co/public/sepolia"
+      },
+      {
+        "url": "https://sphinx.shardeum.org/"
+      },
+      {
+        "url": "https://dapps.shardeum.org/"
+      },
+      {
+        "url": "https://api.zan.top/node/v1/eth/sepolia/public"
+      },
+      {
+        "url": "https://rpc.notadegen.com/eth/sepolia"
+      },
+      {
+        "url": "https://ethereum-sepolia-rpc.publicnode.com"
+      },
+      {
+        "url": "https://1rpc.io/sepolia"
+      },
+      {
+        "url": "https://eth-sepolia.api.onfinality.io/public"
+      },
+      {
+        "url": "https://public.stackup.sh/api/v1/node/ethereum-sepolia"
+      },
+      {
+        "url": "https://ethereum-sepolia.rpc.subquery.network/public"
+      }
+    ],
+    "20181205": [
+      {
+        "url": "https://hz.rpc.qkiscan.cn"
+      },
+      {
+        "url": "https://rpc1.qkiscan.cn"
+      },
+      {
+        "url": "https://rpc2.qkiscan.cn"
+      },
+      {
+        "url": "https://rpc3.qkiscan.cn"
+      },
+      {
+        "url": "https://rpc1.qkiscan.io"
+      },
+      {
+        "url": "https://rpc2.qkiscan.io"
+      },
+      {
+        "url": "https://rpc3.qkiscan.io"
+      }
+    ],
+    "1313161554": [
+      {
+        "url": "https://mainnet.aurora.dev"
+      },
+      {
+        "url": "https://endpoints.omniatech.io/v1/aurora/mainnet/public"
+      },
+      {
+        "url": "https://1rpc.io/aurora"
+      },
+      {
+        "url": "https://aurora.drpc.org"
+      },
+      {
+        "url": "https://api.tatum.io/v3/blockchain/node/aurora-mainnet "
+      }
+    ],
+    "1666600000": [
+      {
+        "url": "https://api.harmony.one"
+      },
+      {
+        "url": "https://a.api.s0.t.hmny.io"
+      },
+      {
+        "url": "https://api.s0.t.hmny.io"
+      },
+      {
+        "url": "https://rpc.ankr.com/harmony"
+      },
+      {
+        "url": "https://harmony.api.onfinality.io/public"
+      },
+      {
+        "url": "https://1rpc.io/one"
+      },
+      {
+        "url": "https://hmyone-pokt.nodies.app"
+      },
+      {
+        "url": "https://endpoints.omniatech.io/v1/harmony/mainnet-0/public"
+      }
+    ]
+  }
+}

@@ -1,7 +1,6 @@
-import { getRequest } from "./utils.js";
+import { getRequest } from "../lib/utils.js";
 
 class ChainSearch extends HTMLElement {
-    searchWord = "";
     supportedChains = [];
     inputElement;
     optionsElement;

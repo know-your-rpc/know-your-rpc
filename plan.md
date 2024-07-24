@@ -22,3 +22,7 @@ Bussines cases:
 
 - base hackathon build on base or something like this, write to them - https://buildonbase.deform.cc/application/
 - https://retrofunding.optimism.io/
+
+Compare with:
+
+- https://www.comparenodes.com/performance/ethereum-mainnet-public/

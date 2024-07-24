@@ -59,7 +59,7 @@ func CreateTopRpcsQuery(serverContext *server.ServerContext) func(w http.Respons
 		binTime := to - from
 
 		queryTemplateInput := topTenErrorRateQueryTemplate{
-			From:    from,
+			From:    from + 60,
 			To:      to,
 			BinTime: binTime,
 			ChainId: chainId,
@@ -81,20 +81,27 @@ func CreateTopRpcsQuery(serverContext *server.ServerContext) func(w http.Respons
 
 		output := make([]TopTenRpcStats, 0, 100)
 
+		deDupMap := make(map[string]bool)
+
 		for queryIterator.Next() {
 			value := queryIterator.Value()
 			avgDiffFromMedian := value["avgdiff"].(float64)
 			avgRequestDuration := value["avgduration"].(float64)
+			rpcUrl := value["rpcUrl"].(string)
 
 			// we skip value of limts
 			if pie.Abs(avgDiffFromMedian) > MAX_OUT_OF_SYNC || avgRequestDuration > MAX_REQUEST_DURATION {
 				continue
 			}
 
-			fmt.Printf("processing rpcUrl=%s\n", value["rpcUrl"].(string))
+			// that solution is far from ideal, but good enough
+			if _, ok := deDupMap[rpcUrl]; ok {
+				continue
+			}
+			deDupMap[rpcUrl] = true
 
 			output = append(output, TopTenRpcStats{
-				RpcUrl:             value["rpcUrl"].(string),
+				RpcUrl:             rpcUrl,
 				ErrorRate:          value["errors"].(float64) / float64(value["all"].(int64)) * 100.0,
 				AvgDiffFromMedian:  value["avgdiff"].(float64),
 				AvgRequestDuration: value["avgduration"].(float64),
