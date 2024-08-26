@@ -2,7 +2,7 @@ import { getRequest } from "./utils.js";
 
 window.addEventListener('DOMContentLoaded', () => renderTopTable("1"));
 
-const MAX_RPC_COUNT = 8;
+const MAX_RPC_COUNT = 10;
 const TABLE_BODY_ID = "top_table_body";
 
 
@@ -21,7 +21,7 @@ export async function renderTopTable(chainId) {
 
     console.log({ topRpcResponse })
 
-    const rows = topRpcResponse.slice(0, MAX_RPC_COUNT).reverse().map(tr).join("");
+    const rows = topRpcResponse.slice(0, MAX_RPC_COUNT).map(tr).join("");
 
     // @ts-ignore
     window.document.getElementById(TABLE_BODY_ID).innerHTML = rows;

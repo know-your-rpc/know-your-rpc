@@ -4,6 +4,8 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"koonopek/know_your_rpc/common/types"
+	"koonopek/know_your_rpc/server/server"
 	"net/http"
 	"net/url"
 	"strconv"
@@ -140,4 +142,19 @@ func ParseBasicQueryParams(queryParams url.Values, w http.ResponseWriter) (int, 
 	fmt.Printf("binTime=%d \n", binTime)
 
 	return from, to, binTime, chainId, false
+}
+
+func GetAuthorizedRpcUrls(r *http.Request, w http.ResponseWriter, chainId string) ([]types.RpcInfo, bool) {
+	userAddress, shouldReturn := GetAuthorizedBucketKey(r, w)
+	if shouldReturn {
+		return nil, true
+	}
+	rpcUrls, err := server.ReadRpcUrlsForUser(userAddress, chainId)
+
+	if err != nil {
+		fmt.Printf("failed to read rpc urls for user userAddress=%s chainId=%s error=%s\n", userAddress, chainId, err.Error())
+		w.WriteHeader(http.StatusInternalServerError)
+		return nil, true
+	}
+	return rpcUrls, false
 }

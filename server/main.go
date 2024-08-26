@@ -2,10 +2,10 @@ package main
 
 import (
 	"fmt"
+	"koonopek/know_your_rpc/common/influx"
+	"koonopek/know_your_rpc/common/utils"
 	"koonopek/know_your_rpc/server/queries"
 	"koonopek/know_your_rpc/server/server"
-	"koonopek/know_your_rpc/writer/influx"
-	"koonopek/know_your_rpc/writer/utils"
 	"net/http"
 )
 
@@ -31,6 +31,10 @@ func main() {
 	handler.HandleFunc("/api/stats/top-rpcs", queries.CreateTopRpcsQuery(serverContext))
 
 	handler.HandleFunc("/api/supported-chains", queries.CreateSupportedChainsQuery(serverContext))
+
+	handler.HandleFunc("/api/custom-rpc/add", queries.CreateCustomRpcAddQuery(serverContext))
+
+	handler.HandleFunc("/api/custom-rpc/remove", queries.CreateCustomRpcRemoveQuery(serverContext))
 
 	handler.Handle("/", http.FileServer(http.Dir("static")))
 

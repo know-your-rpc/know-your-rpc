@@ -27,7 +27,7 @@ export async function authorize() {
     localStorage.setItem(AUTH_SIGNATURE, JSON.stringify({ authorizationSignature, message, validUntil }))
 }
 
-async function requireAuthorization() {
+export async function requireAuthorization() {
     if (!localStorage.getItem(AUTH_SIGNATURE)) {
         await authorize()
     }

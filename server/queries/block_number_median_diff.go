@@ -3,12 +3,15 @@ package queries
 import (
 	"context"
 	"fmt"
+	"koonopek/know_your_rpc/common/types"
 	"koonopek/know_your_rpc/server/server"
 	"math"
 	"net/http"
+	"strings"
 	"text/template"
 
 	"github.com/InfluxCommunity/influxdb3-go/influxdb3"
+	"github.com/elliotchance/pie/v2"
 )
 
 type blockNumberMedianQueryTemplate struct {
@@ -16,6 +19,7 @@ type blockNumberMedianQueryTemplate struct {
 	To      int    `validate:"required,number,gt=0"`
 	BinTime int    `validate:"required,number,lt=10000,gt=0"`
 	ChainId string `validate:"required,number,gt=0"`
+	RpcUrls string `validate:"required"`
 }
 
 func CreateBlockNumberDiffFromMedianQuery(serverContext *server.ServerContext) func(w http.ResponseWriter, r *http.Request) {
@@ -29,6 +33,8 @@ func CreateBlockNumberDiffFromMedianQuery(serverContext *server.ServerContext) f
 				"isError" = 'false'
 				AND
 				"chainId" = '{{.ChainId}}'
+				AND
+				"rpcUrl" IN ({{.RpcUrls}})
 				GROUP BY 1, "rpcUrl"
 				ORDER BY 1 DESC;`)
 
@@ -49,17 +55,24 @@ func CreateBlockNumberDiffFromMedianQuery(serverContext *server.ServerContext) f
 			return
 		}
 
+		rpcUrls, shouldReturn := GetAuthorizedRpcUrls(r, w, chainId)
+		if shouldReturn {
+			return
+		}
+
 		queryTemplateInput := blockNumberMedianQueryTemplate{
 			From:    from,
 			To:      to,
 			BinTime: binTime,
 			ChainId: chainId,
+			RpcUrls: strings.Join(pie.Map(rpcUrls, func(info types.RpcInfo) string { return fmt.Sprintf("'%s'", info.URL) }), ","),
 		}
 
 		queryBuffer, err := PopulateQueryTemplate(queryTemplateInput, queryTemplate)
 		if err != nil {
 			fmt.Printf("%s", err.Error())
 			w.WriteHeader(http.StatusBadRequest)
+			return
 		}
 
 		queryIterator, err := serverContext.InfluxClient.Query(context.Background(), queryBuffer.String(), influxdb3.WithDatabase("stats-block-number"))
@@ -69,6 +82,7 @@ func CreateBlockNumberDiffFromMedianQuery(serverContext *server.ServerContext) f
 			w.WriteHeader(http.StatusInternalServerError)
 			return
 		}
+
 		output := CollectPerRpcResponseToChartData(queryIterator, func(value map[string]interface{}) float64 {
 			y := value["minmedian"].(float64)
 			if math.Abs(value["maxmedian"].(float64)) > math.Abs(value["minmedian"].(float64)) {

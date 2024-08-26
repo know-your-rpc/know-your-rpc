@@ -3,7 +3,7 @@ package influx
 import (
 	"context"
 	"fmt"
-	"koonopek/know_your_rpc/writer/utils"
+	"koonopek/know_your_rpc/common/utils"
 
 	"github.com/InfluxCommunity/influxdb3-go/influxdb3"
 )

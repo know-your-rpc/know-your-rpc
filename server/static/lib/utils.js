@@ -10,7 +10,22 @@ export async function getRequest(url, queryParams) {
         return await response.json();
     }
 
-    throw new Error(`Request failed statusCode=${response.status}`)
+    throw new Error(`Request failed url=${url} statusCode=${response.status}`)
+}
+
+export async function postRequest(url, body) {
+    const authorization = getAuthorization();
+
+    console.log(authorization);
+
+    // @ts-ignore
+    const response = await fetch(url, { method: "POST", headers: { Authorization: authorization }, body: JSON.stringify(body) })
+
+    if (response.ok) {
+        return
+    }
+
+    throw new Error(`Request failed url=${url} statusCode=${response.status}`)
 }
 
 function getAuthorization() {

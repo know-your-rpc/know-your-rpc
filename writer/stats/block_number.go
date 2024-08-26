@@ -3,8 +3,8 @@ package stats
 import (
 	"encoding/json"
 	"fmt"
+	"koonopek/know_your_rpc/common/types"
 	"koonopek/know_your_rpc/writer/rpc"
-	"koonopek/know_your_rpc/writer/utils"
 	"math/big"
 	"strconv"
 	"time"
@@ -59,7 +59,7 @@ func (blockNumberBenchmark PerChainBlockNumberBenchmarks) ToPoints() []*influxdb
 	return points
 }
 
-func BenchmarkBlockNumber(rpcs []utils.RpcInfo, chainId string) PerChainBlockNumberBenchmarks {
+func BenchmarkBlockNumber(rpcs []types.RpcInfo, chainId string) PerChainBlockNumberBenchmarks {
 	fmt.Printf("beginning blockNumber benchmarking for %d rpcs\n", len(rpcs))
 	blockNumbersCh := make(chan PerRpcBlockNumberBenchmark, len(rpcs))
 
@@ -106,7 +106,7 @@ func benchGetBlocNumber(rpcUrl string) PerRpcBlockNumberBenchmark {
 
 	if err != nil {
 		fmt.Printf("rpcUrl=%s failed error=%s\n", rpcUrl, err)
-		return PerRpcBlockNumberBenchmark{-1, *big.NewInt(0), true, rpcUrl}
+		return PerRpcBlockNumberBenchmark{rpc.RPC_CALL_TIMEOUT.Milliseconds(), *big.NewInt(0), true, rpcUrl}
 	}
 
 	blockNumberInHex := new(string)
@@ -114,13 +114,13 @@ func benchGetBlocNumber(rpcUrl string) PerRpcBlockNumberBenchmark {
 
 	if err != nil {
 		fmt.Printf("rpcUrl=%s failed error=parsing response\n", rpcUrl)
-		return PerRpcBlockNumberBenchmark{-1, *big.NewInt(0), true, rpcUrl}
+		return PerRpcBlockNumberBenchmark{rpc.RPC_CALL_TIMEOUT.Milliseconds(), *big.NewInt(0), true, rpcUrl}
 	}
 
 	blockNumber, ok := hexToBigInt([]byte(*blockNumberInHex))
 
 	if !ok {
-		return PerRpcBlockNumberBenchmark{-1, *big.NewInt(0), true, rpcUrl}
+		return PerRpcBlockNumberBenchmark{rpc.RPC_CALL_TIMEOUT.Milliseconds(), *big.NewInt(0), true, rpcUrl}
 	}
 
 	fmt.Printf("rpcUrl=%s blockNumber=%d duration=%d\n", rpcUrl, blockNumber, result.WholeRequestDuration)

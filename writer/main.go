@@ -2,8 +2,9 @@ package main
 
 import (
 	"fmt"
+	"koonopek/know_your_rpc/common/influx"
+	"koonopek/know_your_rpc/common/types"
 	"koonopek/know_your_rpc/writer/config"
-	"koonopek/know_your_rpc/writer/influx"
 	"koonopek/know_your_rpc/writer/stats"
 	"koonopek/know_your_rpc/writer/utils"
 	"time"
@@ -47,7 +48,7 @@ func main() {
 	}, INTERVAL)
 }
 
-func collectBlockNumberStats(influxClient *influxdb3.Client, rpcsMap *utils.RpcInfoMap, chainId string) {
+func collectBlockNumberStats(influxClient *influxdb3.Client, rpcsMap *types.RpcInfoMap, chainId string) {
 	rpcs, exists := (*rpcsMap)[chainId]
 
 	if !exists {

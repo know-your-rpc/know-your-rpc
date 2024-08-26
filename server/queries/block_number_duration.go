@@ -3,8 +3,8 @@ package queries
 import (
 	"context"
 	"fmt"
+	"koonopek/know_your_rpc/common/types"
 	"koonopek/know_your_rpc/server/server"
-	"koonopek/know_your_rpc/writer/utils"
 	"math"
 	"net/http"
 	"strings"
@@ -44,10 +44,7 @@ func CreateBlockNumberDurationQuery(serverContext *server.ServerContext) func(w 
 	if err != nil {
 		panic("failed to create query template")
 	}
-	// authorize
-	// get bucket and use WHERE rpcUrl in ""
 	// on writer get all buckets and merge duplicates on chain id
-
 	return func(w http.ResponseWriter, r *http.Request) {
 		if r.Method != "GET" {
 			w.WriteHeader(http.StatusBadRequest)
@@ -61,15 +58,8 @@ func CreateBlockNumberDurationQuery(serverContext *server.ServerContext) func(w 
 			return
 		}
 
-		userAddress, shouldReturn := getAuthorizedBucketKey(r, w)
+		rpcUrls, shouldReturn := GetAuthorizedRpcUrls(r, w, chainId)
 		if shouldReturn {
-			return
-		}
-		rpcUrls, err := server.ReadRpcUrlsForUser(userAddress, chainId)
-
-		if err != nil {
-			fmt.Printf("failed to read rpc urls for user userAddress=%s chainId=%s error=%s\n", userAddress, chainId, err.Error())
-			w.WriteHeader(http.StatusInternalServerError)
 			return
 		}
 
@@ -80,7 +70,7 @@ func CreateBlockNumberDurationQuery(serverContext *server.ServerContext) func(w 
 			To:      to,
 			BinTime: binTime,
 			ChainId: chainId,
-			RpcUrls: strings.Join(pie.Map(rpcUrls, func(info utils.RpcInfo) string { return fmt.Sprintf("'%s'", info.URL) }), ","),
+			RpcUrls: strings.Join(pie.Map(rpcUrls, func(info types.RpcInfo) string { return fmt.Sprintf("'%s'", info.URL) }), ","),
 		}
 
 		queryBuffer, err := PopulateQueryTemplate(queryTemplateInput, queryTemplate)
@@ -112,26 +102,4 @@ func CreateBlockNumberDurationQuery(serverContext *server.ServerContext) func(w 
 
 		WriteHttpResponse(output, w)
 	}
-}
-
-func getAuthorizedBucketKey(r *http.Request, w http.ResponseWriter) (string, bool) {
-	if r.Header.Get("Authorization") != "" {
-		splitted := strings.Split(r.Header.Get("Authorization"), "#")
-		if len(splitted) != 2 {
-			fmt.Printf("wrong formatted authorization header authorization_header=%s", r.Header.Get("Authorization"))
-			w.WriteHeader(http.StatusBadRequest)
-			return "", true
-		}
-		signature := splitted[0]
-		msg := splitted[1]
-		signer, err := ExtractSigner(signature, msg)
-		if err != nil {
-			fmt.Printf("failed to extract signer")
-			w.WriteHeader(http.StatusUnauthorized)
-			return "", true
-		}
-
-		return signer, false
-	}
-	return "public", false
 }

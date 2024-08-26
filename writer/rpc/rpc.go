@@ -9,6 +9,8 @@ import (
 	"time"
 )
 
+const RPC_CALL_TIMEOUT = 2 * time.Second
+
 type RpcCallRequest struct {
 	Jsonrpc string   `json:"jsonrpc"`
 	Method  string   `json:"method"`
@@ -37,7 +39,7 @@ type rpcCallResponseEnvelope struct {
 }
 
 var rpcHttpClient = http.Client{
-	Timeout: 2 * time.Second,
+	Timeout: RPC_CALL_TIMEOUT,
 }
 
 // TODO: use better tracking with http request context
