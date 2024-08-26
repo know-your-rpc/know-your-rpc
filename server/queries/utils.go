@@ -31,7 +31,7 @@ type ChartJsDataSet struct {
 
 type RpcUrlToChartJsPoints = map[string][]ChartJsPoint
 
-const DEFAULT_INTERVAL = 48 * time.Hour
+const DEFAULT_INTERVAL = 24 * time.Hour
 const MAX_POINTS = 400
 const POINTS_PER_SECOND float64 = 0.36
 
@@ -139,7 +139,6 @@ func ParseBasicQueryParams(queryParams url.Values, w http.ResponseWriter) (int, 
 	chainId := GetQueryParam(queryParams, "chainId", "1")
 
 	binTime := int(CapValue(1.0/(MAX_POINTS/period*POINTS_PER_SECOND), 10, 100000))
-	fmt.Printf("binTime=%d \n", binTime)
 
 	return from, to, binTime, chainId, false
 }

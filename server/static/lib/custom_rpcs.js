@@ -70,7 +70,7 @@ function tr({ avgDiffFromMedian, avgRequestDuration, errorRate, rpcUrl }, index)
 
 
 export async function renderCustomRpcTable(chainId) {
-    const topRpcResponse = await getRequest("/api/stats/top-rpcs", { chainId, all: true, to: Math.floor(Date.now() / 1000) - 30, from: Math.floor(Date.now() / 1000) - 130 });
+    const topRpcResponse = await getRequest("/api/stats/top-rpcs", { chainId, all: true });
 
     const rows = lastTr() + topRpcResponse.map(tr).join("");
 

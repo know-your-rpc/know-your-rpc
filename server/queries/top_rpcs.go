@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"koonopek/know_your_rpc/common/types"
 	"koonopek/know_your_rpc/server/server"
+	"math"
 	"net/http"
 	"strings"
 	"text/template"
@@ -133,18 +134,15 @@ func CreateTopRpcsQuery(serverContext *server.ServerContext) func(w http.Respons
 		}
 
 		sortedResult := pie.SortUsing(output, func(a TopTenRpcStats, b TopTenRpcStats) bool {
-			if a.ErrorRate-b.ErrorRate >= 0.01 {
-				return false
+			if math.Abs(a.ErrorRate-b.ErrorRate) > 0.01 {
+				return a.ErrorRate < b.ErrorRate
 			}
 
-			if a.AvgRequestDuration-b.AvgRequestDuration >= 5 {
-				return false
+			if math.Abs(a.AvgDiffFromMedian-b.AvgDiffFromMedian) > 0.5 {
+				return a.AvgDiffFromMedian < b.AvgDiffFromMedian
 			}
 
-			if b.AvgDiffFromMedian-a.AvgDiffFromMedian >= 0.5 {
-				return false
-			}
-			return true
+			return a.AvgRequestDuration < b.AvgRequestDuration
 		})
 
 		WriteHttpResponse(sortedResult, w)
