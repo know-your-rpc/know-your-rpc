@@ -91,13 +91,21 @@ func BenchmarkBlockNumber(rpcs []types.RpcInfo, chainId string) PerChainBlockNum
 	fmt.Printf("finished blockNumber benchmarking median=%d max=%d min=%d stdDev=%.3f\n", median, max, min, stdDev)
 
 	return PerChainBlockNumberBenchmarks{
-		PerRpcBlockNumberBenchmarks: blockNumberBenchmarks,
-		Median:                      median,
-		Max:                         max,
-		Min:                         min,
-		Stddev:                      stdDev,
-		ChainId:                     chainId,
-		StartTimestamp:              startTimestamp,
+		// replace 0 block number with min block number to avoid big numbers in stats
+		PerRpcBlockNumberBenchmarks: pie.Map(blockNumberBenchmarks, func(b PerRpcBlockNumberBenchmark) PerRpcBlockNumberBenchmark {
+			return PerRpcBlockNumberBenchmark{
+				WholeRequestDuration: b.WholeRequestDuration,
+				BlockNumber:          setMinIfZero(b.BlockNumber, min),
+				IsError:              b.IsError,
+				RpcUrl:               b.RpcUrl,
+			}
+		}),
+		Median:         median,
+		Max:            max,
+		Min:            min,
+		Stddev:         stdDev,
+		ChainId:        chainId,
+		StartTimestamp: startTimestamp,
 	}
 }
 
@@ -143,4 +151,11 @@ func hexToBigInt(with0x []byte) (*big.Int, bool) {
 	i := new(big.Int)
 
 	return i.SetString(string(hexWithout0x), 16)
+}
+
+func setMinIfZero(value big.Int, min int64) big.Int {
+	if value.Cmp(big.NewInt(0)) == 0 {
+		return *big.NewInt(min)
+	}
+	return value
 }

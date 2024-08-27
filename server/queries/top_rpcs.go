@@ -139,7 +139,7 @@ func CreateTopRpcsQuery(serverContext *server.ServerContext) func(w http.Respons
 			}
 
 			if math.Abs(a.AvgDiffFromMedian-b.AvgDiffFromMedian) > 0.5 {
-				return a.AvgDiffFromMedian < b.AvgDiffFromMedian
+				return a.AvgDiffFromMedian > b.AvgDiffFromMedian
 			}
 
 			return a.AvgRequestDuration < b.AvgRequestDuration
