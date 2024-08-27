@@ -39,3 +39,7 @@ function getAuthorization() {
 
     return `${authorizationSignature}#${message}`;
 }
+
+export function getLatChainId() {
+    return localStorage.getItem("last_chain_id") || "1";
+}

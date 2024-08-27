@@ -42,6 +42,7 @@ class ChainSearch extends HTMLElement {
             // @ts-ignore
             window.document.getElementById("search-chain-output").innerText = `${chainName} (${chainId})`;
             window.dispatchEvent(new CustomEvent("_update_chain_id", { detail: { chainId } }));
+            localStorage.setItem("last_chain_id", chainId);
             this.inputElement?.removeAttribute("open")
         } else {
             this.inputElement?.setAttribute("open", "open")

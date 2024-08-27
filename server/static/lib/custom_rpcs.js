@@ -1,5 +1,5 @@
 import { requireAuthorization } from "./auth.js";
-import { getRequest, postRequest } from "./utils.js";
+import { getLatChainId, getRequest, postRequest } from "./utils.js";
 
 window.addEventListener('DOMContentLoaded', async () => {
     try {
@@ -7,7 +7,7 @@ window.addEventListener('DOMContentLoaded', async () => {
     } catch (e) {
         window.location.href = "/";
     }
-    renderCustomRpcTable("1");
+    renderCustomRpcTable(getLatChainId());
 });
 
 const TABLE_BODY_ID = "custom_rpcs_table_body";
@@ -69,8 +69,8 @@ function tr({ avgDiffFromMedian, avgRequestDuration, errorRate, rpcUrl }, index)
 }
 
 
-export async function renderCustomRpcTable(chainId) {
-    const topRpcResponse = await getRequest("/api/stats/top-rpcs", { chainId, all: true });
+async function renderCustomRpcTable(chainId) {
+    const topRpcResponse = await fetchTopRpcs(chainId);
 
     const rows = lastTr() + topRpcResponse.map(tr).join("");
 
@@ -84,6 +84,15 @@ export async function renderCustomRpcTable(chainId) {
         // @ts-ignore
         button.addEventListener('click', () => removeCustomRpc(button.dataset.rpcUrl, chainId));
     });
+}
+
+async function fetchTopRpcs(chainId) {
+    try {
+        return await getRequest("/api/stats/top-rpcs", { chainId, all: true });
+    } catch (e) {
+        console.error("Failed to fetch top RPCs", e);
+        return [];
+    }
 }
 
 // @ts-ignore

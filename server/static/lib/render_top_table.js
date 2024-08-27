@@ -1,9 +1,10 @@
-import { getRequest } from "./utils.js";
+import { getLatChainId, getRequest } from "./utils.js";
 
-window.addEventListener('DOMContentLoaded', () => renderTopTable("1"));
+window.addEventListener('DOMContentLoaded', () => renderTopTable(getLatChainId()));
 
 const MAX_RPC_COUNT = 10;
 const TABLE_BODY_ID = "top_table_body";
+
 
 
 function tr({ avgDiffFromMedian, avgRequestDuration, errorRate, rpcUrl }, index) {
