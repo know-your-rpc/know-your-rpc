@@ -1,5 +1,5 @@
 //@ts-nocheck
-import { getLatChainId, getRequest } from '../lib/utils.js';
+import { getLastChainId, getRequest } from '../lib/utils.js';
 
 const autocolors = window['chartjs-plugin-autocolors'];
 Chart.register(autocolors);
@@ -39,7 +39,7 @@ function getDefaultTimeline() {
 }
 
 class TimeSeriesChart extends HTMLElement {
-    chainId = getLatChainId();
+    chainId = getLastChainId();
     currentStartX = getDefaultTimeline().start;
     currentEndX = getDefaultTimeline().end;
 

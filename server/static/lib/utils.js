@@ -40,6 +40,6 @@ function getAuthorization() {
     return `${authorizationSignature}#${message}`;
 }
 
-export function getLatChainId() {
+export function getLastChainId() {
     return localStorage.getItem("last_chain_id") || "1";
 }

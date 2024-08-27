@@ -1,6 +1,6 @@
-import { getLatChainId, getRequest } from "./utils.js";
+import { getLastChainId, getRequest } from "./utils.js";
 
-window.addEventListener('DOMContentLoaded', () => renderTopTable(getLatChainId()));
+window.addEventListener('DOMContentLoaded', () => renderTopTable(getLastChainId()));
 
 const MAX_RPC_COUNT = 10;
 const TABLE_BODY_ID = "top_table_body";

@@ -1,5 +1,5 @@
 import { requireAuthorization } from "./auth.js";
-import { getLatChainId, getRequest, postRequest } from "./utils.js";
+import { getLastChainId, getRequest, postRequest } from "./utils.js";
 
 window.addEventListener('DOMContentLoaded', async () => {
     try {
@@ -7,20 +7,16 @@ window.addEventListener('DOMContentLoaded', async () => {
     } catch (e) {
         window.location.href = "/";
     }
-    renderCustomRpcTable(getLatChainId());
+    renderCustomRpcTable(getLastChainId());
 });
 
 const TABLE_BODY_ID = "custom_rpcs_table_body";
 
 function lastTr() {
     return `<tr>
-                <td colspan="5" scope="row"><input type="text" placeholder="Add new custom RPC URL" id="custom-rpc-input"></td>
+                <td colspan="5" scope="row"></td>
                 <td>
-                    <button class="small-button" id="custom-rpc-btn">
-                        <svg width="20" height="20" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
-                        </svg>
-                    </button>
+                    
                 </td>
             </tr>`;
 }
@@ -49,6 +45,15 @@ async function removeCustomRpc(rpcUrl, currentChainId) {
     }
 }
 
+async function removeAllCustomRpcs(chainId) {
+    try {
+        await postRequest("/api/custom-rpc/remove-all", { chainId, rpcUrl: "https://mock.com" });
+        console.log('All custom RPCs removed successfully');
+        renderCustomRpcTable(chainId);
+    } catch (error) {
+        console.error('Failed to remove all custom RPCs:', error);
+    }
+}
 
 function tr({ avgDiffFromMedian, avgRequestDuration, errorRate, rpcUrl }, index) {
     return `<tr>
@@ -79,6 +84,10 @@ async function renderCustomRpcTable(chainId) {
     table.innerHTML = rows;
     // @ts-ignore
     document.getElementById('custom-rpc-btn').addEventListener('click', () => saveCustomRpc(chainId));
+
+    //@ts-ignore
+    document.getElementById('remove-all-custom-rpcs-btn').addEventListener('click', () => removeAllCustomRpcs(chainId));
+
     //@ts-ignore
     document.querySelectorAll('[data-rpc-url]').forEach(button => {
         // @ts-ignore
