@@ -27,13 +27,16 @@ func main() {
 		fmt.Printf("error while closing influx client error=%s", err.Error())
 	}()
 
-	rpcInfoMap, err := utils.ReadRpcInfo()
-
-	if err != nil {
-		panic(err.Error())
-	}
+	var rpcInfoMap *types.RpcInfoMap
 
 	utils.SetInterval(func() {
+		tempRpcInfoMap, err := utils.ReadRpcInfo()
+		if err != nil {
+			fmt.Printf("failed to read rpc info: %s", err.Error())
+		}
+
+		rpcInfoMap = tempRpcInfoMap
+
 		startTime := time.Now()
 
 		for _, chain := range config.SUPPORTED_CHAINS {
