@@ -31,7 +31,7 @@ type ChartJsDataSet struct {
 
 type RpcUrlToChartJsPoints = map[string][]ChartJsPoint
 
-const DEFAULT_INTERVAL = 24 * time.Hour
+const DEFAULT_INTERVAL = 12 * time.Hour
 const MAX_POINTS = 400
 const POINTS_PER_SECOND float64 = 0.36
 
