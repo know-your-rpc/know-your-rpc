@@ -33,7 +33,7 @@ type RpcUrlToChartJsPoints = map[string][]ChartJsPoint
 
 const DEFAULT_INTERVAL = 12 * time.Hour
 const MAX_POINTS = 400
-const POINTS_PER_SECOND float64 = 0.36
+const POINTS_PER_SECOND float64 = 0.1
 
 var Validator = validator.New(validator.WithRequiredStructEnabled())
 
@@ -139,6 +139,8 @@ func ParseBasicQueryParams(queryParams url.Values, w http.ResponseWriter) (int, 
 	chainId := GetQueryParam(queryParams, "chainId", "1")
 
 	binTime := int(CapValue(1.0/(MAX_POINTS/period*POINTS_PER_SECOND), 10, 100000))
+
+	fmt.Printf("from=%d to=%d period=%f binTime=%d\n", from, to, period, binTime)
 
 	return from, to, binTime, chainId, false
 }
