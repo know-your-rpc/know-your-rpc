@@ -12,14 +12,6 @@ window.addEventListener('DOMContentLoaded', async () => {
 
 const TABLE_BODY_ID = "custom_rpcs_table_body";
 
-function lastTr() {
-    return `<tr>
-                <td colspan="5" scope="row"></td>
-                <td>
-                    
-                </td>
-            </tr>`;
-}
 
 async function saveCustomRpc(currentChainId) {
     // @ts-ignore
@@ -77,7 +69,7 @@ function tr({ avgDiffFromMedian, avgRequestDuration, errorRate, rpcUrl }, index)
 async function renderCustomRpcTable(chainId) {
     const topRpcResponse = await fetchTopRpcs(chainId);
 
-    const rows = lastTr() + topRpcResponse.map(tr).join("");
+    const rows = topRpcResponse.map(tr).join("");
 
     const table = window.document.getElementById(TABLE_BODY_ID);
     // @ts-ignore

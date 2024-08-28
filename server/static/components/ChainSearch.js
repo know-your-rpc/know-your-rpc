@@ -10,7 +10,7 @@ class ChainSearch extends HTMLElement {
         this.container = document.createElement("container");
         this.container.innerHTML = `
 <details class="dropdown" name="search-chain" id="search-chain" placeholder="Chain ID or name"
-            style="margin-bottom: 5em; margin-top: 5em;" aria-label="Chain ID or name" >
+            style="margin-top: 5em;" aria-label="Chain ID or name" >
   <summary id="search-chain-output">Chain id or name eg. Ethereum</summary>
   <ul id="search-chain-options">
   </ul>

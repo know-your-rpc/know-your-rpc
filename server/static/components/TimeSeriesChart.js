@@ -23,11 +23,6 @@ function createChart(canvasId, options, datasets) {
     return chart;
 }
 
-function roundToFullHours(timestamp) {
-    // TODO: maybe use something else then ceil
-    return Math.ceil(timestamp / 3600) * 3600;
-}
-
 function now() {
     return Math.round(Date.now() / 1000)
 }
@@ -35,7 +30,7 @@ function now() {
 const DEFAULT_PERIOD_OFFSET = 12 * 3600;
 
 function getDefaultTimeline() {
-    return { start: roundToFullHours(now() - DEFAULT_PERIOD_OFFSET), end: now() };
+    return { start: now() - DEFAULT_PERIOD_OFFSET, end: now() };
 }
 
 class TimeSeriesChart extends HTMLElement {
@@ -89,6 +84,7 @@ class TimeSeriesChart extends HTMLElement {
     }
 
     async fetchDataSets() {
+        console.log({ from: this.currentStartX, to: this.currentEndX, chainId: this.chainId, period: this.currentEndX - this.currentStartX })
         return await fetchDataSet({ url: this.dataset.url, from: this.currentStartX, to: this.currentEndX, chainId: this.chainId });
     }
 
