@@ -27,7 +27,7 @@ function now() {
     return Math.round(Date.now() / 1000)
 }
 
-const DEFAULT_PERIOD_OFFSET = 12 * 3600;
+const DEFAULT_PERIOD_OFFSET = 48 * 3600;
 
 function getDefaultTimeline() {
     return { start: now() - DEFAULT_PERIOD_OFFSET, end: now() };
