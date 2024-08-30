@@ -18,8 +18,8 @@ class TimeRangeSelector extends HTMLElement {
                 }
             </style>
             <fieldset role="group" style="margin-bottom: 5rem" >
-            <button class="time-range-button" data-range="24h">30 min</button>
-                <button class="time-range-button" data-range="24h">12 h</button>
+                <button class="time-range-button" data-range="30m">30 min</button>
+                <button class="time-range-button" data-range="48h">48 h</button>
                 <button class="time-range-button" data-range="7d">7 days</button>
                 <button class="time-range-button" data-range="1m">1 month</button>
             </fieldset>
@@ -44,7 +44,7 @@ class TimeRangeSelector extends HTMLElement {
     }
 
     connectedCallback() {
-        const defaultButton = this.container.querySelector('[data-range="24h"]');
+        const defaultButton = this.container.querySelector('[data-range="48h"]');
         if (defaultButton) {
             defaultButton.click();
         }
