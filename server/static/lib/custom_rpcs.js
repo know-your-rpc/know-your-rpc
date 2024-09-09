@@ -1,13 +1,15 @@
 import { requireAuthorization } from "./auth.js";
-import { getLastChainId, getRequest, postRequest } from "./utils.js";
+import { dateRangeToTimestamp, getLastChainId, getLastTimeRangeStr, getRequest, postRequest } from "./utils.js";
 
 window.addEventListener('DOMContentLoaded', async () => {
     try {
         await requireAuthorization();
     } catch (e) {
+        alert("You have to be logged in!")
         window.location.href = "/";
     }
-    renderCustomRpcTable(getLastChainId());
+    const [from, to] = dateRangeToTimestamp(getLastTimeRangeStr());
+    renderCustomRpcTable(getLastChainId(), from, to);
 });
 
 const TABLE_BODY_ID = "custom_rpcs_table_body";
@@ -66,8 +68,8 @@ function tr({ avgDiffFromMedian, avgRequestDuration, errorRate, rpcUrl }, index)
 }
 
 
-async function renderCustomRpcTable(chainId) {
-    const topRpcResponse = await fetchTopRpcs(chainId);
+async function renderCustomRpcTable(chainId, from, to) {
+    const topRpcResponse = await fetchTopRpcs(chainId, from, to);
 
     const rows = topRpcResponse.map(tr).join("");
 
@@ -87,9 +89,9 @@ async function renderCustomRpcTable(chainId) {
     });
 }
 
-async function fetchTopRpcs(chainId) {
+async function fetchTopRpcs(chainId, from, to) {
     try {
-        return await getRequest("/api/stats/top-rpcs", { chainId, all: true });
+        return await getRequest("/api/stats/top-rpcs", { chainId, all: true, from, to });
     } catch (e) {
         console.error("Failed to fetch top RPCs", e);
         return [];
@@ -98,5 +100,12 @@ async function fetchTopRpcs(chainId) {
 
 // @ts-ignore
 window.addEventListener("_update_chain_id", ({ detail: { chainId } }) => {
-    renderCustomRpcTable(chainId);
+    const [from, to] = dateRangeToTimestamp(getLastTimeRangeStr());
+    renderCustomRpcTable(chainId, from, to);
+});
+
+// @ts-ignore
+window.addEventListener("_update_time_range", ({ detail: { range } }) => {
+    const [from, to] = dateRangeToTimestamp(range);
+    renderCustomRpcTable(getLastChainId(), from, to);
 });

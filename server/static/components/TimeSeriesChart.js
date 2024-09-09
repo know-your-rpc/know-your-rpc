@@ -1,5 +1,5 @@
 //@ts-nocheck
-import { getLastChainId, getRequest } from '../lib/utils.js';
+import { getLastChainId, getLastTimeRangeStr, getRequest, dateRangeToTimestamp } from '../lib/utils.js';
 
 const autocolors = window['chartjs-plugin-autocolors'];
 Chart.register(autocolors);
@@ -27,16 +27,10 @@ function now() {
     return Math.round(Date.now() / 1000)
 }
 
-const DEFAULT_PERIOD_OFFSET = 48 * 3600;
-
-function getDefaultTimeline() {
-    return { start: now() - DEFAULT_PERIOD_OFFSET, end: now() };
-}
-
 class TimeSeriesChart extends HTMLElement {
     chainId = getLastChainId();
-    currentStartX = getDefaultTimeline().start;
-    currentEndX = getDefaultTimeline().end;
+    currentStartX = dateRangeToTimestamp(getLastTimeRangeStr())[0];
+    currentEndX = dateRangeToTimestamp(getLastTimeRangeStr())[1];
 
     constructor() {
         super();
@@ -81,10 +75,17 @@ class TimeSeriesChart extends HTMLElement {
             this.chainId = chainId;
             this.connectedCallback()
         });
+        window.addEventListener("_update_time_range", ({ detail: { range } }) => {
+            this.chart.destroy();
+            const [start, end] = dateRangeToTimestamp(range);
+            this.currentStartX = start;
+            this.currentEndX = end;
+            this.connectedCallback()
+        });
     }
 
     async fetchDataSets() {
-        console.log({ from: this.currentStartX, to: this.currentEndX, chainId: this.chainId, period: this.currentEndX - this.currentStartX })
+        console.log({ from: this.currentStartX, to: this.currentEndX, chainId: this.chainId, period: (this.currentEndX - this.currentStartX) / 1000 })
         return await fetchDataSet({ url: this.dataset.url, from: this.currentStartX, to: this.currentEndX, chainId: this.chainId });
     }
 

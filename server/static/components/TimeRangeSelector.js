@@ -1,3 +1,5 @@
+import { getLastTimeRangeStr } from "../lib/utils.js";
+
 class TimeRangeSelector extends HTMLElement {
     constructor() {
         super();
@@ -18,10 +20,10 @@ class TimeRangeSelector extends HTMLElement {
                 }
             </style>
             <fieldset role="group" style="margin-bottom: 5rem" >
-                <button class="time-range-button" data-range="30m">30 min</button>
+                <button class="time-range-button" data-range="30min">30 min</button>
                 <button class="time-range-button" data-range="48h">48 h</button>
                 <button class="time-range-button" data-range="7d">7 days</button>
-                <button class="time-range-button" data-range="1m">1 month</button>
+                <button class="time-range-button" data-range="14d">14 days</button>
             </fieldset>
         `;
     }
@@ -34,21 +36,24 @@ class TimeRangeSelector extends HTMLElement {
                 button.classList.add('active');
 
                 const range = button.getAttribute('data-range');
-                this.dispatchEvent(new CustomEvent('rangeSelected', {
+                // @ts-ignore
+                localStorage.setItem("range_time", range);
+                this.dispatchEvent(new CustomEvent('_update_time_range', {
                     detail: { range },
                     bubbles: true,
                     composed: true
                 }));
+
+
             });
         });
     }
 
     connectedCallback() {
-        const defaultButton = this.container.querySelector('[data-range="48h"]');
-        if (defaultButton) {
-            defaultButton.click();
-        }
+        const defaultButton = this.container.querySelector(`[data-range="${getLastTimeRangeStr()}"]`);
+        defaultButton?.classList.add("active");
     }
 }
+
 
 window.customElements.define('time-range-selector', TimeRangeSelector);

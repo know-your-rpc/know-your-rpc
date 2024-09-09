@@ -1,13 +1,12 @@
 0. Sync defi-lama
-1. Time buttons working
+1. Paywall
 2. Cache non-zoom
-3. Paywall
-4. Create discord
-5. Publish
-6. Zoom only for paying one
-7. Alerts
+3. Create discord
+4. Publish
+5. Zoom only for paying one
+6. Alerts
 
-8. alert when rpc is failing or is desynchronizing -> telegram/discord/slack
+7. alert when rpc is failing or is desynchronizing -> telegram/discord/slack
 
 Bussines cases:
 

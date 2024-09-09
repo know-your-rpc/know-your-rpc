@@ -116,6 +116,7 @@ func CapValue(value float64, min float64, max float64) float64 {
 
 func ParseBasicQueryParams(queryParams url.Values, w http.ResponseWriter) (int, int, int, string, bool) {
 	now := time.Now().Unix()
+
 	from, err := strconv.Atoi(GetQueryParam(queryParams, "from", strconv.Itoa(int(now-int64(DEFAULT_INTERVAL.Seconds())))))
 	if err != nil {
 		fmt.Printf("failed to read from query param=from error=%s\n", err.Error())

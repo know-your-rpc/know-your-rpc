@@ -15,12 +15,12 @@ import (
 )
 
 const DEFAULT_AGGREGATION = "avg"
-const MAX_PERIOD = 3600 * 7 * 24
+const MAX_PERIOD = 3600 * 31 * 24
 
 type blockNumberDurationQueryTemplate struct {
 	From    int    `validate:"required,number,gt=0"`
 	To      int    `validate:"required,number,gt=0"`
-	BinTime int    `validate:"required,number,lt=10000,gt=0"`
+	BinTime int    `validate:"required,number,lt=100000,gt=0"`
 	ChainId string `validate:"required,number,gt=0"`
 	RpcUrls string `validate:"required"`
 }
