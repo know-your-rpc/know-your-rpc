@@ -1,12 +1,17 @@
 import { requireAuthorization } from "./auth.js";
 import { dateRangeToTimestamp, getLastChainId, getLastTimeRangeStr, getRequest, postRequest } from "./utils.js";
+import { usdc } from "./usdc.js";
 
 window.addEventListener('DOMContentLoaded', async () => {
+    // @ts-ignore
+    // const modal = document.getElementById('subscription-modal');
+    // setUpModal(modal);
+
     try {
         await requireAuthorization();
     } catch (e) {
-        alert("You have to be logged in!")
-        window.location.href = "/";
+        // modal.showModal();
+        return;
     }
     const [from, to] = dateRangeToTimestamp(getLastTimeRangeStr());
     renderCustomRpcTable(getLastChainId(), from, to);
@@ -14,6 +19,19 @@ window.addEventListener('DOMContentLoaded', async () => {
 
 const TABLE_BODY_ID = "custom_rpcs_table_body";
 
+
+function setUpModal(modal) {
+    // @ts-ignore
+    document.getElementById('subscription-modal-cancel-btn').addEventListener('click', () => {
+        modal.close();
+        window.location.href = "/";
+    });
+    // @ts-ignore
+    document.getElementById('subscription-modal-subscribe-btn').addEventListener('click', async () => {
+        await usdc.requestTransfer("0x0000000000000000000000000000000000000000", 69 * 1e6);
+        modal.close();
+    });
+}
 
 async function saveCustomRpc(currentChainId) {
     // @ts-ignore
@@ -24,8 +42,9 @@ async function saveCustomRpc(currentChainId) {
         document.getElementById('custom-rpc-input').value = '';
 
         await postRequest("/api/custom-rpc/add", { rpcUrl: customRpcUrl, chainId: currentChainId });
-        // @ts-ignore
-        renderCustomRpcTable(currentChainId);
+
+        const [from, to] = dateRangeToTimestamp(getLastTimeRangeStr());
+        renderCustomRpcTable(currentChainId, from, to);
     }
 }
 
@@ -34,8 +53,9 @@ async function removeCustomRpc(rpcUrl, currentChainId) {
         console.log('Custom RPC URL to save:', rpcUrl);
 
         await postRequest("/api/custom-rpc/remove", { rpcUrl, chainId: currentChainId });
-        // @ts-ignore
-        renderCustomRpcTable(currentChainId);
+
+        const [from, to] = dateRangeToTimestamp(getLastTimeRangeStr());
+        renderCustomRpcTable(currentChainId, from, to);
     }
 }
 
@@ -43,7 +63,8 @@ async function removeAllCustomRpcs(chainId) {
     try {
         await postRequest("/api/custom-rpc/remove-all", { chainId, rpcUrl: "https://mock.com" });
         console.log('All custom RPCs removed successfully');
-        renderCustomRpcTable(chainId);
+        const [from, to] = dateRangeToTimestamp(getLastTimeRangeStr());
+        renderCustomRpcTable(chainId, from, to);
     } catch (error) {
         console.error('Failed to remove all custom RPCs:', error);
     }
@@ -79,7 +100,7 @@ async function renderCustomRpcTable(chainId, from, to) {
     // @ts-ignore
     document.getElementById('custom-rpc-btn').addEventListener('click', () => saveCustomRpc(chainId));
 
-    //@ts-ignore
+    //@ts-ignore    
     document.getElementById('remove-all-custom-rpcs-btn').addEventListener('click', () => removeAllCustomRpcs(chainId));
 
     //@ts-ignore

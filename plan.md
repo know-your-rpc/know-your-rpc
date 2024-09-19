@@ -1,8 +1,8 @@
 0. Sync defi-lama
 1. Paywall
-2. Cache non-zoom
-3. Create discord
-4. Publish
+2. Create discord
+3. Publish
+4. Cache non-zoom
 5. Zoom only for paying one
 6. Alerts
 
