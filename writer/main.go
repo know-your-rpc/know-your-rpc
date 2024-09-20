@@ -29,30 +29,42 @@ func main() {
 
 	var rpcInfoMap *types.RpcInfoMap
 
-	utils.SetInterval(func() {
-		tempRpcInfoMap, err := utils.ReadRpcInfo()
-		if err != nil {
-			fmt.Printf("failed to read rpc info: %s", err.Error())
-		}
+	for _, chain := range config.SUPPORTED_CHAINS {
+		time.Sleep(2 * time.Second)
+		go func(chainId string) {
+			for {
+				tempRpcInfoMap, err := utils.ReadRpcInfo()
+				if err != nil {
+					fmt.Printf("failed to read rpc info: %s\n", err.Error())
+					time.Sleep(INTERVAL)
+					continue
+				}
 
-		rpcInfoMap = tempRpcInfoMap
+				fmt.Printf("Read rpc info for chainId=%s rpcsUrl=%v\n", chainId, (*tempRpcInfoMap)[chainId])
 
-		startTime := time.Now()
+				rpcInfoMap = tempRpcInfoMap
 
-		for _, chain := range config.SUPPORTED_CHAINS {
-			collectBlockNumberStats(influxClient, rpcInfoMap, chain.ChainId)
-		}
+				startTime := time.Now()
 
-		duration := time.Since(startTime)
+				collectBlockNumberStats(influxClient, rpcInfoMap, chainId)
 
-		if duration > INTERVAL {
-			fmt.Printf(">>>[IMPORTANT] Collecting data take more then INTERVAL=%d duration=%d \n", INTERVAL, duration)
-		}
-	}, INTERVAL)
+				duration := time.Since(startTime)
+
+				if duration > INTERVAL {
+					fmt.Printf(">>>[IMPORTANT] Collecting data take more than INTERVAL=%s duration=%s\n", INTERVAL, duration)
+				}
+
+				time.Sleep(INTERVAL)
+			}
+		}(chain.ChainId)
+	}
+
 }
 
 func collectBlockNumberStats(influxClient *influxdb3.Client, rpcsMap *types.RpcInfoMap, chainId string) {
 	rpcs, exists := (*rpcsMap)[chainId]
+
+	fmt.Printf("Collecting block number stats for chainId=%s\n", chainId)
 
 	if !exists {
 		fmt.Printf("No info in rpcMap for chainId=%s", chainId)

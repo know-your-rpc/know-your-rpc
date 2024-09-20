@@ -4,14 +4,32 @@ const CHAIN_LIST_URL = "https://raw.githubusercontent.com/DefiLlama/chainlist/ma
 const START_STRING = "export const extraRpcs = "
 const END_STRING = ";";
 
-// exclude non https://
+const extraChains = {
+    "1329": [
+        {
+            "url": "https://evm-rpc.sei-apis.com"
+        }
+    ],
+    "810180": [
+        {
+            "url": "https://rpc.zklink.io"
+        }
+    ],
+    "7560": [
+        {
+            "url": "https://rpc.cyber.co"
+        },
+        {
+            "url": "https://cyber.alt.technology"
+        }
+    ]
+}
 
 // https://github.com/DefiLlama/chainlist/blob/main/constants/chainIds.json
 async function main() {
     const chainListUrlsResponse = await fetch(CHAIN_LIST_URL);
 
     if (!chainListUrlsResponse.ok) {
-
         console.error("Request to github failed");
         process.exit(1);
     }
@@ -23,7 +41,7 @@ async function main() {
 
     const structuredRpcs = mapToStandardizedStructure(chainsConfigs);
 
-    fs.writeFileSync("./chain-list.json", JSON.stringify({ rpcUrls: structuredRpcs }, null, 2))
+    fs.writeFileSync("./public.json", JSON.stringify({ rpcUrls: { ...extraChains, ...structuredRpcs }, userData: {} }, null, 2))
 }
 
 
@@ -32,7 +50,7 @@ function mapToStandardizedStructure(chainsConfigs) {
 
     for (const [chainId, { rpcs }] of Object.entries(chainsConfigs)) {
 
-        const rpcsStructured = rpcs.map(objOrStr => {
+        let rpcsStructured = rpcs.map(objOrStr => {
             if (typeof objOrStr === 'string') {
                 return { url: objOrStr };
             } else {
@@ -42,9 +60,12 @@ function mapToStandardizedStructure(chainsConfigs) {
             // remove wss 
         }).filter(({ url }) => url.startsWith("https://"));
 
-        if (rpcsStructured.length > 3) {
-            structuredRpcs[chainId] = rpcsStructured;
+        if (rpcsStructured.length === 0) {
+            console.log(`No rpcs found for chainId=${chainId}, adding dummy rpc`);
+            rpcsStructured = [{ url: "https://dummy.rpc" }]
         }
+
+        structuredRpcs[chainId] = rpcsStructured;
     }
     return structuredRpcs
 }
