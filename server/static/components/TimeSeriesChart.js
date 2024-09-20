@@ -117,8 +117,8 @@ class TimeSeriesChart extends HTMLElement {
     }
 
     async resetZoom() {
-        this.currentStartX = getDefaultTimeline().start;
-        this.currentEndX = getDefaultTimeline().end;
+        this.currentStartX = dateRangeToTimestamp(getLastTimeRangeStr())[0];
+        this.currentEndX = dateRangeToTimestamp(getLastTimeRangeStr())[1];
         await this.updateDataSetsWithNewData();
         this.chart.resetZoom()
     }
