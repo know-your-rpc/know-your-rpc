@@ -59,6 +59,7 @@ func main() {
 		}(chain.ChainId)
 	}
 
+	select {}
 }
 
 func collectBlockNumberStats(influxClient *influxdb3.Client, rpcsMap *types.RpcInfoMap, chainId string) {
@@ -68,6 +69,11 @@ func collectBlockNumberStats(influxClient *influxdb3.Client, rpcsMap *types.RpcI
 
 	if !exists {
 		fmt.Printf("No info in rpcMap for chainId=%s", chainId)
+		return
+	}
+
+	if len(rpcs) == 0 {
+		fmt.Printf("Skipping, no rpcs for chainId=%s\n", chainId)
 		return
 	}
 
