@@ -41,7 +41,7 @@ async function main() {
 
     const structuredRpcs = mapToStandardizedStructure(chainsConfigs);
 
-    fs.writeFileSync("./public.json", JSON.stringify({ rpcUrls: { ...extraChains, ...structuredRpcs }, userData: {} }, null, 2))
+    fs.writeFileSync("./public.json", JSON.stringify({ ...extraChains, ...structuredRpcs }, null, 2))
 }
 
 

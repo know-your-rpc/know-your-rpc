@@ -1,19 +1,12 @@
 
 const AWS = require('@aws-sdk/client-s3');
 const fs = require('fs');
-const path = require('path');
-
 
 // @ts-ignore
 const s3 = new AWS.S3(
-    // if it works remove comment
-    //   {
-    // region: 'eu-north-1',
-    // credentials: {
-    //     accessKeyId: process.env['AWS_ACCESS_KEY_ID'],
-    //     secretAccessKey: process.env['AWS_SECRET_ACCESS_KEY']
-    // }
-    //}
+    {
+        region: 'eu-north-1',
+    }
 );
 
 const uploadFile = async (filePath) => {
