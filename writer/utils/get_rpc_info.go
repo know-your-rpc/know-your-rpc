@@ -39,13 +39,13 @@ func ReadRpcInfo() (*types.RpcInfoMap, error) {
 			return nil, fmt.Errorf("failed to read bucket %s: %w", bucket, err)
 		}
 
-		var bucketRpcMap types.RpcInfoMap
+		var bucketRpcMap types.UserStore
 		err = json.Unmarshal(bucketContent, &bucketRpcMap)
 		if err != nil {
 			return nil, fmt.Errorf("failed to unmarshal bucket content %s: %w", bucket, err)
 		}
 
-		for chainID, rpcs := range bucketRpcMap {
+		for chainID, rpcs := range bucketRpcMap.RpcInfo {
 			if _, exists := rpcInfoMap[chainID]; !exists {
 				rpcInfoMap[chainID] = []types.RpcInfo{}
 			}
