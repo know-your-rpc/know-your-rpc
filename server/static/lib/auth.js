@@ -6,7 +6,6 @@ const SEVEN_DAYS = 7 * 24 * 3600;
 export const AUTH_SIGNATURE = "authorization_signature";
 
 export async function authorize() {
-    // todo: test it
     if (!window.ethereum) {
         alert("Could not detect window.ethereum, please install some web3 wallet for authorization")
     }
@@ -25,6 +24,7 @@ export async function authorize() {
         from
     });
     localStorage.setItem(AUTH_SIGNATURE, JSON.stringify({ authorizationSignature, message, validUntil }))
+    window.dispatchEvent(new CustomEvent("_authorization_success"))
 }
 
 export async function requireAuthorization() {

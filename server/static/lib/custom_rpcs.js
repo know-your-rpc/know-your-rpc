@@ -2,15 +2,19 @@ import { requireAuthorization } from "./auth.js";
 import { dateRangeToTimestamp, getLastChainId, getLastTimeRangeStr, getRequest, postRequest } from "./utils.js";
 import { usdc } from "./usdc.js";
 
+const ADDRESS = "0x69dF8F2010843dA5Bfe3df08aB769940764Bb64f";
+const AMOUNT = 69 * 1e6;
+
 window.addEventListener('DOMContentLoaded', async () => {
     // @ts-ignore
-    // const modal = document.getElementById('subscription-modal');
-    // setUpModal(modal);
+    const modal = document.getElementById('subscription-modal');
+    setUpModal(modal);
 
     try {
         await requireAuthorization();
     } catch (e) {
-        // modal.showModal();
+        // @ts-ignore
+        modal.showModal();
         return;
     }
     const [from, to] = dateRangeToTimestamp(getLastTimeRangeStr());
@@ -28,7 +32,7 @@ function setUpModal(modal) {
     });
     // @ts-ignore
     document.getElementById('subscription-modal-subscribe-btn').addEventListener('click', async () => {
-        await usdc.requestTransfer("0x0000000000000000000000000000000000000000", 69 * 1e6);
+        await usdc.requestTransfer(ADDRESS, AMOUNT);
         modal.close();
     });
 }

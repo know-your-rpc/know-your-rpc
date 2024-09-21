@@ -9,7 +9,7 @@ import (
 	"net/http"
 )
 
-func handleCustomRpcRequest(w http.ResponseWriter, r *http.Request, operation func(*types.RpcInfoMap, string, string) error) {
+func handleCustomRpcRequest(w http.ResponseWriter, r *http.Request, operation func(*types.UserStore, string, string) error) {
 	if r.Method != "POST" {
 		w.WriteHeader(http.StatusBadRequest)
 		return
@@ -35,7 +35,7 @@ func handleCustomRpcRequest(w http.ResponseWriter, r *http.Request, operation fu
 	userAddress, isNotAuthorized := GetAuthorizedBucketKey(r, w)
 	if isNotAuthorized || userAddress == server.PUBLIC_S3_KEY {
 		fmt.Printf("unauthorized request bucket_key=%s \n", userAddress)
-		w.WriteHeader(http.StatusBadRequest)
+		w.WriteHeader(http.StatusUnauthorized)
 		return
 	}
 
@@ -48,19 +48,19 @@ func handleCustomRpcRequest(w http.ResponseWriter, r *http.Request, operation fu
 		return
 	}
 
-	rpcInfoMap := &types.RpcInfoMap{}
-	if err := json.Unmarshal(data, rpcInfoMap); err != nil {
+	userStore := &types.UserStore{}
+	if err := json.Unmarshal(data, userStore); err != nil {
 		fmt.Printf("failed to unmarshal rpc info map bucket_key=%s \n", bucketKey)
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
 
-	if err := operation(rpcInfoMap, request.ChainId, request.RpcUrl); err != nil {
+	if err := operation(userStore, request.ChainId, request.RpcUrl); err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
 
-	updatedData, err := json.Marshal(rpcInfoMap)
+	updatedData, err := json.Marshal(userStore)
 	if err != nil {
 		fmt.Printf("failed to marshal rpc info map bucket_key=%s \n", bucketKey)
 		w.WriteHeader(http.StatusInternalServerError)
@@ -78,8 +78,8 @@ func handleCustomRpcRequest(w http.ResponseWriter, r *http.Request, operation fu
 
 func CreateCustomRpcAddQuery(serverContext *server.ServerContext) func(w http.ResponseWriter, r *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
-		handleCustomRpcRequest(w, r, func(rpcInfoMap *types.RpcInfoMap, chainId, rpcUrl string) error {
-			chainRpcs, exists := (*rpcInfoMap)[chainId]
+		handleCustomRpcRequest(w, r, func(userStore *types.UserStore, chainId, rpcUrl string) error {
+			chainRpcs, exists := userStore.RpcInfo[chainId]
 			if !exists {
 				chainRpcs = []types.RpcInfo{}
 			}
@@ -92,7 +92,7 @@ func CreateCustomRpcAddQuery(serverContext *server.ServerContext) func(w http.Re
 			}
 
 			newRpc := types.RpcInfo{URL: rpcUrl}
-			(*rpcInfoMap)[chainId] = append(chainRpcs, newRpc)
+			userStore.RpcInfo[chainId] = append(chainRpcs, newRpc)
 			return nil
 		})
 	}
@@ -100,8 +100,8 @@ func CreateCustomRpcAddQuery(serverContext *server.ServerContext) func(w http.Re
 
 func CreateCustomRpcRemoveQuery(serverContext *server.ServerContext) func(w http.ResponseWriter, r *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
-		handleCustomRpcRequest(w, r, func(rpcInfoMap *types.RpcInfoMap, chainId, rpcUrl string) error {
-			chainRpcs, exists := (*rpcInfoMap)[chainId]
+		handleCustomRpcRequest(w, r, func(userStore *types.UserStore, chainId, rpcUrl string) error {
+			chainRpcs, exists := userStore.RpcInfo[chainId]
 			if !exists {
 				fmt.Printf("chain id not found chain_id=%s \n", chainId)
 				return fmt.Errorf("chain id not found")
@@ -122,7 +122,7 @@ func CreateCustomRpcRemoveQuery(serverContext *server.ServerContext) func(w http
 				return fmt.Errorf("rpc url not found")
 			}
 
-			(*rpcInfoMap)[chainId] = newChainRpcs
+			userStore.RpcInfo[chainId] = newChainRpcs
 			return nil
 		})
 	}
@@ -130,15 +130,15 @@ func CreateCustomRpcRemoveQuery(serverContext *server.ServerContext) func(w http
 
 func CreateCustomRpcRemoveAllQuery(serverContext *server.ServerContext) func(w http.ResponseWriter, r *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
-		handleCustomRpcRequest(w, r, func(rpcInfoMap *types.RpcInfoMap, chainId, _ string) error {
-			_, exists := (*rpcInfoMap)[chainId]
+		handleCustomRpcRequest(w, r, func(userStore *types.UserStore, chainId, _ string) error {
+			_, exists := userStore.RpcInfo[chainId]
 			if !exists {
 				fmt.Printf("chain id not found chain_id=%s \n", chainId)
 				return fmt.Errorf("chain id not found")
 			}
 
 			// Remove all RPCs for the specified chain
-			(*rpcInfoMap)[chainId] = []types.RpcInfo{}
+			userStore.RpcInfo[chainId] = []types.RpcInfo{}
 			return nil
 		})
 	}

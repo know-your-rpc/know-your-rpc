@@ -21,10 +21,18 @@ class LogInBtn extends HTMLElement {
 
     attachListeners() {
         this.btn?.addEventListener('click', (event) => this.onClick(event))
+        window.addEventListener("_authorization_success", () => {
+            this.btn.textContent = 'LOG OUT';
+            this.isLoggedIn = true;
+        })
     }
 
     async onClick(event) {
         event.preventDefault();
+
+        await window.ethereum.enable();
+        const accounts = await window.ethereum.request({ method: "eth_requestAccounts" });
+
 
         if (this.isLoggedIn) {
             this.btn.textContent = 'LOG IN';

@@ -40,14 +40,14 @@ func ReadRpcUrlsForUser(userAddress string, chainId string) ([]types.RpcInfo, er
 		return nil, fmt.Errorf("failed to read public RPC info: %v", err)
 	}
 
-	publicRpcInfoMap := &types.RpcInfoMap{}
-	err = json.Unmarshal(publicData, publicRpcInfoMap)
+	publicUserStore := &types.UserStore{}
+	err = json.Unmarshal(publicData, publicUserStore)
 	if err != nil {
 		return nil, fmt.Errorf("failed to parse public RPC info: %v", err)
 	}
 
-	userRpcInfoMap := &types.RpcInfoMap{}
-	err = json.Unmarshal(data, userRpcInfoMap)
+	privateUserStore := &types.UserStore{}
+	err = json.Unmarshal(data, privateUserStore)
 	if err != nil {
 		return nil, fmt.Errorf("failed to parse user's RPC info: %v", err)
 	}
@@ -55,9 +55,9 @@ func ReadRpcUrlsForUser(userAddress string, chainId string) ([]types.RpcInfo, er
 	//TODO: this is happening many times because server is sending multiple requests to the same user, find a way to avoid it
 	// Check for missing chainIds in user's data
 	updated := false
-	for chainId, rpcInfos := range *publicRpcInfoMap {
-		if _, exists := (*userRpcInfoMap)[chainId]; !exists {
-			(*userRpcInfoMap)[chainId] = rpcInfos
+	for chainId, rpcInfos := range publicUserStore.RpcInfo {
+		if _, exists := privateUserStore.RpcInfo[chainId]; !exists {
+			privateUserStore.RpcInfo[chainId] = rpcInfos
 			updated = true
 		}
 	}
@@ -65,7 +65,7 @@ func ReadRpcUrlsForUser(userAddress string, chainId string) ([]types.RpcInfo, er
 	// If updates were made, save back to S3
 	if updated {
 		fmt.Printf("updating user's RPC info for userAddress=%s chainId=%s\n", userAddress, chainId)
-		updatedData, err := json.Marshal(userRpcInfoMap)
+		updatedData, err := json.Marshal(privateUserStore)
 		if err != nil {
 			return nil, fmt.Errorf("failed to marshal updated RPC info: %v", err)
 		}
@@ -76,13 +76,7 @@ func ReadRpcUrlsForUser(userAddress string, chainId string) ([]types.RpcInfo, er
 		}
 	}
 
-	rpcInfoMap := &types.RpcInfoMap{}
-	err = json.Unmarshal(data, rpcInfoMap)
-	if err != nil {
-		return nil, fmt.Errorf("failed to parse chain list %v", err)
-	}
-
-	rpcUrls, ok := (*userRpcInfoMap)[chainId]
+	rpcUrls, ok := privateUserStore.RpcInfo[chainId]
 
 	if !ok {
 		return nil, fmt.Errorf("couldn't find rpcUrls for chainId=%s", chainId)
