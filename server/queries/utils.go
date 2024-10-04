@@ -151,7 +151,7 @@ func GetAuthorizedRpcUrls(r *http.Request, w http.ResponseWriter, chainId string
 	if shouldReturn {
 		return nil, true
 	}
-	rpcUrls, err := server.ReadRpcUrlsForUser(userAddress, chainId)
+	rpcUrls, err := server.ReadAndUpdateRpcUrlsForUserAndChainId(userAddress, chainId)
 
 	if err != nil {
 		fmt.Printf("failed to read rpc urls for user userAddress=%s chainId=%s error=%s\n", userAddress, chainId, err.Error())

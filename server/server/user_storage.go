@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"koonopek/know_your_rpc/common/s3"
 	"koonopek/know_your_rpc/common/types"
+	"sync"
+	"time"
 
 	s3Types "github.com/aws/aws-sdk-go-v2/service/s3/types"
 )
@@ -13,7 +15,44 @@ import (
 const USERS_BUCKET = "know-your-rpc-users"
 const PUBLIC_S3_KEY = "public.json"
 
-func ReadRpcUrlsForUser(userAddress string, chainId string) ([]types.RpcInfo, error) {
+// Add these new structures and variables
+type userDataCacheEntry struct {
+	data      *types.UserStore
+	expiresAt time.Time
+}
+
+var (
+	userDataCache      = make(map[string]userDataCacheEntry)
+	userDataCacheMutex sync.RWMutex
+	userDataCacheTTL   = 1 * time.Hour
+)
+
+func ReadAndUpdateRpcUrlsForUserAndChainId(userAddress string, chainId string) ([]types.RpcInfo, error) {
+	privateUserStore, err := ReadAndUpdateUserData(userAddress)
+
+	if err != nil {
+		return nil, fmt.Errorf("couldn't fetch user data userAddress=%s", userAddress)
+	}
+
+	rpcUrls, ok := privateUserStore.RpcInfo[chainId]
+
+	if !ok {
+		return nil, fmt.Errorf("couldn't find rpcUrls for chainId=%s", chainId)
+	}
+
+	return rpcUrls, nil
+}
+
+func ReadAndUpdateUserData(userAddress string) (*types.UserStore, error) {
+	// Check cache first
+	userDataCacheMutex.RLock()
+	if entry, found := userDataCache[userAddress]; found && time.Now().Before(entry.expiresAt) {
+		userDataCacheMutex.RUnlock()
+		return entry.data, nil
+	}
+	userDataCacheMutex.RUnlock()
+
+	// If not in cache or expired, fetch from S3
 	bucketKey := fmt.Sprintf("%s.json", userAddress)
 
 	data, err := s3.ReadS3Object(USERS_BUCKET, bucketKey)
@@ -52,7 +91,6 @@ func ReadRpcUrlsForUser(userAddress string, chainId string) ([]types.RpcInfo, er
 		return nil, fmt.Errorf("failed to parse user's RPC info: %v", err)
 	}
 
-	//TODO: this is happening many times because server is sending multiple requests to the same user, find a way to avoid it
 	// Check for missing chainIds in user's data
 	updated := false
 	for chainId, rpcInfos := range publicUserStore.RpcInfo {
@@ -64,7 +102,7 @@ func ReadRpcUrlsForUser(userAddress string, chainId string) ([]types.RpcInfo, er
 
 	// If updates were made, save back to S3
 	if updated {
-		fmt.Printf("updating user's RPC info for userAddress=%s chainId=%s\n", userAddress, chainId)
+		fmt.Printf("updating user's RPC info for userAddress=%s \n", userAddress)
 		updatedData, err := json.Marshal(privateUserStore)
 		if err != nil {
 			return nil, fmt.Errorf("failed to marshal updated RPC info: %v", err)
@@ -76,11 +114,13 @@ func ReadRpcUrlsForUser(userAddress string, chainId string) ([]types.RpcInfo, er
 		}
 	}
 
-	rpcUrls, ok := privateUserStore.RpcInfo[chainId]
-
-	if !ok {
-		return nil, fmt.Errorf("couldn't find rpcUrls for chainId=%s", chainId)
+	// Update cache
+	userDataCacheMutex.Lock()
+	userDataCache[userAddress] = userDataCacheEntry{
+		data:      privateUserStore,
+		expiresAt: time.Now().Add(userDataCacheTTL),
 	}
+	userDataCacheMutex.Unlock()
 
-	return rpcUrls, nil
+	return privateUserStore, nil
 }
