@@ -47,6 +47,14 @@ async function saveCustomRpc(currentChainId) {
 
         await postRequest("/api/custom-rpc/add", { rpcUrl: customRpcUrl, chainId: currentChainId });
 
+        Toastify({
+            text: `Added ${customRpcUrl} to chainId=${currentChainId}`,
+            duration: 3000,
+            style: {
+                background: "linear-gradient(to right, #00b09b, #96c93d)",
+            }
+        }).showToast();
+
         const [from, to] = dateRangeToTimestamp(getLastTimeRangeStr());
         renderCustomRpcTable(currentChainId, from, to);
     }
@@ -57,6 +65,14 @@ async function removeCustomRpc(rpcUrl, currentChainId) {
         console.log('Custom RPC URL to save:', rpcUrl);
 
         await postRequest("/api/custom-rpc/remove", { rpcUrl, chainId: currentChainId });
+
+        Toastify({
+            text: `Removed ${rpcUrl} from chainId=${currentChainId}`,
+            duration: 3000,
+            style: {
+                background: "linear-gradient(to right, #00b09b, #96c93d)",
+            }
+        }).showToast();
 
         const [from, to] = dateRangeToTimestamp(getLastTimeRangeStr());
         renderCustomRpcTable(currentChainId, from, to);
@@ -101,16 +117,17 @@ async function renderCustomRpcTable(chainId, from, to) {
     const table = window.document.getElementById(TABLE_BODY_ID);
     // @ts-ignore
     table.innerHTML = rows;
+
     // @ts-ignore
-    document.getElementById('custom-rpc-btn').addEventListener('click', () => saveCustomRpc(chainId));
+    document.getElementById('custom-rpc-btn').onclick = () => saveCustomRpc(chainId);
 
     //@ts-ignore    
-    document.getElementById('remove-all-custom-rpcs-btn').addEventListener('click', () => removeAllCustomRpcs(chainId));
+    document.getElementById('remove-all-custom-rpcs-btn').onclick = () => removeAllCustomRpcs(chainId);
 
     //@ts-ignore
     document.querySelectorAll('[data-rpc-url]').forEach(button => {
         // @ts-ignore
-        button.addEventListener('click', () => removeCustomRpc(button.dataset.rpcUrl, chainId));
+        button.onclick = () => removeCustomRpc(button.dataset.rpcUrl, chainId);
     });
 }
 
