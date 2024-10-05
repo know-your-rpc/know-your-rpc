@@ -9,9 +9,10 @@ import (
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/config"
 	"github.com/aws/aws-sdk-go-v2/service/s3"
+	"github.com/aws/aws-sdk-go-v2/service/s3/types"
 )
 
-func ListS3Objects(bucket string) ([]string, error) {
+func ListS3Objects(bucket string) ([]*types.Object, error) {
 	cfg, err := config.LoadDefaultConfig(context.TODO())
 	if err != nil {
 		return nil, fmt.Errorf("error loading AWS configuration: %w", err)
@@ -23,7 +24,7 @@ func ListS3Objects(bucket string) ([]string, error) {
 		Bucket: aws.String(bucket),
 	}
 
-	var keys []string
+	var objects []*types.Object
 	paginator := s3.NewListObjectsV2Paginator(client, input)
 
 	for paginator.HasMorePages() {
@@ -33,11 +34,11 @@ func ListS3Objects(bucket string) ([]string, error) {
 		}
 
 		for _, object := range page.Contents {
-			keys = append(keys, *object.Key)
+			objects = append(objects, &object)
 		}
 	}
 
-	return keys, nil
+	return objects, nil
 }
 
 func WriteS3Object(bucket string, key string, data []byte) error {

@@ -24,7 +24,7 @@ type userDataCacheEntry struct {
 var (
 	userDataCache      = make(map[string]userDataCacheEntry)
 	userDataCacheMutex sync.RWMutex
-	userDataCacheTTL   = 1 * time.Hour
+	userDataCacheTTL   = 10 * time.Minute
 )
 
 func ReadAndUpdateRpcUrlsForUserAndChainId(userAddress string, chainId string) ([]types.RpcInfo, error) {

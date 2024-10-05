@@ -27,28 +27,27 @@ func main() {
 		fmt.Printf("error while closing influx client error=%s", err.Error())
 	}()
 
-	var rpcInfoMap *types.RpcInfoMap
+	rpcInfoReader := utils.CreateChainRpcInfoReader(10 * time.Minute)
+	rpcInfoReader.Start()
 
 	for _, chain := range config.SUPPORTED_CHAINS {
 		time.Sleep(2 * time.Second)
 		go func(chainId string) {
 			for {
-				tempRpcInfoMap, err := utils.ReadRpcInfo()
+				rpcInfoMap, err := rpcInfoReader.GetRpcInfo()
 				if err != nil {
 					fmt.Printf("failed to read rpc info: %s\n", err.Error())
 					time.Sleep(INTERVAL)
 					continue
 				}
 
-				fmt.Printf("Read rpc info for chainId=%s rpcsUrl=%v\n", chainId, (*tempRpcInfoMap)[chainId])
-
-				rpcInfoMap = tempRpcInfoMap
-
 				startTime := time.Now()
 
-				collectBlockNumberStats(influxClient, rpcInfoMap, chainId)
+				collectBlockNumberStats(influxClient, &rpcInfoMap, chainId)
 
 				duration := time.Since(startTime)
+
+				fmt.Printf("Collected data for chainId=%s rpcUrls=%d in %s\n", chainId, len(rpcInfoMap[chainId]), duration)
 
 				if duration > INTERVAL {
 					fmt.Printf(">>>[IMPORTANT] Collecting data take more than INTERVAL=%s duration=%s\n", INTERVAL, duration)

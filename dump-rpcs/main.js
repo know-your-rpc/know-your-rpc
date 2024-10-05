@@ -25,6 +25,7 @@ const extraChains = {
     ]
 }
 
+// use this: https://chainid.network/chains.json
 // https://github.com/DefiLlama/chainlist/blob/main/constants/chainIds.json
 async function main() {
     const chainListUrlsResponse = await fetch(CHAIN_LIST_URL);

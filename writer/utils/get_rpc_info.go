@@ -6,25 +6,54 @@ import (
 	"koonopek/know_your_rpc/common/s3"
 	"koonopek/know_your_rpc/common/types"
 	"koonopek/know_your_rpc/server/server"
+	"log"
+	"sync"
+	"time"
 )
 
-const (
-	CHAIN_LIST_FILE = "chain-list.json"
-)
-
-func containsRPC(rpcs []types.RpcInfo, rpc types.RpcInfo) bool {
-	for _, r := range rpcs {
-		if r.URL == rpc.URL {
-			return true
-		}
-	}
-	return false
+type ChainRpcInfoReader struct {
+	cachedRpcInfoMutex sync.RWMutex
+	cachedRpcInfo      *types.RpcInfoMap
+	eTagCache          map[string]*types.UserStore
+	interval           time.Duration
 }
 
-// TODO: optimize by checking eTag of file in bucket - we will have to hold eTag in mem
-// TODO: read on every n-th iteration
-func ReadRpcInfo() (*types.RpcInfoMap, error) {
+func CreateChainRpcInfoReader(interval time.Duration) *ChainRpcInfoReader {
+	return &ChainRpcInfoReader{
+		cachedRpcInfoMutex: sync.RWMutex{},
+		eTagCache:          make(map[string]*types.UserStore),
+		interval:           interval,
+		cachedRpcInfo:      nil,
+	}
+}
 
+func (c *ChainRpcInfoReader) Start() {
+	go func() {
+		for {
+			rpcInfo, err := c.UpdateRpcInfo()
+			if err != nil {
+				log.Printf("failed to update rpc info: %v", err)
+			} else {
+				c.cachedRpcInfoMutex.Lock()
+				c.cachedRpcInfo = rpcInfo
+				c.cachedRpcInfoMutex.Unlock()
+			}
+			time.Sleep(c.interval)
+		}
+	}()
+}
+
+func (c *ChainRpcInfoReader) GetRpcInfo() (types.RpcInfoMap, error) {
+	c.cachedRpcInfoMutex.RLock()
+	defer c.cachedRpcInfoMutex.RUnlock()
+
+	if c.cachedRpcInfo == nil {
+		return nil, fmt.Errorf("cached rpc info is nil")
+	}
+	return *c.cachedRpcInfo, nil
+}
+
+func (c *ChainRpcInfoReader) UpdateRpcInfo() (*types.RpcInfoMap, error) {
 	rpcInfoMap := make(types.RpcInfoMap)
 
 	userBuckets, err := s3.ListS3Objects(server.USERS_BUCKET)
@@ -33,16 +62,21 @@ func ReadRpcInfo() (*types.RpcInfoMap, error) {
 	}
 
 	for _, bucket := range userBuckets {
+		bucketRpcMap, ok := c.eTagCache[*bucket.Key+"-"+*bucket.ETag]
 
-		bucketContent, err := s3.ReadS3Object(server.USERS_BUCKET, bucket)
-		if err != nil {
-			return nil, fmt.Errorf("failed to read bucket %s: %w", bucket, err)
-		}
+		if !ok {
+			fmt.Println("READING FROM S3")
+			bucketContent, err := s3.ReadS3Object(server.USERS_BUCKET, *bucket.Key)
+			if err != nil {
+				return nil, fmt.Errorf("failed to read bucket %s: %w", *bucket.Key, err)
+			}
 
-		var bucketRpcMap types.UserStore
-		err = json.Unmarshal(bucketContent, &bucketRpcMap)
-		if err != nil {
-			return nil, fmt.Errorf("failed to unmarshal bucket content %s: %w", bucket, err)
+			err = json.Unmarshal(bucketContent, &bucketRpcMap)
+			if err != nil {
+				return nil, fmt.Errorf("failed to unmarshal bucket content %s: %w", *bucket.Key, err)
+			}
+
+			c.eTagCache[*bucket.Key+"-"+*bucket.ETag] = bucketRpcMap
 		}
 
 		for chainID, rpcs := range bucketRpcMap.RpcInfo {
@@ -59,4 +93,13 @@ func ReadRpcInfo() (*types.RpcInfoMap, error) {
 	}
 
 	return &rpcInfoMap, nil
+}
+
+func containsRPC(rpcs []types.RpcInfo, rpc types.RpcInfo) bool {
+	for _, r := range rpcs {
+		if r.URL == rpc.URL {
+			return true
+		}
+	}
+	return false
 }
