@@ -73,6 +73,8 @@ func handleCustomRpcRequest(w http.ResponseWriter, r *http.Request, operation fu
 		return
 	}
 
+	server.InvalidateUserStoreCache(userAddress)
+
 	w.WriteHeader(http.StatusOK)
 }
 

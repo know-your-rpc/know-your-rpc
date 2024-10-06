@@ -57,8 +57,6 @@ func CreateTopRpcsQuery(serverContext *server.ServerContext) func(w http.Respons
 
 		queryParams := r.URL.Query()
 
-		getAll := GetQueryParam(queryParams, "all", "false") == "true"
-
 		from, to, _, chainId, shouldReturn := ParseBasicQueryParams(queryParams, w)
 		if shouldReturn {
 			return
@@ -95,7 +93,6 @@ func CreateTopRpcsQuery(serverContext *server.ServerContext) func(w http.Respons
 		}
 
 		output := make([]TopTenRpcStats, 0, 100)
-
 		deDupMap := make(map[string]bool)
 
 		for queryIterator.Next() {
@@ -112,13 +109,6 @@ func CreateTopRpcsQuery(serverContext *server.ServerContext) func(w http.Respons
 
 			rpcUrl := value["rpcUrl"].(string)
 
-			// we skip value of limts
-			if !getAll {
-				if pie.Abs(avgDiffFromMedian) > MAX_BLOCK_DIFF || avgRequestDuration > MAX_REQUEST_DURATION {
-					continue
-				}
-			}
-
 			// that solution is far from ideal, but good enough it exists because of the some bug in the query/influx
 			if _, ok := deDupMap[rpcUrl]; ok {
 				continue
@@ -131,6 +121,18 @@ func CreateTopRpcsQuery(serverContext *server.ServerContext) func(w http.Respons
 				AvgDiffFromMedian:  avgDiffFromMedian,
 				AvgRequestDuration: avgRequestDuration,
 			})
+		}
+
+		// Append RPCs that were not returned in queryIterator
+		for _, rpcInfo := range rpcUrls {
+			if _, exists := deDupMap[rpcInfo.URL]; !exists {
+				output = append(output, TopTenRpcStats{
+					RpcUrl:             rpcInfo.URL,
+					ErrorRate:          -1,
+					AvgDiffFromMedian:  -1,
+					AvgRequestDuration: -1,
+				})
+			}
 		}
 
 		sortedResult := pie.SortUsing(output, func(a TopTenRpcStats, b TopTenRpcStats) bool {

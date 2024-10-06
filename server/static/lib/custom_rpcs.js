@@ -91,12 +91,20 @@ async function removeAllCustomRpcs(chainId) {
 }
 
 function tr({ avgDiffFromMedian, avgRequestDuration, errorRate, rpcUrl }, index) {
+
+    let dataCols;
+    if (errorRate === -1 && avgDiffFromMedian === -1 && avgRequestDuration === -1) {
+        dataCols = `<td colspan="3" style="text-align: center;">Missing data</td>`;
+    } else {
+        dataCols = `<td>${errorRate.toFixed(2)}</td>
+                <td>${avgRequestDuration.toFixed(2)}</td>
+                <td>${avgDiffFromMedian.toFixed(2)}</td>`;
+    }
+
     return `<tr>
                 <td>${index + 1}</td>
                 <th scope="row">${rpcUrl}</th>
-                <td>${errorRate.toFixed(2)}</td>
-                <td>${avgRequestDuration.toFixed(2)}</td>
-                <td>${avgDiffFromMedian.toFixed(2)}</td>
+                ${dataCols}
                 <td>
                     <button class="small-button" data-rpc-url="${rpcUrl}">
                         <svg width="20" height="20" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -133,7 +141,7 @@ async function renderCustomRpcTable(chainId, from, to) {
 
 async function fetchTopRpcs(chainId, from, to) {
     try {
-        return await getRequest("/api/stats/top-rpcs", { chainId, all: true, from, to });
+        return await getRequest("/api/stats/top-rpcs", { chainId, from, to });
     } catch (e) {
         console.error("Failed to fetch top RPCs", e);
         return [];

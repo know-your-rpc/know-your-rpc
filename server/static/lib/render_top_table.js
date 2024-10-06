@@ -6,12 +6,15 @@ window.addEventListener('DOMContentLoaded', () => {
 }
 );
 
-const MAX_RPC_COUNT = 10;
+const MAX_RPC_COUNT = 100;
 const TABLE_BODY_ID = "top_table_body";
 
 
-
 function tr({ avgDiffFromMedian, avgRequestDuration, errorRate, rpcUrl }, index) {
+    if (errorRate === -1 && avgDiffFromMedian === -1 && avgRequestDuration === -1) {
+        return "";
+    }
+
     return `<tr>
                 <td>${index + 1}</td>
                 <th scope="row">${rpcUrl}</th>

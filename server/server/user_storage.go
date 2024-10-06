@@ -27,6 +27,12 @@ var (
 	userDataCacheTTL   = 10 * time.Minute
 )
 
+func InvalidateUserStoreCache(userAddress string) {
+	userDataCacheMutex.Lock()
+	defer userDataCacheMutex.Unlock()
+	delete(userDataCache, userAddress)
+}
+
 func ReadAndUpdateRpcUrlsForUserAndChainId(userAddress string, chainId string) ([]types.RpcInfo, error) {
 	privateUserStore, err := ReadAndUpdateUserData(userAddress)
 
