@@ -2,7 +2,6 @@ package queries
 
 import (
 	"fmt"
-	"net/http"
 	"strings"
 
 	"github.com/ethereum/go-ethereum/accounts"
@@ -29,25 +28,21 @@ func ExtractSigner(sigHex string, msgStr string) (string, error) {
 	return recoveredAddr.Hex(), nil
 }
 
-func GetAuthorizedBucketKey(r *http.Request, w http.ResponseWriter) (string, bool) {
-	authorizationHeader := r.Header.Get("Authorization")
-	if authorizationHeader != "" && authorizationHeader != "undefined" {
-		splitted := strings.Split(authorizationHeader, "#")
-		if len(splitted) != 2 {
-			fmt.Printf("wrong formatted authorization header authorization_header=%s \n", authorizationHeader)
-			w.WriteHeader(http.StatusBadRequest)
-			return "", true
-		}
-		signature := splitted[0]
-		msg := splitted[1]
-		signer, err := ExtractSigner(signature, msg)
-		if err != nil {
-			fmt.Printf("failed to extract signer")
-			w.WriteHeader(http.StatusUnauthorized)
-			return "", true
-		}
-
-		return signer, false
+func GetRequestAuthorizerAddress(authorizationHeader string) (string, error) {
+	if authorizationHeader == "" || authorizationHeader == "undefined" {
+		return "", fmt.Errorf("no authorization header")
 	}
-	return "public", false
+
+	splitted := strings.Split(authorizationHeader, "#")
+	if len(splitted) != 2 {
+		return "", fmt.Errorf("wrong formatted authorization header authorization_header=%s", authorizationHeader)
+	}
+	signature := splitted[0]
+	msg := splitted[1]
+	signer, err := ExtractSigner(signature, msg)
+	if err != nil {
+		return "", fmt.Errorf("failed to extract signer")
+	}
+
+	return signer, nil
 }

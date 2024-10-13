@@ -1,11 +1,12 @@
 package server
 
 import (
+	"koonopek/know_your_rpc/server/eth_client"
+
 	"github.com/InfluxCommunity/influxdb3-go/influxdb3"
-	"github.com/go-playground/validator/v10"
 )
 
 type ServerContext struct {
 	InfluxClient *influxdb3.Client
-	Validator    *validator.Validate
+	EthClient    *eth_client.EthClient
 }

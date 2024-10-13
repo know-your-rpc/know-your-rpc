@@ -55,7 +55,7 @@ func CreateBlockNumberDiffFromMedianQuery(serverContext *server.ServerContext) f
 			return
 		}
 
-		rpcUrls, shouldReturn := GetAuthorizedRpcUrls(r, w, chainId)
+		rpcUrls, shouldReturn := GetUserRpcUrls(r, w, chainId)
 		if shouldReturn {
 			return
 		}

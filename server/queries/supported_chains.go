@@ -9,6 +9,8 @@ import (
 )
 
 func CreateSupportedChainsQuery(serverContext *server.ServerContext) func(w http.ResponseWriter, r *http.Request) {
-	fmt.Printf("New site visitor now=%d\n", time.Now().Unix())
-	return func(w http.ResponseWriter, r *http.Request) { WriteHttpResponse(config.SUPPORTED_CHAINS, w) }
+	return func(w http.ResponseWriter, r *http.Request) {
+		fmt.Printf("New site visitor timestamp=%d\n", time.Now().Unix())
+		WriteHttpResponse(config.SUPPORTED_CHAINS, w)
+	}
 }

@@ -1,5 +1,7 @@
 package types
 
+import "time"
+
 type RpcInfo struct {
 	URL string `json:"url"`
 }
@@ -16,7 +18,16 @@ type TxReceipt struct {
 	ChainID int64  `json:"chainID"`
 }
 
-type UserStore struct {
-	RpcInfo       RpcInfoMap   `json:"rpcInfo"`
-	Subscriptions Subscription `json:"subscriptions"`
+type UserData struct {
+	RpcInfo      RpcInfoMap   `json:"rpcInfo"`
+	Subscription Subscription `json:"subscription"`
+}
+
+func (userData *UserData) GetRpcUrlsForChainId(chainId string) ([]RpcInfo, bool) {
+	rpcUrls, ok := userData.RpcInfo[chainId]
+	return rpcUrls, ok
+}
+
+func (userData *UserData) IsSubscriptionValid() bool {
+	return userData.Subscription.ValidUntil > time.Now().Unix()
 }

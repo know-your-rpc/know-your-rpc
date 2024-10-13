@@ -62,7 +62,7 @@ func CreateTopRpcsQuery(serverContext *server.ServerContext) func(w http.Respons
 			return
 		}
 
-		rpcUrls, shouldReturn := GetAuthorizedRpcUrls(r, w, chainId)
+		rpcUrls, shouldReturn := GetUserRpcUrls(r, w, chainId)
 		if shouldReturn {
 			return
 		}

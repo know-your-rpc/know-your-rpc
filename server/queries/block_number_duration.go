@@ -58,8 +58,23 @@ func CreateBlockNumberDurationQuery(serverContext *server.ServerContext) func(w 
 			return
 		}
 
-		rpcUrls, shouldReturn := GetAuthorizedRpcUrls(r, w, chainId)
-		if shouldReturn {
+		authorizationHeader := r.Header.Get("Authorization")
+
+		userAddress := "public"
+
+		if authorizationHeader != "" {
+			userAddress, err := GetRequestAuthorizerAddress(authorizationHeader)
+			if err != nil {
+				fmt.Printf("unauthorized request user_address=%s error=%s \n", userAddress, err.Error())
+				w.WriteHeader(http.StatusUnauthorized)
+				return
+			}
+		}
+
+		rpcUrls, err := GetUserRpcUrls(userAddress, chainId)
+		if err != nil {
+			fmt.Printf("failed to get rpc urls for user user_address=%s chain_id=%s error=%s\n", userAddress, chainId, err.Error())
+			w.WriteHeader(http.StatusBadRequest)
 			return
 		}
 

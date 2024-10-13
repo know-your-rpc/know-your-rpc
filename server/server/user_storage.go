@@ -17,7 +17,7 @@ const PUBLIC_S3_KEY = "public.json"
 
 // Add these new structures and variables
 type userDataCacheEntry struct {
-	data      *types.UserStore
+	data      *types.UserData
 	expiresAt time.Time
 }
 
@@ -25,31 +25,43 @@ var (
 	userDataCache      = make(map[string]userDataCacheEntry)
 	userDataCacheMutex sync.RWMutex
 	userDataCacheTTL   = 10 * time.Minute
+
+	// New: Per-user mutex map
+	userMutexes      = make(map[string]*sync.Mutex)
+	userMutexesMutex sync.Mutex
 )
 
-func InvalidateUserStoreCache(userAddress string) {
+func InvalidateUserDataCache(userAddress string) {
 	userDataCacheMutex.Lock()
 	defer userDataCacheMutex.Unlock()
 	delete(userDataCache, userAddress)
 }
 
-func ReadAndUpdateRpcUrlsForUserAndChainId(userAddress string, chainId string) ([]types.RpcInfo, error) {
-	privateUserStore, err := ReadAndUpdateUserData(userAddress)
+func LockUserStorageMutex(userAddress string) {
+	userMutexesMutex.Lock()
+	defer userMutexesMutex.Unlock()
 
-	if err != nil {
-		return nil, fmt.Errorf("couldn't fetch user data userAddress=%s", userAddress)
+	var mutex *sync.Mutex
+	if existingMutex, exists := userMutexes[userAddress]; exists {
+		mutex = existingMutex
+	} else {
+		mutex = &sync.Mutex{}
+		userMutexes[userAddress] = mutex
 	}
 
-	rpcUrls, ok := privateUserStore.RpcInfo[chainId]
-
-	if !ok {
-		return nil, fmt.Errorf("couldn't find rpcUrls for chainId=%s", chainId)
-	}
-
-	return rpcUrls, nil
+	mutex.Lock()
 }
 
-func ReadAndUpdateUserData(userAddress string) (*types.UserStore, error) {
+func UnlockUserStorageMutex(userAddress string) {
+	userMutexesMutex.Lock()
+	defer userMutexesMutex.Unlock()
+
+	if mutex, exists := userMutexes[userAddress]; exists {
+		mutex.Unlock()
+	}
+}
+
+func ReadAndUpdateUserData(userAddress string) (*types.UserData, error) {
 	// Check cache first
 	userDataCacheMutex.RLock()
 	if entry, found := userDataCache[userAddress]; found && time.Now().Before(entry.expiresAt) {
@@ -85,13 +97,13 @@ func ReadAndUpdateUserData(userAddress string) (*types.UserStore, error) {
 		return nil, fmt.Errorf("failed to read public RPC info: %v", err)
 	}
 
-	publicUserStore := &types.UserStore{}
+	publicUserStore := &types.UserData{}
 	err = json.Unmarshal(publicData, publicUserStore)
 	if err != nil {
 		return nil, fmt.Errorf("failed to parse public RPC info: %v", err)
 	}
 
-	privateUserStore := &types.UserStore{}
+	privateUserStore := &types.UserData{}
 	err = json.Unmarshal(data, privateUserStore)
 	if err != nil {
 		return nil, fmt.Errorf("failed to parse user's RPC info: %v", err)

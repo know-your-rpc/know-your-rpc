@@ -52,7 +52,7 @@ func CreateBlockNumberErrorRateQuery(serverContext *server.ServerContext) func(w
 			return
 		}
 
-		rpcUrls, shouldReturn := GetAuthorizedRpcUrls(r, w, chainId)
+		rpcUrls, shouldReturn := GetUserRpcUrls(r, w, chainId)
 		if shouldReturn {
 			return
 		}

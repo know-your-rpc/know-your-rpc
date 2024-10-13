@@ -9,7 +9,7 @@ import (
 	"net/http"
 )
 
-func handleCustomRpcRequest(w http.ResponseWriter, r *http.Request, operation func(*types.UserStore, string, string) error) {
+func handleCustomRpcRequest(w http.ResponseWriter, r *http.Request, operation func(*types.UserData, string, string) error) {
 	if r.Method != "POST" {
 		w.WriteHeader(http.StatusBadRequest)
 		return
@@ -32,15 +32,20 @@ func handleCustomRpcRequest(w http.ResponseWriter, r *http.Request, operation fu
 		return
 	}
 
-	userAddress, isNotAuthorized := GetAuthorizedBucketKey(r, w)
-	if isNotAuthorized || userAddress == server.PUBLIC_S3_KEY {
-		fmt.Printf("unauthorized request bucket_key=%s \n", userAddress)
+	authorizationHeader := r.Header.Get("Authorization")
+
+	userAddress, err := GetRequestAuthorizerAddress(authorizationHeader)
+	if err != nil {
+		fmt.Printf("unauthorized request err=%s \n", err)
 		w.WriteHeader(http.StatusUnauthorized)
 		return
 	}
 
 	bucketKey := fmt.Sprintf("%s.json", userAddress)
 
+	server.LockUserStorageMutex(userAddress)
+	defer server.UnlockUserStorageMutex(userAddress)
+	//TODO: why do we read here straight from the bucket?
 	data, err := s3.ReadS3Object(server.USERS_BUCKET, bucketKey)
 	if err != nil {
 		fmt.Printf("failed to read from s3 bucket_key=%s \n", bucketKey)
@@ -48,10 +53,16 @@ func handleCustomRpcRequest(w http.ResponseWriter, r *http.Request, operation fu
 		return
 	}
 
-	userStore := &types.UserStore{}
+	userStore := &types.UserData{}
 	if err := json.Unmarshal(data, userStore); err != nil {
 		fmt.Printf("failed to unmarshal rpc info map bucket_key=%s \n", bucketKey)
 		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+
+	if !userStore.IsSubscriptionValid() {
+		fmt.Printf("subscription is not valid user_address=%s expired_at=%d \n", userAddress, userStore.Subscription.ValidUntil)
+		w.WriteHeader(http.StatusForbidden)
 		return
 	}
 
@@ -73,14 +84,14 @@ func handleCustomRpcRequest(w http.ResponseWriter, r *http.Request, operation fu
 		return
 	}
 
-	server.InvalidateUserStoreCache(userAddress)
+	server.InvalidateUserDataCache(userAddress)
 
 	w.WriteHeader(http.StatusOK)
 }
 
 func CreateCustomRpcAddQuery(serverContext *server.ServerContext) func(w http.ResponseWriter, r *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
-		handleCustomRpcRequest(w, r, func(userStore *types.UserStore, chainId, rpcUrl string) error {
+		handleCustomRpcRequest(w, r, func(userStore *types.UserData, chainId, rpcUrl string) error {
 			chainRpcs, exists := userStore.RpcInfo[chainId]
 			if !exists {
 				chainRpcs = []types.RpcInfo{}
@@ -102,7 +113,7 @@ func CreateCustomRpcAddQuery(serverContext *server.ServerContext) func(w http.Re
 
 func CreateCustomRpcRemoveQuery(serverContext *server.ServerContext) func(w http.ResponseWriter, r *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
-		handleCustomRpcRequest(w, r, func(userStore *types.UserStore, chainId, rpcUrl string) error {
+		handleCustomRpcRequest(w, r, func(userStore *types.UserData, chainId, rpcUrl string) error {
 			chainRpcs, exists := userStore.RpcInfo[chainId]
 			if !exists {
 				fmt.Printf("chain id not found chain_id=%s \n", chainId)
@@ -132,7 +143,7 @@ func CreateCustomRpcRemoveQuery(serverContext *server.ServerContext) func(w http
 
 func CreateCustomRpcRemoveAllQuery(serverContext *server.ServerContext) func(w http.ResponseWriter, r *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
-		handleCustomRpcRequest(w, r, func(userStore *types.UserStore, chainId, _ string) error {
+		handleCustomRpcRequest(w, r, func(userStore *types.UserData, chainId, _ string) error {
 			_, exists := userStore.RpcInfo[chainId]
 			if !exists {
 				fmt.Printf("chain id not found chain_id=%s \n", chainId)

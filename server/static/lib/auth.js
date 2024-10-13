@@ -33,3 +33,6 @@ export async function requireAuthorization() {
     }
 }
 
+export async function requirePayment() {
+}
+

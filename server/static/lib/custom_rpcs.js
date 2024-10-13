@@ -1,9 +1,9 @@
 import { requireAuthorization } from "./auth.js";
 import { dateRangeToTimestamp, getLastChainId, getLastTimeRangeStr, getRequest, postRequest } from "./utils.js";
-import { usdc } from "./usdc.js";
+import { payForSubscription } from "./usdc.js";
 
 const ADDRESS = "0x69dF8F2010843dA5Bfe3df08aB769940764Bb64f";
-const AMOUNT = 69 * 1e6;
+const AMOUNT = 10 * 1e6;
 
 window.addEventListener('DOMContentLoaded', async () => {
     // @ts-ignore
@@ -15,7 +15,7 @@ window.addEventListener('DOMContentLoaded', async () => {
     } catch (e) {
         // @ts-ignore
         modal.showModal();
-        return;
+        return
     }
     const [from, to] = dateRangeToTimestamp(getLastTimeRangeStr());
     renderCustomRpcTable(getLastChainId(), from, to);
@@ -32,8 +32,11 @@ function setUpModal(modal) {
     });
     // @ts-ignore
     document.getElementById('subscription-modal-subscribe-btn').addEventListener('click', async () => {
-        await usdc.requestTransfer(ADDRESS, AMOUNT);
+        await payForSubscription();
+
         modal.close();
+        const [from, to] = dateRangeToTimestamp(getLastTimeRangeStr());
+        renderCustomRpcTable(getLastChainId(), from, to);
     });
 }
 

@@ -14,14 +14,14 @@ import (
 type ChainRpcInfoReader struct {
 	cachedRpcInfoMutex sync.RWMutex
 	cachedRpcInfo      *types.RpcInfoMap
-	eTagCache          map[string]*types.UserStore
+	eTagCache          map[string]*types.UserData
 	interval           time.Duration
 }
 
 func CreateChainRpcInfoReader(interval time.Duration) *ChainRpcInfoReader {
 	return &ChainRpcInfoReader{
 		cachedRpcInfoMutex: sync.RWMutex{},
-		eTagCache:          make(map[string]*types.UserStore),
+		eTagCache:          make(map[string]*types.UserData),
 		interval:           interval,
 		cachedRpcInfo:      nil,
 	}
