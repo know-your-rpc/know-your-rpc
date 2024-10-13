@@ -4,6 +4,7 @@ class ChainSearch extends HTMLElement {
     supportedChains = [];
     inputElement;
     optionsElement;
+    filter = [];
 
     constructor() {
         super();
@@ -35,6 +36,9 @@ class ChainSearch extends HTMLElement {
         event.preventDefault();
         if (this.isActive()) {
             const chainId = event.target.dataset.chainid;
+            window.onkeydown = undefined;
+            this.filter = [];
+            this.optionsElement.innerHTML = this.supportedChains.map(({ chainId, name }) => `<li><a data-chainid=${chainId} data-name="${name}" href="#" style="text-align: justify">name=${name} id=${chainId}</a></li>`).join("\n");
             const chainName = event.target.dataset.name;
             if (!chainId) {
                 return;
@@ -47,6 +51,30 @@ class ChainSearch extends HTMLElement {
             this.inputElement?.removeAttribute("open")
         } else {
             this.inputElement?.setAttribute("open", "open")
+
+
+            window.onkeydown = (event) => {
+                if (event.key === "Escape") {
+                    this.inputElement?.removeAttribute("open")
+                    this.filter = [];
+                    window.onkeydown = undefined;
+                    return;
+                }
+
+                if (event.key === "Backspace") {
+                    this.filter.pop();
+                } else if (/^[a-zA-Z0-9]$/.test(event.key)) {
+                    this.filter.push(event.key);
+                } else {
+                    return;
+                }
+
+                window.document.getElementById("search-chain-output").innerText = this.filter.join("");
+
+                this.optionsElement.innerHTML = this.supportedChains
+                    .filter(({ name, chainId }) => name.toLowerCase().includes(this.filter.join("")) || chainId.toString().includes(this.filter.join("")))
+                    .map(({ chainId, name }) => `<li><a data-chainid=${chainId} data-name="${name}" href="#" style="text-align: justify">name=${name} id=${chainId}</a></li>`).join("\n");
+            }
         }
     }
 
@@ -65,5 +93,4 @@ class ChainSearch extends HTMLElement {
     }
 
 }
-
 window.customElements.define('chain-search', ChainSearch);
