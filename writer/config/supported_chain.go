@@ -38,4 +38,6 @@ var SUPPORTED_CHAINS = []ChainConfig{
 	{ChainId: "1329", Name: "Sei Network"},
 	{ChainId: "810180", Name: "zkLink Nova Mainnet"},
 	{ChainId: "7560", Name: "Cyber Mainnet"},
+	{ChainId: "6001", Name: "Bounce Bit"},
+	{ChainId: "2222", Name: "Kava"},
 }

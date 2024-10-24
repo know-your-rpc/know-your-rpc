@@ -10,6 +10,11 @@ const extraChains = {
             "url": "https://evm-rpc.sei-apis.com"
         }
     ],
+    "6001": [
+        {
+            "url": "https://fullnode-mainnet.bouncebitapi.com"
+        }
+    ]
 }
 
 // use this: https://chainid.network/chains.json

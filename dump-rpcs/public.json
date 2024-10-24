@@ -3817,6 +3817,11 @@
         "url": "https://proxy.wegochain.io"
       }
     ],
+    "6001": [
+      {
+        "url": "https://fullnode-mainnet.bouncebitapi.com"
+      }
+    ],
     "6060": [
       {
         "url": "https://rpc01.bchscan.io/"
