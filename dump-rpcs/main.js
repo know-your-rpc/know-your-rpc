@@ -10,29 +10,66 @@ const extraChains = {
             "url": "https://evm-rpc.sei-apis.com"
         }
     ],
-    "810180": [
-        {
-            "url": "https://rpc.zklink.io"
-        }
-    ],
-    "7560": [
-        {
-            "url": "https://rpc.cyber.co"
-        },
-        {
-            "url": "https://cyber.alt.technology"
-        }
-    ]
 }
 
 // use this: https://chainid.network/chains.json
 // https://github.com/DefiLlama/chainlist/blob/main/constants/chainIds.json
 async function main() {
+    const rpcsFromChainsJson = await fetchFromChainsJson();
+
+    const rpcsFromChainList = await getRpcsFromChainList();
+
+    const rpcs = {};
+
+    const allChainIds = new Set([...Object.keys(rpcsFromChainsJson), ...Object.keys(rpcsFromChainList)]);
+
+    for (const chainId of allChainIds) {
+        if (rpcsFromChainList[chainId] && rpcsFromChainsJson[chainId]) {
+            rpcs[chainId] = [...new Set([...rpcsFromChainList[chainId], ...rpcsFromChainsJson[chainId]]).values()].map(url => ({ url }));
+        } else if (rpcsFromChainList[chainId]) {
+            rpcs[chainId] = rpcsFromChainList[chainId].map(rpc => ({ url: rpc }));
+        } else {
+            rpcs[chainId] = rpcsFromChainsJson[chainId].map(rpc => ({ url: rpc }));
+        }
+    }
+
+    fs.writeFileSync("./public.json", JSON.stringify({
+        subscriptions: {},
+        rpcInfo: { ...extraChains, ...rpcs }
+    }, null, 2))
+}
+
+
+async function fetchFromChainsJson() {
+    const chainsJsonResponse = await fetch("https://chainid.network/chains.json");
+    if (!chainsJsonResponse.ok) {
+        throw new Error("Request to chains.json failed");
+    }
+    const data = await chainsJsonResponse.json();
+
+    const structuredRpcs = {};
+
+    for (const chain of data) {
+        let filteredRpcs = chain.rpc.filter(rpc => rpc.startsWith("https://") && !rpc.includes("${"));
+
+        // we ignore rpcs with only single rpc (too many)
+        if (filteredRpcs.length < 2) {
+            console.log(`No rpcs found for chainId=${chain.chainId}`);
+            continue;
+        }
+
+        structuredRpcs[chain.chainId] = filteredRpcs;
+    }
+
+    return structuredRpcs;
+}
+
+async function getRpcsFromChainList() {
     const chainListUrlsResponse = await fetch(CHAIN_LIST_URL);
 
     if (!chainListUrlsResponse.ok) {
         console.error("Request to github failed");
-        process.exit(1);
+        throw new Error("Request to github failed");
     }
 
     const fileContent = await chainListUrlsResponse.text();
@@ -41,13 +78,8 @@ async function main() {
     const chainsConfigs = parseJsObject(jsObject);
 
     const structuredRpcs = mapToStandardizedStructure(chainsConfigs);
-
-    fs.writeFileSync("./public.json", JSON.stringify({
-        subscriptions: {},
-        rpcInfo: { ...extraChains, ...structuredRpcs }
-    }, null, 2))
+    return structuredRpcs;
 }
-
 
 function mapToStandardizedStructure(chainsConfigs) {
     const structuredRpcs = {};
@@ -56,17 +88,17 @@ function mapToStandardizedStructure(chainsConfigs) {
 
         let rpcsStructured = rpcs.map(objOrStr => {
             if (typeof objOrStr === 'string') {
-                return { url: objOrStr };
+                return objOrStr;
             } else {
-                return { url: objOrStr.url };
+                return objOrStr.url;
             }
 
             // remove wss 
-        }).filter(({ url }) => url.startsWith("https://"));
+        }).filter(url => url.startsWith("https://"));
 
         if (rpcsStructured.length === 0) {
-            console.log(`No rpcs found for chainId=${chainId}, adding dummy rpc`);
-            rpcsStructured = [{ url: "https://dummy.rpc" }]
+            console.log(`No rpcs found for chainId=${chainId}`);
+            continue;
         }
 
         structuredRpcs[chainId] = rpcsStructured;
