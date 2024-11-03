@@ -21,8 +21,6 @@ const ABI = [{
     ]
 }];
 
-
-
 export async function payForSubscription() {
     const web3 = new Web3(window.ethereum);
 
@@ -43,6 +41,7 @@ export async function payForSubscription() {
     }
     console.log(transferParams);
     const txReceipt = await _usdcContract.methods.transfer(transferParams.expectedTo, transferParams.expectedValue).send({ from: accounts[0] });
+    console.log(txReceipt);
 
     await postRequest("/api/payment/acknowledge", { txHash: txReceipt.transactionHash });
 }

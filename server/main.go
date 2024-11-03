@@ -29,6 +29,8 @@ func main() {
 		EthClient:    ethClient,
 	}
 
+	handler.HandleFunc("/api/payment", queries.CreateGetSubscriptionQuery(serverContext))
+
 	handler.HandleFunc("/api/payment/params", queries.CreateGetPaymentDataQuery(serverContext))
 
 	handler.HandleFunc("/api/payment/acknowledge", queries.CreateAcknowledgePaymentQuery(serverContext))

@@ -55,8 +55,10 @@ func CreateBlockNumberDiffFromMedianQuery(serverContext *server.ServerContext) f
 			return
 		}
 
-		rpcUrls, shouldReturn := GetUserRpcUrls(r, w, chainId)
-		if shouldReturn {
+		rpcUrls, err := GetRpcUrlsForQuery(r, chainId)
+		if err != nil {
+			fmt.Printf("%s\n", err.Error())
+			w.WriteHeader(http.StatusBadRequest)
 			return
 		}
 

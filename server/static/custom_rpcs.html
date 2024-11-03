@@ -53,28 +53,10 @@
         </header>
 
         <chain-search></chain-search>
+
         <time-range-selector></time-range-selector>
 
-        <dialog id="subscription-modal">
-            <article>
-                <header>
-                    <h3>Upgrade to Premium</h3>
-                </header>
-                <p>Unlock premium features to enhance your RPC monitoring experience:</p>
-                <ul>
-                    <li>Track custom RPCs</li>
-                    <li>Coming soon: Alerts - get notified when your RPC is misbehaving</li>
-                    <li>Coming soon: Votes - choose next feature</li>
-                </ul>
-                <footer>
-                    <button class="contrast" id="subscription-modal-cancel-btn">Use free version</button>
-                    <button class="primary" id="subscription-modal-subscribe-btn">Subscribe
-                        69 USDC/month</button>
-                </footer>
-            </article>
-        </dialog>
-
-
+        <subscription-modal data-mustAuth="true"></subscription-modal>
 
         <article>
             <header>

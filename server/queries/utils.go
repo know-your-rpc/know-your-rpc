@@ -4,6 +4,8 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"koonopek/know_your_rpc/common/types"
+	"koonopek/know_your_rpc/server/server"
 	"net/http"
 	"net/url"
 	"strconv"
@@ -142,4 +144,27 @@ func ParseBasicQueryParams(queryParams url.Values, w http.ResponseWriter) (int, 
 	fmt.Printf("from=%d to=%d period=%f binTime=%d\n", from, to, period, binTime)
 
 	return from, to, binTime, chainId, false
+}
+
+func GetRpcUrlsForQuery(r *http.Request, chainId string) ([]types.RpcInfo, error) {
+	userAddress, err := GetRequestSignerAddressOrPublic(r)
+	if err != nil {
+		return nil, fmt.Errorf("failed to get user address: %w", err)
+	}
+
+	userStore, err := server.ReadAndUpdateUserData(userAddress)
+
+	if err != nil {
+		return nil, fmt.Errorf("failed to get user data: %w", err)
+	}
+
+	if !types.IsPublicUser(userAddress) && !userStore.IsSubscriptionValid() {
+		return nil, fmt.Errorf("user_address=%s is not public and has no valid subscription", userAddress)
+	}
+
+	rpcUrls, ok := userStore.GetRpcUrlsForChainId(chainId)
+	if !ok {
+		return nil, fmt.Errorf("no rpc urls found for chain_id=%s for user_address=%s", chainId, userAddress)
+	}
+	return rpcUrls, nil
 }

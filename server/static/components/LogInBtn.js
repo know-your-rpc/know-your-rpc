@@ -1,7 +1,6 @@
 //@ts-nocheck
 import { AUTH_SIGNATURE, authorize } from "../lib/auth.js";
 
-
 class LogInBtn extends HTMLElement {
     btn;
     isLoggedIn = false;
@@ -43,6 +42,7 @@ class LogInBtn extends HTMLElement {
             authorize().then(() => {
                 this.isLoggedIn = true;
                 this.btn.textContent = 'LOG OUT';
+                window.location.href = "/";
             }).catch(err => {
                 console.error(err);
                 alert("failed to execute personal_sign")

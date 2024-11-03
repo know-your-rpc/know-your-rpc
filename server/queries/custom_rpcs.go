@@ -34,7 +34,7 @@ func handleCustomRpcRequest(w http.ResponseWriter, r *http.Request, operation fu
 
 	authorizationHeader := r.Header.Get("Authorization")
 
-	userAddress, err := GetRequestAuthorizerAddress(authorizationHeader)
+	userAddress, err := ExtractSignerFromAuthHeader(authorizationHeader)
 	if err != nil {
 		fmt.Printf("unauthorized request err=%s \n", err)
 		w.WriteHeader(http.StatusUnauthorized)

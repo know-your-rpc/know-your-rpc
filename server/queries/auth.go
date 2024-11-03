@@ -1,13 +1,17 @@
 package queries
 
 import (
+	"errors"
 	"fmt"
+	"net/http"
 	"strings"
 
 	"github.com/ethereum/go-ethereum/accounts"
 	"github.com/ethereum/go-ethereum/common/hexutil"
 	"github.com/ethereum/go-ethereum/crypto"
 )
+
+var ErrNoAuthorizationHeader = errors.New("no authorization header")
 
 func ExtractSigner(sigHex string, msgStr string) (string, error) {
 	sig := hexutil.MustDecode(sigHex)
@@ -28,9 +32,9 @@ func ExtractSigner(sigHex string, msgStr string) (string, error) {
 	return recoveredAddr.Hex(), nil
 }
 
-func GetRequestAuthorizerAddress(authorizationHeader string) (string, error) {
+func ExtractSignerFromAuthHeader(authorizationHeader string) (string, error) {
 	if authorizationHeader == "" || authorizationHeader == "undefined" {
-		return "", fmt.Errorf("no authorization header")
+		return "", ErrNoAuthorizationHeader
 	}
 
 	splitted := strings.Split(authorizationHeader, "#")
@@ -45,4 +49,28 @@ func GetRequestAuthorizerAddress(authorizationHeader string) (string, error) {
 	}
 
 	return signer, nil
+}
+
+func GetRequestSignerAddressOrFail(r *http.Request) (string, error) {
+	authorizationHeader := r.Header.Get("Authorization")
+	signer, err := ExtractSignerFromAuthHeader(authorizationHeader)
+
+	if err != nil {
+		return "", err
+	}
+
+	return signer, nil
+}
+
+// Returns signer address or "public" if no authorization header is set or is equal to "undefined"
+// Authorization header is expected to be in the following format: signature#message
+func GetRequestSignerAddressOrPublic(r *http.Request) (string, error) {
+	authorizationHeader := r.Header.Get("Authorization")
+	signer, err := ExtractSignerFromAuthHeader(authorizationHeader)
+
+	if errors.Is(err, ErrNoAuthorizationHeader) {
+		return "public", nil
+	}
+
+	return signer, err
 }

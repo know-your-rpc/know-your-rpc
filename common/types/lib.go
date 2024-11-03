@@ -31,3 +31,7 @@ func (userData *UserData) GetRpcUrlsForChainId(chainId string) ([]RpcInfo, bool)
 func (userData *UserData) IsSubscriptionValid() bool {
 	return userData.Subscription.ValidUntil > time.Now().Unix()
 }
+
+func IsPublicUser(userAddress string) bool {
+	return userAddress == "public"
+}

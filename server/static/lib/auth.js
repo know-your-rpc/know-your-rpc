@@ -1,5 +1,6 @@
 // @ts-nocheck
 import buffer from 'https://cdn.jsdelivr.net/npm/buffer@6.0.3/+esm'
+import { toastSuccess, getRequest } from "./utils.js";
 
 const SEVEN_DAYS = 7 * 24 * 3600;
 
@@ -29,10 +30,18 @@ export async function authorize() {
 
 export async function requireAuthorization() {
     if (!localStorage.getItem(AUTH_SIGNATURE)) {
-        await authorize()
+        toastSuccess("Please authorize to continue (checkout your wallet)");
+        await authorize();
     }
+    const payment = await getPaymentData();
+
+    if (payment.validUntil < Date.now() / 1000) {
+        throw new Error("Subscription expired");
+    }
+
+    return payment;
 }
 
-export async function requirePayment() {
+export async function getPaymentData() {
+    return await getRequest("/api/payment");
 }
-

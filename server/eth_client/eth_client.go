@@ -21,6 +21,7 @@ type EthClient struct {
 }
 
 func NewEthClient(rpcUrl string) (*EthClient, error) {
+	fmt.Println("Connecting to", rpcUrl)
 	client, err := ethclient.Dial(rpcUrl)
 	if err != nil {
 		return nil, fmt.Errorf("failed to connect to the Ethereum client error=%s", err)
@@ -61,6 +62,7 @@ func parseERC20TransferLogs(logs []*types.Log) (*ERC20TransferEvent, error) {
 }
 
 func VerifyErc20Transfer(ethClient *EthClient, txHash string, expectedFrom common.Address, expectedTo common.Address, expectedValue *big.Int, expectedToken common.Address) error {
+	fmt.Println("Verifying ERC20 transfer", txHash, expectedFrom, expectedTo, expectedValue, expectedToken)
 	receipt, err := ethClient.FetchTxReceipt(txHash)
 	if err != nil {
 		return fmt.Errorf("failed to fetch transaction receipt error=%s", err)

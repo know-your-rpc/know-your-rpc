@@ -52,9 +52,8 @@ func CreateGetSubscriptionQuery(serverContext *server.ServerContext) func(w http
 			return
 		}
 
-		requestAuthorizerAddress, isNotAuthorized := GetRequestAuthorizerAddress(r, w)
-
-		if isNotAuthorized {
+		requestAuthorizerAddress, err := GetRequestSignerAddressOrFail(r)
+		if err != nil {
 			w.WriteHeader(http.StatusUnauthorized)
 			return
 		}
@@ -85,16 +84,8 @@ func CreateAcknowledgePaymentQuery(serverContext *server.ServerContext) func(w h
 			return
 		}
 
-		requestAuthorizerAddress, isNotAuthorized := GetRequestAuthorizerAddress(r, w)
-
-		if requestAuthorizerAddress == "public" {
-			log.Printf("failed to acknowledge payment because Authorization header is not set")
-			w.WriteHeader(http.StatusBadRequest)
-			return
-		}
-
-		if isNotAuthorized {
-			log.Printf("failed to acknowledge payment because you are not authorized")
+		requestAuthorizerAddress, err := GetRequestSignerAddressOrFail(r)
+		if err != nil {
 			w.WriteHeader(http.StatusUnauthorized)
 			return
 		}
@@ -121,8 +112,12 @@ func CreateAcknowledgePaymentQuery(serverContext *server.ServerContext) func(w h
 			ChainID: paymentConfig.ChainID,
 		})
 
-		//TODO: if already validUntil is set, then increase it by 30 days
-		userStore.Subscription.ValidUntil = time.Now().Add(time.Hour * 24 * 30).Unix()
+		now := time.Now()
+		if userStore.Subscription.ValidUntil < now.Unix() {
+			userStore.Subscription.ValidUntil = now.Add(time.Hour * 24 * 30).Unix()
+		} else {
+			userStore.Subscription.ValidUntil += int64(time.Hour * 24 * 30)
+		}
 
 		updatedData, err := json.Marshal(userStore)
 		if err != nil {

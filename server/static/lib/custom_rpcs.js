@@ -1,44 +1,11 @@
-import { requireAuthorization } from "./auth.js";
-import { dateRangeToTimestamp, getLastChainId, getLastTimeRangeStr, getRequest, postRequest } from "./utils.js";
-import { payForSubscription } from "./usdc.js";
-
-const ADDRESS = "0x69dF8F2010843dA5Bfe3df08aB769940764Bb64f";
-const AMOUNT = 10 * 1e6;
+import { dateRangeToTimestamp, getLastChainId, getLastTimeRangeStr, getRequest, postRequest, toastSuccess } from "./utils.js";
 
 window.addEventListener('DOMContentLoaded', async () => {
-    // @ts-ignore
-    const modal = document.getElementById('subscription-modal');
-    setUpModal(modal);
-
-    try {
-        await requireAuthorization();
-    } catch (e) {
-        // @ts-ignore
-        modal.showModal();
-        return
-    }
     const [from, to] = dateRangeToTimestamp(getLastTimeRangeStr());
     renderCustomRpcTable(getLastChainId(), from, to);
 });
 
 const TABLE_BODY_ID = "custom_rpcs_table_body";
-
-
-function setUpModal(modal) {
-    // @ts-ignore
-    document.getElementById('subscription-modal-cancel-btn').addEventListener('click', () => {
-        modal.close();
-        window.location.href = "/";
-    });
-    // @ts-ignore
-    document.getElementById('subscription-modal-subscribe-btn').addEventListener('click', async () => {
-        await payForSubscription();
-
-        modal.close();
-        const [from, to] = dateRangeToTimestamp(getLastTimeRangeStr());
-        renderCustomRpcTable(getLastChainId(), from, to);
-    });
-}
 
 async function saveCustomRpc(currentChainId) {
     // @ts-ignore
@@ -50,13 +17,7 @@ async function saveCustomRpc(currentChainId) {
 
         await postRequest("/api/custom-rpc/add", { rpcUrl: customRpcUrl, chainId: currentChainId });
 
-        Toastify({
-            text: `Added ${customRpcUrl} to chainId=${currentChainId}`,
-            duration: 3000,
-            style: {
-                background: "linear-gradient(to right, #00b09b, #96c93d)",
-            }
-        }).showToast();
+        toastSuccess(`Added ${customRpcUrl} to chainId=${currentChainId}`);
 
         const [from, to] = dateRangeToTimestamp(getLastTimeRangeStr());
         renderCustomRpcTable(currentChainId, from, to);
@@ -69,13 +30,7 @@ async function removeCustomRpc(rpcUrl, currentChainId) {
 
         await postRequest("/api/custom-rpc/remove", { rpcUrl, chainId: currentChainId });
 
-        Toastify({
-            text: `Removed ${rpcUrl} from chainId=${currentChainId}`,
-            duration: 3000,
-            style: {
-                background: "linear-gradient(to right, #00b09b, #96c93d)",
-            }
-        }).showToast();
+        toastSuccess(`Removed ${rpcUrl} from chainId=${currentChainId}`);
 
         const [from, to] = dateRangeToTimestamp(getLastTimeRangeStr());
         renderCustomRpcTable(currentChainId, from, to);

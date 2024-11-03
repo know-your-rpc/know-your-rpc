@@ -65,3 +65,23 @@ export function dateRangeToTimestamp(dateRangeStr) {
     }
 }
 
+export function toastSuccess(text) {
+    Toastify({
+        text: text,
+        duration: 3000,
+        style: {
+            background: "linear-gradient(to right, #00b09b, #96c93d)",
+        }
+    }).showToast();
+}
+
+export function toastError(text) {
+    Toastify({
+        text: `Removed ${rpcUrl} from chainId=${currentChainId}`,
+        duration: 3000,
+        style: {
+            background: "linear-gradient(to right, #00b09b, #96c93d)",
+        }
+    }).showToast();
+
+}   

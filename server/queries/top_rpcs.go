@@ -62,8 +62,10 @@ func CreateTopRpcsQuery(serverContext *server.ServerContext) func(w http.Respons
 			return
 		}
 
-		rpcUrls, shouldReturn := GetUserRpcUrls(r, w, chainId)
-		if shouldReturn {
+		rpcUrls, err := GetRpcUrlsForQuery(r, chainId)
+		if err != nil {
+			fmt.Printf("%s\n", err.Error())
+			w.WriteHeader(http.StatusBadRequest)
 			return
 		}
 
