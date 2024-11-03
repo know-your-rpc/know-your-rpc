@@ -12,12 +12,14 @@ class ChainSearch extends HTMLElement {
         this.container.innerHTML = `
 <details class="dropdown" name="search-chain" id="search-chain" placeholder="Chain ID or name"
             style="margin-top: 5em;" aria-label="Chain ID or name" >
-  <summary id="search-chain-output"></summary>
+  <summary id="search-chain-output" tabindex="0" autofocus></summary>
   <ul id="search-chain-options">
   </ul>
 </details>
         `;
         this.appendChild(this.container);
+
+        this.summaryElement = window.document.getElementById("search-chain-output");
         this.inputElement = window.document.getElementById("search-chain");
         this.optionsElement = window.document.getElementById("search-chain-options");
 
@@ -66,6 +68,7 @@ class ChainSearch extends HTMLElement {
                     .map(({ chainId, name }) => `<li><a data-chainid=${chainId} data-name="${name}" href="#" style="text-align: justify">name=${name} id=${chainId}</a></li>`).join("\n");
             }
         }
+        this.summaryElement?.focus();
     }
 
     resetInput() {
