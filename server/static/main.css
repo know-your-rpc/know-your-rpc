@@ -5,6 +5,12 @@
   --pico-font-family: var(--pico-font-family-sans-serif);
 }
 
+body {
+  min-width: 1180px;
+  overflow-x: auto;
+}
+
+
 .container-fluid {
   padding-left: 5rem;
   padding-right: 5rem;
@@ -13,4 +19,43 @@
 .small-button {
   padding: 5px 10px;
   font-size: 0.9em;
+}
+
+/* HEADER */
+#kyr_banner {
+  width: auto;
+  height: 3em;
+  display: block;
+  margin: 0 auto;
+}
+
+.header-grid {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  white-space: nowrap;
+  gap: 1rem;
+  font-size: 0.9em;
+}
+
+.header-item {
+  flex: 1;
+}
+
+.header-item.center {
+  text-align: center;
+  flex: 2;
+  /* gives more space to the center item */
+}
+
+.header-item.right {
+  text-align: right;
+}
+
+.header-item a {
+  margin-right: 1rem;
+}
+
+.header-item a:last-child {
+  margin-right: 0;
 }

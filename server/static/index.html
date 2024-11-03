@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta name="color-scheme" content="light" />
 
     <!-- Preload critical resources -->
@@ -44,23 +44,21 @@
 
     <main class="container-fluid">
         <header>
-            <div class="grid">
-                <div style="font-size: 0.9em;">
+            <div class="header-grid">
+                <div class="header-item">
                     <a href="/methodology.html" target="_blank">METHODOLOGY</a>
                     <a href="https://discord.gg/YaAtNQPb" target="_blank">DISCORD</a>
                 </div>
-                <div style="text-align: center;">
+                <div class="header-item center">
                     <a style="text-decoration: none;" target="_self" href="/index.html">
-                        <img src="./kyr_banner.svg" alt="KNOW YOUR RPC"
-                            style="width: auto; height: 3em; display: block; margin: 0 auto;">
-
-                        <!-- <h1>KNOW YOUR RPC</h1> -->
+                        <img id="kyr_banner" src="./kyr_banner.svg" alt="KNOW YOUR RPC">
                     </a>
                 </div>
-                <div style="text-align: right; font-size: 0.9em;">
+                <div class="header-item right">
                     <a href="/custom_rpcs.html" target="_self">CUSTOM RPC</a>
                     <log-in-btn />
                 </div>
+            </div>
         </header>
 
         <chain-search></chain-search>
