@@ -117,17 +117,18 @@ func benchGetBlocNumber(rpcUrl string) PerRpcBlockNumberBenchmark {
 		return PerRpcBlockNumberBenchmark{rpc.RPC_CALL_TIMEOUT.Milliseconds(), *big.NewInt(0), true, rpcUrl}
 	}
 
-	blockNumberInHex := new(string)
-	err = json.Unmarshal(result.Result, blockNumberInHex)
+	var blockNumberInHex string
+	err = json.Unmarshal(result.Result, &blockNumberInHex)
 
 	if err != nil {
 		fmt.Printf("rpcUrl=%s failed error=parsing response\n", rpcUrl)
 		return PerRpcBlockNumberBenchmark{rpc.RPC_CALL_TIMEOUT.Milliseconds(), *big.NewInt(0), true, rpcUrl}
 	}
 
-	blockNumber, ok := hexToBigInt([]byte(*blockNumberInHex))
+	blockNumber, ok := hexToBigInt([]byte(blockNumberInHex))
 
 	if !ok {
+		fmt.Printf("rpcUrl=%s failed error=parsing blockNumber=%s\n", rpcUrl, blockNumberInHex)
 		return PerRpcBlockNumberBenchmark{rpc.RPC_CALL_TIMEOUT.Milliseconds(), *big.NewInt(0), true, rpcUrl}
 	}
 
@@ -142,6 +143,10 @@ func benchGetBlocNumber(rpcUrl string) PerRpcBlockNumberBenchmark {
 }
 
 func hexToBigInt(with0x []byte) (*big.Int, bool) {
+	if len(with0x) < 2 {
+		return nil, false
+	}
+
 	hexWithout0x := with0x[2:]
 
 	if len(hexWithout0x)%2 == 1 {

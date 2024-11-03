@@ -15,7 +15,7 @@ async function saveCustomRpc(currentChainId) {
         // @ts-ignore
         document.getElementById('custom-rpc-input').value = '';
 
-        await postRequest("/api/custom-rpc/add", { rpcUrl: customRpcUrl, chainId: currentChainId });
+        await postRequest("/api/custom-rpc/add", { rpcUrl: customRpcUrl.trim(), chainId: currentChainId });
 
         toastSuccess(`Added ${customRpcUrl} to chainId=${currentChainId}`);
 

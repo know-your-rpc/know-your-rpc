@@ -4,6 +4,7 @@ class ChainSearch extends HTMLElement {
     supportedChains = [];
     inputElement;
     optionsElement;
+    filter = [];
 
     constructor() {
         super();
@@ -34,20 +35,45 @@ class ChainSearch extends HTMLElement {
     onClick(event) {
         event.preventDefault();
         if (this.isActive()) {
-            const chainId = event.target.dataset.chainid;
-            const chainName = event.target.dataset.name;
-            if (!chainId) {
+            if (!event.target.dataset.chainid) {
+                this.resetInput();
                 return;
             }
-
+            const chainId = event.target.dataset.chainid;
             // @ts-ignore
             window.dispatchEvent(new CustomEvent("_update_chain_id", { detail: { chainId } }));
             localStorage.setItem("last_chain_id", chainId);
-            this.updateChainInTitle();
-            this.inputElement?.removeAttribute("open")
+            this.resetInput();
         } else {
             this.inputElement?.setAttribute("open", "open")
+
+            window.onkeydown = (event) => {
+                if (event.key === "Escape") {
+                    this.resetInput();
+                    return;
+                } else if (event.key === "Backspace") {
+                    this.filter.pop();
+                } else if (/^[a-zA-Z0-9]$/.test(event.key)) {
+                    this.filter.push(event.key);
+                } else {
+                    return;
+                }
+
+                window.document.getElementById("search-chain-output").innerText = this.filter.join("");
+
+                this.optionsElement.innerHTML = this.supportedChains
+                    .filter(({ name, chainId }) => name.toLowerCase().includes(this.filter.join("")) || chainId.toString().includes(this.filter.join("")))
+                    .map(({ chainId, name }) => `<li><a data-chainid=${chainId} data-name="${name}" href="#" style="text-align: justify">name=${name} id=${chainId}</a></li>`).join("\n");
+            }
         }
+    }
+
+    resetInput() {
+        this.inputElement?.removeAttribute("open");
+        this.filter = [];
+        window.onkeydown = undefined;
+        this.updateChainInTitle();
+        this.optionsElement.innerHTML = this.supportedChains.map(({ chainId, name }) => `<li><a data-chainid=${chainId} data-name="${name}" href="#" style="text-align: justify">name=${name} id=${chainId}</a></li>`).join("\n");
     }
 
     updateChainInTitle() {
@@ -65,5 +91,4 @@ class ChainSearch extends HTMLElement {
     }
 
 }
-
 window.customElements.define('chain-search', ChainSearch);
