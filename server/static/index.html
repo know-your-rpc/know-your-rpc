@@ -112,15 +112,19 @@
 
         <timeseries-chart id="block-numbers-duration" data-url="/api/stats/block-numbers/duration" data-stepsize="10"
             data-title="BLOCK NUMBER DURATION"
-            data-info="- duration of eth_getBlockNumber request till reading last byte in milliseconds <br/> - capped to [0;3000]" />
+            data-info="- duration of eth_getBlockNumber request till reading last byte in milliseconds <br/> - capped to [0;3000<br /> - zoomabl]" />
 
 
         <timeseries-chart id="block-numbers-median" data-url="/api/stats/block-numbers/median-diff" data-stepsize="1"
             data-title="BLOCK NUMBER SYNC"
-            data-info="- block number deviation from median <br/> - capped to [-30;10]" />
+            data-info="- block number deviation from median <br/> - capped to [-30;10]<br /> - zoomable" />
+
+        <timeseries-chart id="block-numbers-height" data-url="/api/stats/block-numbers/block-height" data-stepsize="1"
+            data-title="BLOCK NUMBER HEIGHT" data-info="- zoomable" />
 
         <timeseries-chart id="block-numbers-error-rate" data-url="/api/stats/block-numbers/error-rate"
-            data-stepsize="0.01" data-title="BLOCK NUMBER ERROR RATE" data-info="- error rate of eth_getBlockNumber" />
+            data-stepsize="0.01" data-title="BLOCK NUMBER ERROR RATE"
+            data-info="- error rate of eth_getBlockNumber <br/> - zoomable" />
 
     </main>
 

@@ -100,7 +100,6 @@ class TimeSeriesChart extends HTMLElement {
         const { min, max } = this.chart.scales.x;
         this.currentStartX = Math.round(min / 1000);
         this.currentEndX = Math.round(max / 1000);
-        console.log('Fetched data between ' + new Date(this.currentStartX * 1000) + ' and ' + new Date(this.currentEndX * 1000));
 
         await this.updateDataSetsWithNewData();
     }

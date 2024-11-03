@@ -35,6 +35,8 @@ func main() {
 
 	handler.HandleFunc("/api/payment/acknowledge", queries.CreateAcknowledgePaymentQuery(serverContext))
 
+	handler.HandleFunc("/api/stats/block-numbers/block-height", queries.CreateBlockNumberHeightQuery(serverContext))
+
 	handler.HandleFunc("/api/stats/block-numbers/median-diff", queries.CreateBlockNumberDiffFromMedianQuery(serverContext))
 
 	handler.HandleFunc("/api/stats/block-numbers/duration", queries.CreateBlockNumberDurationQuery(serverContext))
