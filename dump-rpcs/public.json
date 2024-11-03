@@ -162,6 +162,9 @@
         "url": "https://eth.blockrazor.xyz"
       },
       {
+        "url": "https://endpoints.omniatech.io/v1/eth/mainnet/public"
+      },
+      {
         "url": "https://api.mycryptoapi.com/eth"
       },
       {
@@ -504,6 +507,9 @@
       },
       {
         "url": "https://rpc.nebkas.ro"
+      },
+      {
+        "url": "https://endpoints.omniatech.io/v1/cronos/mainnet/public"
       }
     ],
     "27": [
@@ -841,6 +847,9 @@
       },
       {
         "url": "https://bsc.blockrazor.xyz"
+      },
+      {
+        "url": "https://endpoints.omniatech.io/v1/bsc/mainnet/public"
       },
       {
         "url": "https://bsc-dataseed1.bnbchain.org"
@@ -1459,6 +1468,9 @@
         "url": "https://polygon-mainnet.4everland.org/v1/37fa9972c1b1cd5fab542c7bdd4cde2f"
       },
       {
+        "url": "https://endpoints.omniatech.io/v1/matic/mainnet/public"
+      },
+      {
         "url": "https://polygon-rpc.com/"
       },
       {
@@ -1516,6 +1528,9 @@
       },
       {
         "url": "https://manta-pacific.drpc.org"
+      },
+      {
+        "url": "https://endpoints.omniatech.io/v1/manta-pacific/mainnet/public"
       }
     ],
     "184": [
@@ -1809,14 +1824,6 @@
         "url": "https://lachain.rpc-nodes.cedalio.dev"
       }
     ],
-    "279": [
-      {
-        "url": "https://rpc.mainnet.bpxchain.cc"
-      },
-      {
-        "url": "https://bpx-dataseed.infinex.cc"
-      }
-    ],
     "288": [
       {
         "url": "https://mainnet.boba.network/"
@@ -1983,6 +1990,9 @@
         "url": "https://evm-t3.cronos.org/"
       },
       {
+        "url": "https://endpoints.omniatech.io/v1/cronos/testnet/public"
+      },
+      {
         "url": "https://evm-t3.cronos.org"
       },
       {
@@ -2062,9 +2072,6 @@
         "url": "https://gateway.tenderly.co/public/optimism-goerli"
       },
       {
-        "url": "https://endpoints.omniatech.io/v1/op/goerli/public"
-      },
-      {
         "url": "https://goerli.optimism.io"
       },
       {
@@ -2103,6 +2110,17 @@
       },
       {
         "url": "https://mainnet-rpc5.areon.network"
+      }
+    ],
+    "480": [
+      {
+        "url": "https://worldchain-mainnet.g.alchemy.com/public"
+      },
+      {
+        "url": "https://480.rpc.thirdweb.com"
+      },
+      {
+        "url": "https://worldchain-mainnet.gateway.tenderly.co"
       }
     ],
     "512": [
@@ -2203,7 +2221,7 @@
     ],
     "698": [
       {
-        "url": "https://rpc.matchscan.io"
+        "url": "https://rpc.matchain.io"
       }
     ],
     "710": [
@@ -2801,6 +2819,19 @@
         "url": "https://replica.bobabase.boba.network"
       }
     ],
+    "1299": [
+      {
+        "url": "https://rpc.devolvedai.com"
+      },
+      {
+        "url": "https://rpc-mainnet.devolvedai.com"
+      }
+    ],
+    "1301": [
+      {
+        "url": "https://endpoints.omniatech.io/v1/unichain/sepolia/public"
+      }
+    ],
     "1319": [
       {
         "url": "https://aia-dataseed2.aiachain.org"
@@ -2824,6 +2855,9 @@
     "1329": [
       {
         "url": "https://evm-rpc.sei-apis.com"
+      },
+      {
+        "url": "https://sei.drpc.org"
       }
     ],
     "1338": [
@@ -2857,6 +2891,9 @@
     ],
     "1442": [
       {
+        "url": "https://endpoints.omniatech.io/v1/polygon-zkevm/testnet/public"
+      },
+      {
         "url": "https://rpc.public.zkevm-test.net"
       },
       {
@@ -2881,9 +2918,6 @@
         "url": "https://testnet.storyrpc.io"
       },
       {
-        "url": "https://story-rpc-evm.validatorvn.com"
-      },
-      {
         "url": "https://story-evm-testnet-rpc.tech-coha05.xyz"
       },
       {
@@ -2899,27 +2933,53 @@
         "url": "https://story-rpc01.originstake.com"
       },
       {
-        "url": "https://story-testnet-evm.itrocket.net"
-      },
-      {
         "url": "https://story-rpc-evm.mandragora.io"
       },
       {
         "url": "https://story-testnet-jsonrpc.blockhub.id"
       },
       {
-        "url": "https://rpc-storyevm-testnet.aldebaranode.xyz"
+        "url": "https://rpc-storyevm-testnet-iliad.aldebaranode.xyz"
       },
       {
         "url": "https://story-testnet.nodeinfra.com"
-      },
-      {
-        "url": "https://rpc-storyevm-testnet.aldebaranode.xyz"
       }
     ],
     "1515": [
       {
         "url": "https://beagle.chat/eth"
+      }
+    ],
+    "1516": [
+      {
+        "url": "https://odyssey.storyrpc.io"
+      },
+      {
+        "url": "https://lightnode-json-rpc-story.grandvalleys.com"
+      },
+      {
+        "url": "https://odyssey-evm.spidernode.net"
+      },
+      {
+        "url": "https://story-rpc-evm.mandragora.io"
+      },
+      {
+        "url": "https://evm-rpc-story.josephtran.xyz"
+      },
+      {
+        "url": "https://story-testnet-jsonrpc.blockhub.id"
+      },
+      {
+        "url": "https://story-testnet-evm.itrocket.net"
+      },
+      {
+        "url": "https://story-rpc-evm.validatorvn.com"
+      },
+      {
+        "url": "https://rpc-storyevm-testnet.aldebaranode.xyz"
+      },
+      {
+        "url": "https://story-evm.endorphinestake.com"
       }
     ],
     "1559": [
@@ -3026,6 +3086,14 @@
       },
       {
         "url": "https://endpoints.omniatech.io/v1/lightlink/pegasus/public"
+      }
+    ],
+    "1927": [
+      {
+        "url": "https://rpc-testnet-market.arvix.network"
+      },
+      {
+        "url": "https://rpc-dev-testnet.arvix.network"
       }
     ],
     "1946": [
@@ -3213,6 +3281,14 @@
         "url": "https://rpc.bosagora.org"
       }
     ],
+    "2192": [
+      {
+        "url": "https://mainnet.snaxchain.io"
+      },
+      {
+        "url": "https://snaxchain.drpc.org"
+      }
+    ],
     "2213": [
       {
         "url": "https://seed4.evanesco.org:8546"
@@ -3395,6 +3471,14 @@
         "url": "https://rpc-holesky.morphl2.io"
       }
     ],
+    "2818": [
+      {
+        "url": "https://rpc.morphl2.io"
+      },
+      {
+        "url": "https://rpc-quicknode.morphl2.io"
+      }
+    ],
     "2941": [
       {
         "url": "https://testnet-chain.xenonchain.com/"
@@ -3545,6 +3629,9 @@
       },
       {
         "url": "https://merlin-mainnet-enterprise.unifra.io"
+      },
+      {
+        "url": "https://endpoints.omniatech.io/v1/merlin/mainnet/public"
       }
     ],
     "4242": [
@@ -3610,6 +3697,17 @@
         "url": "https://iotex.api.onfinality.io/public"
       }
     ],
+    "4801": [
+      {
+        "url": "https://worldchain-sepolia.g.alchemy.com/public"
+      },
+      {
+        "url": "https://4801.rpc.thirdweb.com"
+      },
+      {
+        "url": "https://worldchain-sepolia.gateway.tenderly.co"
+      }
+    ],
     "4999": [
       {
         "url": "https://mainnet.blackfort.network/rpc"
@@ -3648,6 +3746,9 @@
       },
       {
         "url": "https://api.zan.top/mantle-mainnet"
+      },
+      {
+        "url": "https://endpoints.omniatech.io/v1/mantle/mainnet/public"
       }
     ],
     "5002": [
@@ -3662,6 +3763,11 @@
       },
       {
         "url": "https://node3.treasurenet.io"
+      }
+    ],
+    "5003": [
+      {
+        "url": "https://endpoints.omniatech.io/v1/mantle/sepolia/public"
       }
     ],
     "5005": [
@@ -4207,6 +4313,9 @@
       },
       {
         "url": "https://api.zan.top/base-mainnet"
+      },
+      {
+        "url": "https://endpoints.omniatech.io/v1/base/mainnet/public"
       },
       {
         "url": "https://mainnet.base.org/"
@@ -4983,6 +5092,14 @@
         "url": "https://titan-testnet-json-rpc-2.titanlab.io"
       }
     ],
+    "21097": [
+      {
+        "url": "https://validator.rivest.inco.org"
+      },
+      {
+        "url": "https://gateway.rivest.inco.org"
+      }
+    ],
     "21816": [
       {
         "url": "https://seed.omlira.com"
@@ -5229,6 +5346,9 @@
         "url": "https://arbitrum.gateway.tenderly.co"
       },
       {
+        "url": "https://endpoints.omniatech.io/v1/arbitrum/one/public"
+      },
+      {
         "url": "https://arbitrum-one.publicnode.com"
       }
     ],
@@ -5280,7 +5400,7 @@
     ],
     "42262": [
       {
-        "url": "https://emerald.oasis.dev/"
+        "url": "https://emerald.oasis.io"
       },
       {
         "url": "https://1rpc.io/oasis/emerald"
@@ -5456,6 +5576,11 @@
         "url": "https://rpc.oracle.liveplex.io"
       }
     ],
+    "50104": [
+      {
+        "url": "https://rpc.sophon.xyz"
+      }
+    ],
     "51178": [
       {
         "url": "https://alpha-us-http-geth.lumoz.org"
@@ -5616,6 +5741,9 @@
     "63000": [
       {
         "url": "https://rpc.ecredits.com"
+      },
+      {
+        "url": "https://rpc.esync.network"
       }
     ],
     "65349": [
@@ -5830,6 +5958,9 @@
       },
       {
         "url": "https://blast.gateway.tenderly.co"
+      },
+      {
+        "url": "https://endpoints.omniatech.io/v1/blast/mainnet/public"
       }
     ],
     "84531": [
@@ -5850,9 +5981,6 @@
       },
       {
         "url": "https://base-goerli-rpc.publicnode.com"
-      },
-      {
-        "url": "https://endpoints.omniatech.io/v1/base/goerli/public"
       },
       {
         "url": "https://goerli.base.org"
@@ -5984,9 +6112,6 @@
         "url": "https://rpc.ankr.com/taiko"
       },
       {
-        "url": "https://taiko.blockpi.network/v1/rpc/public"
-      },
-      {
         "url": "https://rpc.taiko.tools"
       },
       {
@@ -6017,9 +6142,6 @@
       },
       {
         "url": "https://rpc.ankr.com/taiko_hekla"
-      },
-      {
-        "url": "https://taiko-hekla.blockpi.network/v1/rpc/public"
       },
       {
         "url": "https://hekla.taiko.tools"
@@ -6183,9 +6305,6 @@
         "url": "https://arbitrum-goerli-rpc.publicnode.com"
       },
       {
-        "url": "https://endpoints.omniatech.io/v1/arbitrum/goerli/public"
-      },
-      {
         "url": "https://goerli-rollup.arbitrum.io/rpc"
       },
       {
@@ -6245,6 +6364,9 @@
         "url": "https://scroll-testnet.rpc.grove.city/v1/a7a7c8e2"
       },
       {
+        "url": "https://endpoints.omniatech.io/v1/scroll/sepolia/public"
+      },
+      {
         "url": "https://scroll-sepolia-rpc.publicnode.com"
       }
     ],
@@ -6275,6 +6397,9 @@
       },
       {
         "url": "https://scroll.api.onfinality.io/public"
+      },
+      {
+        "url": "https://endpoints.omniatech.io/v1/scroll/mainnet/public"
       },
       {
         "url": "https://rpc.ankr.com/scroll"
@@ -6325,6 +6450,11 @@
       },
       {
         "url": "https://evm-rpc.arctic-1.seinetwork.io"
+      }
+    ],
+    "763373": [
+      {
+        "url": "https://rpc-gel-sepolia.inkonchain.com"
       }
     ],
     "786786": [
@@ -6430,6 +6560,11 @@
       },
       {
         "url": "https://manta-pacific-testnet.drpc.org"
+      }
+    ],
+    "3441006": [
+      {
+        "url": "https://endpoints.omniatech.io/v1/manta-pacific/sepolia/public"
       }
     ],
     "5555555": [
@@ -6667,6 +6802,9 @@
         "url": "https://blast-sepolia.blockpi.network/v1/rpc/public"
       },
       {
+        "url": "https://endpoints.omniatech.io/v1/blast/sepolia/public"
+      },
+      {
         "url": "https://sepolia.blast.io"
       },
       {
@@ -6715,6 +6853,11 @@
     "486217935": [
       {
         "url": "https://devnet.gather.network"
+      }
+    ],
+    "531050104": [
+      {
+        "url": "https://rpc.testnet.sophon.xyz"
       }
     ],
     "728126428": [
