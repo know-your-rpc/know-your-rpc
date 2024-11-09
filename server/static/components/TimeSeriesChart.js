@@ -142,6 +142,13 @@ class TimeSeriesChart extends HTMLElement {
                     mode: 'dataset',
                     enabled: true
                 },
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        usePointStyle: true,  // Makes legend items use points instead of rectangles
+                        padding: 20
+                    }
+                },
                 zoom: {
                     limits: {
                         x: { min: 'original', max: 'original', minRange: 60 * 1000 },
@@ -171,20 +178,59 @@ class TimeSeriesChart extends HTMLElement {
                     type: 'timeseries',
                     position: 'bottom',
                     time: {
-                        unit: 'second',
+                        displayFormats: {
+                            millisecond: 'HH:mm:ss.SSS',
+                            second: 'HH:mm:ss',
+                            minute: 'HH:mm',
+                            hour: 'MMM D, HH:mm',
+                            day: 'MMM D',
+                            week: 'MMM D',
+                            month: 'MMM YYYY',
+                            quarter: 'MMM YYYY',
+                            year: 'YYYY'
+                        },
+                        tooltipFormat: 'MMM D, HH:mm',
+                    },
+                    grid: {
+                        display: true,
+                        color: 'rgba(0,0,0,0.05)'
+                    },
+                    ticks: {
+                        maxRotation: 0,  // Prevents label rotation
                     }
                 },
-            },
-            y: {
-                type: 'linear',
-                max: Number(this.dataset.max),
-                min: Number(this.dataset.min),
-                ticks: {
-                    stepSize: this.dataset.stepsize,
+                y: {
+                    type: 'linear',
+                    max: Number(this.dataset.max),
+                    min: Number(this.dataset.min),
+                    ticks: {
+                        stepSize: this.dataset.stepsize,
+                        callback: function (value) {
+                            // Format large numbers with K/M/B suffixes
+                            if (Math.abs(value) >= 1000000000) {
+                                return (value / 1000000000) + 'B';
+                            }
+                            if (Math.abs(value) >= 1000000) {
+                                return (value / 1000000) + 'M';
+                            }
+                            if (Math.abs(value) >= 1000) {
+                                return (value / 1000) + 'K';
+                            }
+                            return value;
+                        }
+                    },
+                    grid: {
+                        color: 'rgba(0,0,0,0.05)'
+                    }
                 }
+            },
+            interaction: {
+                mode: 'nearest',
+                intersect: false
             }
         }
     }
+
 }
 
 window.customElements.define('timeseries-chart', TimeSeriesChart);
