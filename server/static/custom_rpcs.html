@@ -1,123 +1,164 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" data-theme="light">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="color-scheme" content="light" />
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="color-scheme" content="light" />
+        <!-- Preload critical resources -->
+        <link
+            rel="preload"
+            href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.amber.min.css"
+            as="style"
+        />
+        <link rel="preload" href="./main.css" as="style" />
+        <link rel="preload" href="./app.js" as="script" />
 
-    <!-- Preload critical resources -->
-    <link rel="preload" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.amber.min.css" as="style">
-    <link rel="preload" href="./main.css" as="style">
-    <link rel="preload" href="./app.js" as="script">
+        <!-- Stylesheets -->
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.amber.min.css"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
+        />
+        <link rel="stylesheet" href="./main.css" />
 
-    <!-- Stylesheets -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.amber.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
-    <link rel="stylesheet" href="./main.css">
+        <!-- Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap"
+            rel="stylesheet"
+        />
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap"
-        rel="stylesheet">
+        <!-- Defer non-critical scripts -->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
+        <script src="https://cdn.jsdelivr.net/npm/moment@^2" defer></script>
+        <script
+            src="https://cdn.jsdelivr.net/npm/chartjs-adapter-moment@^1"
+            defer
+        ></script>
+        <script
+            src="https://cdn.jsdelivr.net/npm/chartjs-plugin-autocolors"
+            defer
+        ></script>
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"
+            defer
+        ></script>
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-zoom/2.0.1/chartjs-plugin-zoom.min.js"
+            defer
+        ></script>
+        <script
+            src="https://cdn.jsdelivr.net/npm/web3@4.12.1/dist/web3.min.js"
+            defer
+        ></script>
+        <script src="https://cdn.jsdelivr.net/npm/toastify-js" defer></script>
 
-    <!-- Defer non-critical scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/moment@^2" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-moment@^1" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-autocolors" defer></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js" defer></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-zoom/2.0.1/chartjs-plugin-zoom.min.js"
-        defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/web3@4.12.1/dist/web3.min.js" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/toastify-js" defer></script>
+        <!-- Main application scripts -->
+        <script type="module" src="./app.js"></script>
+        <script type="module" src="./lib/custom_rpcs.js"></script>
 
-    <!-- Main application scripts -->
-    <script type="module" src="./app.js"></script>
-    <script type="module" src="./lib/custom_rpcs.js"></script>
+        <title>Know your rpc</title>
+    </head>
 
-    <title>Know your rpc</title>
-</head>
-
-<body>
-
-    <main class="container-fluid">
-        <header>
-            <div class="header-grid">
-                <div class="header-item">
-                    <a href="/methodology.html" target="_blank">METHODOLOGY</a>
-                    <a href="https://discord.gg/YaAtNQPb" target="_blank">DISCORD</a>
-                </div>
-                <div class="header-item center">
-                    <a style="text-decoration: none;" target="_self" href="/index.html">
-                        <img id="kyr_banner" src="./kyr_banner.svg" alt="KNOW YOUR RPC">
-                    </a>
-                </div>
-                <div class="header-item right">
-                    <a href="/custom_rpcs.html" target="_self">CUSTOM RPC</a>
-                    <log-in-btn />
-                </div>
-            </div>
-        </header>
-
-        <chain-search></chain-search>
-
-        <time-range-selector></time-range-selector>
-
-        <subscription-modal data-mustAuth="true"></subscription-modal>
-
-        <article>
+    <body>
+        <main class="container-fluid">
             <header>
-                <div style="text-align: center;">
-                    <h3>CUSTOM RPCS</h3>
+                <div class="header-grid">
+                    <div class="header-item">
+                        <a href="/methodology.html" target="_blank"
+                            >METHODOLOGY</a
+                        >
+                        <a href="https://discord.gg/YaAtNQPb" target="_blank"
+                            >DISCORD</a
+                        >
+                    </div>
+                    <div class="header-item center">
+                        <a
+                            style="text-decoration: none"
+                            target="_self"
+                            href="/index.html"
+                        >
+                            <img
+                                id="kyr_banner"
+                                src="./kyr_banner.svg"
+                                alt="KNOW YOUR RPC"
+                            />
+                        </a>
+                    </div>
+                    <div class="header-item right">
+                        <a href="/index.html" target="_self">HOME</a>
+                        <log-in-btn />
+                    </div>
                 </div>
             </header>
 
-            <div class="overflow-auto">
-                <div class="grid">
-                    <div style="text-align: left;">
-                        <fieldset role="group">
-                            <input type="text" placeholder="Add new custom RPC URL" id="custom-rpc-input">
-                            <button class="small-button" id="custom-rpc-btn">
-                                SAVE
+            <chain-search></chain-search>
+
+            <time-range-selector></time-range-selector>
+
+            <subscription-modal data-mustAuth="true"></subscription-modal>
+
+            <article>
+                <header>
+                    <div style="text-align: center">
+                        <h3>CUSTOM RPCS</h3>
+                    </div>
+                </header>
+
+                <div class="overflow-auto">
+                    <div class="grid">
+                        <div style="text-align: left">
+                            <fieldset role="group">
+                                <input
+                                    type="text"
+                                    placeholder="Add new custom RPC URL"
+                                    id="custom-rpc-input"
+                                />
+                                <button
+                                    class="small-button"
+                                    id="custom-rpc-btn"
+                                >
+                                    SAVE
+                                </button>
+                            </fieldset>
+                        </div>
+
+                        <div style="text-align: right">
+                            <button
+                                class="small-button"
+                                id="remove-all-custom-rpcs-btn"
+                                style="font-size: 1rem"
+                            >
+                                REMOVE ALL RPCS
                             </button>
-                        </fieldset>
+                        </div>
                     </div>
 
-                    <div style="text-align: right;">
-                        <button class="small-button" id="remove-all-custom-rpcs-btn" style="font-size: 1rem;">
-                            REMOVE ALL RPCS
-                        </button>
-                    </div>
+                    <table style="font-size: small">
+                        <thead>
+                            <tr>
+                                <th scope="col">LP</th>
+                                <th scope="col">RPC URL</th>
+                                <th scope="col">ERROR RATE</th>
+                                <th scope="col">REQ DURATION</th>
+                                <th scope="col">BLOCKS BEHIND</th>
+                                <th scope="col">ACTIONS</th>
+                            </tr>
+                        </thead>
+                        <tbody id="custom_rpcs_table_body">
+                            <!-- here is injected js table -->
+                        </tbody>
+                    </table>
                 </div>
 
-
-
-
-                <table style="font-size: small;">
-                    <thead>
-                        <tr>
-                            <th scope="col">LP</th>
-                            <th scope="col">RPC URL</th>
-                            <th scope="col">ERROR RATE</th>
-                            <th scope="col">REQ DURATION</th>
-                            <th scope="col">BLOCKS BEHIND</th>
-                            <th scope="col">ACTIONS</th>
-                        </tr>
-                    </thead>
-                    <tbody id="custom_rpcs_table_body">
-                        <!-- here is injected js table -->
-                    </tbody>
-                </table>
-            </div>
-
-            <footer>
-            </footer>
-        </article>
-    </main>
-    <footer></footer>
-
-</body>
-
+                <footer></footer>
+            </article>
+        </main>
+        <footer></footer>
+    </body>
 </html>
