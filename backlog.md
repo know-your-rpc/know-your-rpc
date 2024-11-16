@@ -1,5 +1,5 @@
 - [x] reduce number of chains
-- [ ] better date-picker
+- [x] better date-picker
 - [ ] network stats { status: OK | ERROR, add to metamask }
 - [ ] only healthy button
 - [ ] fix sql injecion in rpcUrl

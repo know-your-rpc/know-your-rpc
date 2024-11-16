@@ -42,26 +42,34 @@ export function getLastChainId() {
     return localStorage.getItem("last_chain_id") || "1";
 }
 
-export function getLastTimeRangeStr() {
-    return localStorage.getItem("range_time") || "48h";
+export function getLastPeriod() {
+    return localStorage.getItem("period") || "48h";
 }
 
-export function dateRangeToTimestamp(dateRangeStr) {
-    const now = Math.round(Date.now() / 1000);
-    switch (dateRangeStr) {
+export function getLastTimeRange() {
+    if (localStorage.getItem("time_range")) {
+        return localStorage.getItem("time_range")?.split("-").map(Number)
+    } else {
+        return periodToTimeRange(getLastPeriod());
+    }
+}
+
+export function periodToTimeRange(period) {
+    const now = Date.now();
+    switch (period) {
         case "30min": {
-            return [now - (30 * 60), now];
+            return [now - (30 * 60 * 1_000), now];
         }
         case "48h": {
-            return [now - (48 * 3600), now]
+            return [now - (48 * 3600 * 1_000), now]
         }
         case "7d": {
-            return [now - (7 * 24 * 3600), now]
+            return [now - (7 * 24 * 3600 * 1_000), now]
         }
         case "14d": {
-            return [now - (14 * 24 * 3600), now]
+            return [now - (14 * 24 * 3600 * 1_000), now]
         }
-        default: throw new Error(`unknown dataRangeStr=${dateRangeStr}`)
+        default: throw new Error(`unknown period=${period}`)
     }
 }
 

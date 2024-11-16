@@ -1,4 +1,5 @@
-import { getLastTimeRangeStr } from "../lib/utils.js";
+import { getLastPeriod, getLastTimeRange, periodToTimeRange } from "../lib/utils.js";
+
 
 class TimeRangeSelector extends HTMLElement {
     constructor() {
@@ -7,51 +8,89 @@ class TimeRangeSelector extends HTMLElement {
         this.render();
         this.attachListeners();
         this.appendChild(this.container);
+
     }
 
     render() {
         this.container.innerHTML = `
             <style>
-                .time-range-button {
-                    border: 1px solid #646b79;
-                }
-                .time-range-button.active {
-                    background-color: white;
-                }
+                
             </style>
-            <fieldset role="group" style="margin-bottom: 5rem" >
-                <button class="time-range-button" data-range="30min">30 min</button>
-                <button class="time-range-button" data-range="48h">48 h</button>
-                <button class="time-range-button" data-range="7d">7 days</button>
-                <button class="time-range-button" data-range="14d">14 days</button>
-            </fieldset>
+            
+            <div class="grid">
+            <label>Period
+                <select>
+                    <option value="30min">30 min</option>
+                    <option value="48h">48 h</option>
+                    <option value="7d">7 days</option>
+                    <option value="14d">14 days</option>
+                </select>
+                </label>
+                <label>From
+                <input type="datetime-local" id="datetime-from">
+                </label>
+                <label>To
+                <input type="datetime-local" id="datetime-to">
+                </label>
+            </div>
         `;
     }
 
     attachListeners() {
-        const buttons = this.container.querySelectorAll('.time-range-button');
-        buttons.forEach(button => {
-            button.addEventListener('click', () => {
-                buttons.forEach(btn => btn.classList.remove('active'));
-                button.classList.add('active');
+        this.select = this.container.querySelector('select');
+        this.fromInput = this.container.querySelector('#datetime-from');
+        this.toInput = this.container.querySelector('#datetime-to');
 
-                const range = button.getAttribute('data-range');
-                // @ts-ignore
-                localStorage.setItem("range_time", range);
+        this.select.addEventListener('change', (e) => {
+            const period = e.target.value;
+
+            const [from, to] = periodToTimeRange(period);
+
+            localStorage.setItem("period", period);
+            localStorage.setItem("time_range", `${from}-${to}`)
+
+            this.updatePickerState(period, from, to);
+
+            this.dispatchEvent(new CustomEvent('_update_time_range', {
+                detail: { range: [from, to] },
+                bubbles: true,
+                composed: true
+            }));
+        });
+
+        [this.fromInput, this.toInput].forEach(input => {
+            input.addEventListener('change', () => {
+                const from = new Date(this.fromInput.value).getTime();
+                const to = new Date(this.toInput.value).getTime();
+
+                localStorage.setItem("time_range", `${from}-${to}`)
+
                 this.dispatchEvent(new CustomEvent('_update_time_range', {
-                    detail: { range },
+                    detail: { range: [from, to] },
                     bubbles: true,
                     composed: true
                 }));
-
-
             });
         });
     }
 
     connectedCallback() {
-        const defaultButton = this.container.querySelector(`[data-range="${getLastTimeRangeStr()}"]`);
-        defaultButton?.classList.add("active");
+        const period = getLastPeriod();
+        const [from, to] = periodToTimeRange(period);
+
+        this.updatePickerState(period, from, to);
+    }
+
+    updatePickerState(period, from, to) {
+        const now = new Date();
+        const twoWeeksAgo = new Date(Date.now() - 14 * 24 * 60 * 60 * 1000);
+        this.select.value = period;
+        this.fromInput.value = new Date(from).toISOString().slice(0, 16);
+        this.toInput.value = new Date(to).toISOString().slice(0, 16);
+        this.fromInput.min = twoWeeksAgo.toISOString().slice(0, 16);
+        this.fromInput.max = now.toISOString().slice(0, 16);
+        this.toInput.min = twoWeeksAgo.toISOString().slice(0, 16);
+        this.toInput.max = now.toISOString().slice(0, 16);
     }
 }
 

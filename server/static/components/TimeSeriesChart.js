@@ -1,12 +1,12 @@
 //@ts-nocheck
-import { getLastChainId, getLastTimeRangeStr, getRequest, dateRangeToTimestamp } from '../lib/utils.js';
+import { getLastChainId, getLastTimeRange, getRequest, periodToTimeRange } from '../lib/utils.js';
 
 const autocolors = window['chartjs-plugin-autocolors'];
 Chart.register(autocolors);
 
 // @ts-nocheck
 async function fetchDataSet({ url, from, to, chainId }) {
-    const data = await getRequest(url, { from, to, chainId });
+    const data = await getRequest(url, { from: Math.round(from / 1_000), to: Math.round(to / 1_000), chainId });
 
     return data;
 }
@@ -29,11 +29,12 @@ function now() {
 
 class TimeSeriesChart extends HTMLElement {
     chainId = getLastChainId();
-    currentStartX = dateRangeToTimestamp(getLastTimeRangeStr())[0];
-    currentEndX = dateRangeToTimestamp(getLastTimeRangeStr())[1];
 
     constructor() {
         super();
+        const [from, to] = getLastTimeRange();
+        this.currentStartX = from;
+        this.currentEndX = to;
         this.container = document.createElement("container");
         this.canvasId = `canvas-${this.id}`
         this.container.innerHTML = `
@@ -77,7 +78,7 @@ class TimeSeriesChart extends HTMLElement {
         });
         window.addEventListener("_update_time_range", ({ detail: { range } }) => {
             this.chart.destroy();
-            const [start, end] = dateRangeToTimestamp(range);
+            const [start, end] = range;
             this.currentStartX = start;
             this.currentEndX = end;
             this.connectedCallback()
@@ -85,7 +86,6 @@ class TimeSeriesChart extends HTMLElement {
     }
 
     async fetchDataSets() {
-        console.log({ from: this.currentStartX, to: this.currentEndX, chainId: this.chainId, period: (this.currentEndX - this.currentStartX) / 1000 })
         return await fetchDataSet({ url: this.dataset.url, from: this.currentStartX, to: this.currentEndX, chainId: this.chainId });
     }
 
@@ -98,8 +98,8 @@ class TimeSeriesChart extends HTMLElement {
 
     async onZoom() {
         const { min, max } = this.chart.scales.x;
-        this.currentStartX = Math.round(min / 1000);
-        this.currentEndX = Math.round(max / 1000);
+        this.currentStartX = min;
+        this.currentEndX = max;
 
         await this.updateDataSetsWithNewData();
     }
@@ -116,15 +116,15 @@ class TimeSeriesChart extends HTMLElement {
     }
 
     async resetZoom() {
-        this.currentStartX = dateRangeToTimestamp(getLastTimeRangeStr())[0];
-        this.currentEndX = dateRangeToTimestamp(getLastTimeRangeStr())[1];
+        const [from, to] = getLastTimeRange();
+        this.currentStartX = from;
+        this.currentEndX = to;
         await this.updateDataSetsWithNewData();
         this.chart.resetZoom()
     }
 
     toggleVisibilityAll() {
         for (let i = 0; i < this.chart.data.datasets.length; i += 1) {
-            console.log("click")
             const currentState = this.chart.getDatasetMeta(i).hidden;
             this.chart.setDatasetVisibility(i, currentState);
         }

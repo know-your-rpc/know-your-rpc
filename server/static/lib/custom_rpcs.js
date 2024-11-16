@@ -1,7 +1,7 @@
-import { dateRangeToTimestamp, getLastChainId, getLastTimeRangeStr, getRequest, postRequest, toastSuccess } from "./utils.js";
+import { getLastChainId, getLastTimeRange, getRequest, postRequest, toastSuccess } from "./utils.js";
 
 window.addEventListener('DOMContentLoaded', async () => {
-    const [from, to] = dateRangeToTimestamp(getLastTimeRangeStr());
+    const [from, to] = getLastTimeRange();
     renderCustomRpcTable(getLastChainId(), from, to);
 });
 
@@ -19,7 +19,7 @@ async function saveCustomRpc(currentChainId) {
 
         toastSuccess(`Added ${customRpcUrl} to chainId=${currentChainId}`);
 
-        const [from, to] = dateRangeToTimestamp(getLastTimeRangeStr());
+        const [from, to] = getLastTimeRange();
         renderCustomRpcTable(currentChainId, from, to);
     }
 }
@@ -32,7 +32,7 @@ async function removeCustomRpc(rpcUrl, currentChainId) {
 
         toastSuccess(`Removed ${rpcUrl} from chainId=${currentChainId}`);
 
-        const [from, to] = dateRangeToTimestamp(getLastTimeRangeStr());
+        const [from, to] = getLastTimeRange();
         renderCustomRpcTable(currentChainId, from, to);
     }
 }
@@ -41,7 +41,7 @@ async function removeAllCustomRpcs(chainId) {
     try {
         await postRequest("/api/custom-rpc/remove-all", { chainId, rpcUrl: "https://mock.com" });
         console.log('All custom RPCs removed successfully');
-        const [from, to] = dateRangeToTimestamp(getLastTimeRangeStr());
+        const [from, to] = getLastTimeRange();
         renderCustomRpcTable(chainId, from, to);
     } catch (error) {
         console.error('Failed to remove all custom RPCs:', error);
@@ -108,12 +108,12 @@ async function fetchTopRpcs(chainId, from, to) {
 
 // @ts-ignore
 window.addEventListener("_update_chain_id", ({ detail: { chainId } }) => {
-    const [from, to] = dateRangeToTimestamp(getLastTimeRangeStr());
+    const [from, to] = getLastTimeRange();
     renderCustomRpcTable(chainId, from, to);
 });
 
 // @ts-ignore
 window.addEventListener("_update_time_range", ({ detail: { range } }) => {
-    const [from, to] = dateRangeToTimestamp(range);
+    const [from, to] = range;
     renderCustomRpcTable(getLastChainId(), from, to);
 });

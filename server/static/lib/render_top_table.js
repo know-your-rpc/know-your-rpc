@@ -1,7 +1,7 @@
-import { dateRangeToTimestamp, getLastChainId, getLastTimeRangeStr, getRequest } from "./utils.js";
+import { getLastChainId, getLastTimeRange, getRequest } from "./utils.js";
 
 window.addEventListener('DOMContentLoaded', () => {
-    const [from, to] = dateRangeToTimestamp(getLastTimeRangeStr());
+    const [from, to] = getLastTimeRange();
     renderTopTable(getLastChainId(), from, to);
 }
 );
@@ -25,7 +25,7 @@ function tr({ avgDiffFromMedian, avgRequestDuration, errorRate, rpcUrl }, index)
 }
 
 export async function renderTopTable(chainId, from, to) {
-    const topRpcResponse = await getRequest("/api/stats/top-rpcs", { chainId, from, to });
+    const topRpcResponse = await getRequest("/api/stats/top-rpcs", { chainId, from: Math.round(from / 1_000), to: Math.round(to / 1_000) });
 
     const rows = topRpcResponse.slice(0, MAX_RPC_COUNT).map(tr).join("");
 
@@ -35,13 +35,13 @@ export async function renderTopTable(chainId, from, to) {
 
 // @ts-ignore
 window.addEventListener("_update_chain_id", ({ detail: { chainId } }) => {
-    const [from, to] = dateRangeToTimestamp(getLastTimeRangeStr());
+    const [from, to] = getLastTimeRange();
     renderTopTable(chainId, from, to);
 });
 
 
 // @ts-ignore
 window.addEventListener("_update_time_range", ({ detail: { range } }) => {
-    const [from, to] = dateRangeToTimestamp(range);
+    const [from, to] = range;
     renderTopTable(getLastChainId(), from, to);
 });
