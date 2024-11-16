@@ -1,4 +1,5 @@
 const fs = require("fs");
+const { getSupportedChains } = require("./top-networks");
 
 const CHAIN_LIST_URL =
   "https://raw.githubusercontent.com/DefiLlama/chainlist/main/constants/extraRpcs.js";
@@ -27,14 +28,9 @@ async function main() {
 
   const rpcs = {};
 
-  const allChainIds = [
-    ...new Set([
-      ...Object.keys(rpcsFromChainsJson),
-      ...Object.keys(rpcsFromChainList),
-    ]).values(),
-  ];
+  const supportedChainIds = getSupportedChains().map((c) => c.ChainId);
 
-  for (const chainId of allChainIds) {
+  for (const chainId of supportedChainIds) {
     if (rpcsFromChainList[chainId] && rpcsFromChainsJson[chainId]) {
       rpcs[chainId] = [
         ...new Set([

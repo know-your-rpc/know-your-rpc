@@ -1,4 +1,4 @@
-- [ ] reduce number of chains
+- [x] reduce number of chains
 - [ ] better date-picker
 - [ ] network stats { status: OK | ERROR, add to metamask }
 - [ ] only healthy button
