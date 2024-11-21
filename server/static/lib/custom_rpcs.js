@@ -99,7 +99,7 @@ async function renderCustomRpcTable(chainId, from, to) {
 
 async function fetchTopRpcs(chainId, from, to) {
     try {
-        return await getRequest("/api/stats/top-rpcs", { chainId, from, to });
+        return await getRequest("/api/stats/top-rpcs", { chainId, from: Math.round(from / 1_000), to: Math.round(to / 1_000) });
     } catch (e) {
         console.error("Failed to fetch top RPCs", e);
         return [];

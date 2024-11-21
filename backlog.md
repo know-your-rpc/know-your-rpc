@@ -3,4 +3,4 @@
 - [ ] network stats { status: OK | ERROR, add to metamask }
 - [ ] only healthy button
 - [ ] fix sql injecion in rpcUrl
-- [ ] click vs click+cmd
+- [ ] click vs click+cmd vs toggle all
