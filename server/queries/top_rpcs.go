@@ -33,17 +33,24 @@ type TopTenRpcStats struct {
 }
 
 func CreateTopRpcsQuery(serverContext *server.ServerContext) func(w http.ResponseWriter, r *http.Request) {
-	queryTemplate, err := template.New("query").Parse(`SELECT date_bin_gapfill(INTERVAL '{{.BinTime}} seconds', time) as _time, sum("isError"::BOOLEAN::DOUBLE) as errors, count(*) as all, avg("diffWithMedian") as avgdiff, avg("wholeRequestDuration") as avgduration, "rpcUrl" FROM "blockNumber"
-				WHERE
-				time >= {{.From}}::TIMESTAMP
-				AND
-				time <= {{.To}}::TIMESTAMP
-				AND
-				"chainId" = '{{.ChainId}}'
-				AND
-				"rpcUrl" IN ({{.RpcUrls}})
-				GROUP BY 1, "rpcUrl"
-				ORDER BY 1, errors, avgduration DESC;`)
+	queryTemplate, err := template.New("query").Parse(`SELECT 
+        date_bin_gapfill(INTERVAL '{{.BinTime}} seconds', time) as _time, 
+        sum("isError"::BOOLEAN::DOUBLE) as errors, 
+        count(*) as all, 
+        avg(CASE WHEN NOT "isError"::BOOLEAN THEN "diffWithMedian" END) as avgdiff, 
+        avg(CASE WHEN NOT "isError"::BOOLEAN THEN "wholeRequestDuration" END) as avgduration, 
+        "rpcUrl" 
+    FROM "blockNumber"
+    WHERE
+        time >= {{.From}}::TIMESTAMP
+        AND
+        time <= {{.To}}::TIMESTAMP
+        AND
+        "chainId" = '{{.ChainId}}'
+        AND
+        "rpcUrl" IN ({{.RpcUrls}})
+    GROUP BY 1, "rpcUrl"
+    ORDER BY 1, errors, avgduration DESC;`)
 
 	if err != nil {
 		panic("failed to create query template")

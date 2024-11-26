@@ -137,6 +137,14 @@ class TimeSeriesChart extends HTMLElement {
             animation: false,
             normalize: false,
             responsive: true,
+            datasets: {
+                line: {
+                    pointRadius: 1,  // Makes points smaller (default is 3)
+                    borderWidth: 2,  // Makes lines thinner (default is 3)
+                    tension: 0.15,    // Adds slight smoothing to lines (0 = no smoothing, 1 = maximum smoothing)
+                    fill: false,     // Don't fill area under the line
+                }
+            },
             plugins: {
                 autocolors: {
                     mode: 'dataset',
@@ -226,7 +234,7 @@ class TimeSeriesChart extends HTMLElement {
             },
             interaction: {
                 mode: 'nearest',
-                intersect: false
+                intersect: false,
             }
         }
     }
