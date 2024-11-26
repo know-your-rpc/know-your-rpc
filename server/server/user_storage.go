@@ -12,7 +12,7 @@ import (
 	s3Types "github.com/aws/aws-sdk-go-v2/service/s3/types"
 )
 
-const USERS_BUCKET = "know-your-rpc-users"
+const USERS_BUCKET = "know-your-rpc-users-2"
 const PUBLIC_S3_KEY = "public.json"
 
 // Add these new structures and variables

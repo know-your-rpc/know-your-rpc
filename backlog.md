@@ -1,5 +1,6 @@
 - [x] reduce number of chains
 - [x] better date-picker
+- [ ] fix median calculation
 - [ ] network stats { status: OK | ERROR, add to metamask }
 - [ ] only healthy button
 - [ ] fix sql injecion in rpcUrl
