@@ -34,11 +34,11 @@ type TopTenRpcStats struct {
 
 func CreateTopRpcsQuery(serverContext *server.ServerContext) func(w http.ResponseWriter, r *http.Request) {
 	queryTemplate, err := template.New("query").Parse(`SELECT 
-        date_bin_gapfill(INTERVAL '{{.BinTime}} seconds', time) as _time, 
+        date_bin(INTERVAL '{{.BinTime}} seconds', time) as _time, 
         sum("isError"::BOOLEAN::DOUBLE) as errors, 
         count(*) as all, 
-        avg(CASE WHEN NOT "isError"::BOOLEAN THEN "diffWithMedian" END) as avgdiff, 
-        avg(CASE WHEN NOT "isError"::BOOLEAN THEN "wholeRequestDuration" END) as avgduration, 
+        COALESCE(avg(CASE WHEN NOT "isError"::BOOLEAN THEN "diffWithMedian" END), -30) as avgdiff, 
+        COALESCE(avg(CASE WHEN NOT "isError"::BOOLEAN THEN "wholeRequestDuration" END), 2000) as avgduration, 
         "rpcUrl" 
     FROM "blockNumber"
     WHERE
