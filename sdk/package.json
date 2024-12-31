@@ -1,0 +1,28 @@
+{
+  "name": "@knowyourrpc/sdk",
+  "version": "0.2.1",
+  "description": "Know Your RPC SDK",
+  "main": "dist/index.js",
+  "types": "dist/index.ts",
+  "scripts": {
+    "build": "tsc",
+    "prepare": "npm run build"
+  },
+  "keywords": [
+    "know-your-rpc",
+    "sdk"
+  ],
+  "author": "Know Your RPC",
+  "license": "ISC",
+  "dependencies": {
+    "@metamask/eth-sig-util": "^8.1.2",
+    "fastify": "^5.2.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "typescript": "^5.7.2"
+  }
+}
