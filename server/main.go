@@ -53,6 +53,8 @@ func main() {
 
 	handler.HandleFunc("/api/custom-rpc/remove-all", queries.CreateCustomRpcRemoveAllQuery(serverContext))
 
+	handler.HandleFunc("/api/custom-rpc/sync", queries.CreateCustomRpcSyncQuery(serverContext))
+
 	handler.Handle("/", http.FileServer(http.Dir("static")))
 
 	addr := fmt.Sprintf(":%s", utils.GetEnvOrDefault("PORT", "8080"))
