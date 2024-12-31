@@ -35,19 +35,19 @@ export class Api {
     return response;
   }
 
-  async addCustomRpc(rpcUrl: string, chainId: number) {
+  async addCustomRpc(rpcUrl: string, chainId: string) {
     return this.#makeRequest("/api/custom-rpc/add", { rpcUrl, chainId });
   }
 
-  async removeCustomRpc(rpcUrl: string, chainId: number) {
+  async removeCustomRpc(rpcUrl: string, chainId: string) {
     return this.#makeRequest("/api/custom-rpc/remove", { rpcUrl, chainId });
   }
 
-  async removeAllCustomRpcs(chainId: number) {
+  async removeAllCustomRpcs(chainId: string) {
     return this.#makeRequest("/api/custom-rpc/remove-all", { chainId });
   }
 
-  async syncCustomRpcs(rpcUrls: string[], chainId: number) {
+  async syncCustomRpcs(rpcUrls: string[], chainId: string) {
     return this.#makeRequest("/api/custom-rpc/sync", { chainId, rpcUrls });
   }
 
