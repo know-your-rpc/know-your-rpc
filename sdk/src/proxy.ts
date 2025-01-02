@@ -1,53 +1,64 @@
-import fastify from "fastify";
+import express, { Request, Response } from "express";
+import fetch from "node-fetch";
+
 export class Proxy {
   #rpcMapping: Record<string, string>;
-  #hostname: string;
-  #baseUrl: string;
 
-  constructor(baseUrl: string, rpcMapping: Record<string, string>) {
-    this.#baseUrl = baseUrl;
-    this.#hostname = new URL(baseUrl).hostname;
+  constructor(rpcMapping: Record<string, string>) {
     this.#rpcMapping = rpcMapping;
   }
 
-  async start(port = 3000) {
-    const server = fastify({ logger: true });
+  public async start(port = 3000): Promise<void> {
+    const app = express();
 
-    // Handle POST requests for any path
-    server.post("/*", async (request, reply) => {
+    app.use(express.raw({ type: "*/*" }));
+
+    app.post("/*", async (req: Request, res: Response) => {
       try {
-        const fullUrl = `https://${request.hostname}${request.url}`;
+        const fullUrl = `https://${req.hostname}${req.url}`;
         const mappedPath = this.#rpcMapping[fullUrl];
 
         if (!mappedPath) {
           throw new Error(`No mapping found for path: ${fullUrl}`);
         }
 
-        const response = await fetch(mappedPath, {
-          method: request.method,
-          body: JSON.stringify(request.body),
+        const fetchResponse = await fetch(mappedPath, {
+          method: req.method,
+          headers: {
+            "content-type": req.headers["content-type"] as string,
+          },
+          body: req.body,
         });
 
-        return response;
-      } catch (error: any) {
-        console.error(error.toString());
-        reply.code(500).send({ error: error.message });
+        res.status(fetchResponse.status);
+
+        fetchResponse.headers.forEach((value, key) => {
+          res.setHeader(key, value);
+        });
+
+        if (fetchResponse.body) {
+          fetchResponse.body.pipe(res);
+        } else {
+          res.end();
+        }
+      } catch (err: unknown) {
+        const error = err as Error;
+        console.error(error);
+        res.status(500).json({ error: error.message });
       }
     });
 
-    try {
-      await server.listen({ port, host: "0.0.0.0" });
-    } catch (err: any) {
-      console.error("Error starting server:", err);
-      process.exit(1);
-    }
+    // 7) Start the server
+    app.listen(port, "0.0.0.0", () => {
+      console.log(`Express server listening on port ${port}`);
+    });
   }
 
-  updateMapping(rpcMapping: Record<string, string>) {
+  public updateMapping(rpcMapping: Record<string, string>): void {
     this.#rpcMapping = rpcMapping;
   }
 
-  getMapping(): Record<string, string> {
+  public getMapping(): Record<string, string> {
     return this.#rpcMapping;
   }
 }

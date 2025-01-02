@@ -1,4 +1,4 @@
-import { personalSign } from "@metamask/eth-sig-util";
+import { Wallet } from "@ethersproject/wallet";
 
 const ONE_YEAR = 365 * 24 * 3600;
 
@@ -55,12 +55,9 @@ export class Api {
     const validUntil = Math.round(Date.now() / 1000) + period;
     const message = `action=authorize_all version=0 domain=${domain} valid_until=${validUntil}`;
 
-    const msg = `0x${Buffer.from(message, "utf8").toString("hex")}`;
+    const wallet = new Wallet(Buffer.from(this.#privateKey, "hex"));
 
-    const authorizationSignature = await personalSign({
-      data: msg,
-      privateKey: Buffer.from(this.#privateKey, "hex"),
-    });
+    const authorizationSignature = await wallet.signMessage(message);
 
     const authToken = `${authorizationSignature}#${message}`;
 
