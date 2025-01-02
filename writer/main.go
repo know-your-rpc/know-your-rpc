@@ -27,7 +27,7 @@ func main() {
 		fmt.Printf("error while closing influx client error=%s", err.Error())
 	}()
 
-	rpcInfoReader := utils.CreateChainRpcInfoReader(10 * time.Minute)
+	rpcInfoReader := utils.CreateChainRpcInfoReader(1 * time.Minute)
 	rpcInfoReader.Start()
 
 	for _, chain := range config.SUPPORTED_CHAINS {

@@ -13,38 +13,19 @@ export class Proxy {
   async start(port = 3000) {
     const server = fastify({ logger: true });
 
-    // disable content type parsing for all paths
-    server.removeContentTypeParser("*");
-    server.addContentTypeParser(
-      "*",
-      { parseAs: "buffer" },
-      (req, body, done) => {
-        done(null, body);
-      }
-    );
-
     // Handle POST requests for any path
     server.post("/*", async (request, reply) => {
       try {
-        if (request.hostname !== this.#hostname) {
-          throw new Error(
-            `Request from not supported hostname: ${
-              request.hostname
-            }, supported: ${this.#hostname}`
-          );
-        }
-
-        const originalPath = request.url;
-        const mappedPath = this.#rpcMapping[originalPath];
+        const fullUrl = `https://${request.hostname}${request.url}`;
+        const mappedPath = this.#rpcMapping[fullUrl];
 
         if (!mappedPath) {
-          throw new Error(`No mapping found for path: ${originalPath}`);
+          throw new Error(`No mapping found for path: ${fullUrl}`);
         }
 
         const response = await fetch(mappedPath, {
           method: request.method,
-          body: request.body as BodyInit,
-          headers: request.headers as HeadersInit,
+          body: JSON.stringify(request.body),
         });
 
         return response;

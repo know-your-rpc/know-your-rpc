@@ -1,6 +1,6 @@
 {
   "name": "@knowyourrpc/sdk",
-  "version": "0.2.1",
+  "version": "0.2.9",
   "description": "Know Your RPC SDK",
   "main": "dist/index.js",
   "types": "dist/index.ts",
