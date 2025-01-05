@@ -48,7 +48,6 @@ export class Proxy {
       }
     });
 
-    // 7) Start the server
     app.listen(port, "0.0.0.0", () => {
       console.log(`Express server listening on port ${port}`);
     });

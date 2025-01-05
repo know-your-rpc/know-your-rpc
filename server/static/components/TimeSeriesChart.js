@@ -27,14 +27,47 @@ function now() {
     return Math.round(Date.now() / 1000)
 }
 
+function getQueryParams() {
+    const params = new URLSearchParams(window.location.search);
+    return {
+        from: params.get('from'),
+        to: params.get('to'),
+        chainId: params.get('chainId')
+    };
+}
+
+function updateQueryParams(params) {
+    const url = new URL(window.location);
+    Object.entries(params).forEach(([key, value]) => {
+        if (value) {
+            url.searchParams.set(key, value);
+        }
+    });
+    window.history.replaceState({}, '', url);
+}
+
 class TimeSeriesChart extends HTMLElement {
-    chainId = getLastChainId();
+    chainId;
 
     constructor() {
         super();
-        const [from, to] = getLastTimeRange();
+
+        const params = getQueryParams();
+        this.chainId = params.chainId || getLastChainId();
+
+        let [from, to] = params.from && params.to
+            ? [parseInt(params.from), parseInt(params.to)]
+            : getLastTimeRange();
+
         this.currentStartX = from;
         this.currentEndX = to;
+
+        updateQueryParams({
+            chainId: this.chainId,
+            from: from,
+            to: to,
+        });
+
         this.container = document.createElement("container");
         this.canvasId = `canvas-${this.id}`
         this.container.innerHTML = `
@@ -74,6 +107,7 @@ class TimeSeriesChart extends HTMLElement {
         window.addEventListener("_update_chain_id", ({ detail: { chainId } }) => {
             this.chart.destroy();
             this.chainId = chainId;
+            updateQueryParams({ chainId: this.chainId });
             this.connectedCallback()
         });
         window.addEventListener("_update_time_range", ({ detail: { range } }) => {
@@ -81,6 +115,10 @@ class TimeSeriesChart extends HTMLElement {
             const [start, end] = range;
             this.currentStartX = start;
             this.currentEndX = end;
+            updateQueryParams({
+                from: start,
+                to: end
+            });
             this.connectedCallback()
         });
     }
