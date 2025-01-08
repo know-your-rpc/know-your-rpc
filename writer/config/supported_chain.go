@@ -78,5 +78,9 @@ var SUPPORTED_CHAINS = []ChainConfig{
 	{ChainId: "71402", Name: "GodwokenV1"},
 	{ChainId: "432204", Name: "Dexalot"},
 	{ChainId: "3776", Name: "Astar zkEVM"},
+	{ChainId: "21000000", Name: "Corn"},
+	{ChainId: "1923", Name: "Swellchain"},
+	{ChainId: "6001", Name: "BounceBit"},
+	{ChainId: "1329", Name: "Sei"},
 	// $$END$$
 }

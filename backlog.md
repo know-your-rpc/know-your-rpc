@@ -4,4 +4,3 @@
 - [ ] click vs click+cmd vs toggle all
 - [ ] add health checks (based on logs)
 - [ ] add swell and one more network from Maciej
-- [ ] support query params

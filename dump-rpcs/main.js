@@ -6,18 +6,6 @@ const CHAIN_LIST_URL =
 const START_STRING = "export const extraRpcs = ";
 const END_STRING = ";";
 
-const extraChains = {
-  1329: [
-    {
-      url: "https://evm-rpc.sei-apis.com",
-    },
-  ],
-  6001: [
-    {
-      url: "https://fullnode-mainnet.bouncebitapi.com",
-    },
-  ],
-};
 
 // use this: https://chainid.network/chains.json
 // https://github.com/DefiLlama/chainlist/blob/main/constants/chainIds.json
@@ -50,7 +38,7 @@ async function main() {
     JSON.stringify(
       {
         subscriptions: {},
-        rpcInfo: { ...extraChains, ...rpcs },
+        rpcInfo: rpcs,
       },
       null,
       2,
