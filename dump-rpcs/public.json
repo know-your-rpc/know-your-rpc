@@ -66,6 +66,9 @@
         "url": "https://api.zmok.io/mainnet/oaen6dy8ff6hju9k"
       },
       {
+        "url": "https://node.histori.xyz/eth-mainnet/8ry9f6t9dct1se2hlagxnd9n2a"
+      },
+      {
         "url": "https://eth-mainnet.g.alchemy.com/v2/demo"
       },
       {
@@ -307,6 +310,9 @@
         "url": "https://optimism.rpc.subquery.network/public"
       },
       {
+        "url": "https://node.histori.xyz/optimism-mainnet/8ry9f6t9dct1se2hlagxnd9n2a"
+      },
+      {
         "url": "https://mainnet.optimism.io"
       }
     ],
@@ -318,7 +324,7 @@
         "url": "https://cronos-rpc.elk.finance/"
       },
       {
-        "url": "https://cronos.blockpi.network/v1/rpc/public"
+        "url": "https://cronos.blockpi.network/v1/rpc/private"
       },
       {
         "url": "https://cronos-evm-rpc.publicnode.com"
@@ -354,35 +360,29 @@
       },
       {
         "url": "https://rootstock-mainnet.public.blastapi.io"
+      },
+      {
+        "url": "https://node.histori.xyz/rsk-mainnet/8ry9f6t9dct1se2hlagxnd9n2a"
       }
     ],
     "40": [
       {
-        "url": "https://mainnet.telos.net/evm"
-      },
-      {
-        "url": "https://mainnet15.telos.net/evm"
-      },
-      {
-        "url": "https://rpc3.us.telos.net/evm"
-      },
-      {
-        "url": "https://evm.telos.detroitledger.tech/evm"
-      },
-      {
-        "url": "https://mainnet-us.telos.net/evm"
-      },
-      {
-        "url": "https://mainnet-eu.telos.net/evm"
-      },
-      {
-        "url": "https://mainnet-asia.telos.net/evm"
+        "url": "https://rpc.telos.net"
       },
       {
         "url": "https://1rpc.io/telos/evm"
       },
       {
         "url": "https://telos.drpc.org"
+      },
+      {
+        "url": "https://node.histori.xyz/telos-mainnet/8ry9f6t9dct1se2hlagxnd9n2a"
+      },
+      {
+        "url": "https://rpc.ankr.com/telos"
+      },
+      {
+        "url": "https://mainnet.telos.net/evm"
       }
     ],
     "56": [
@@ -468,7 +468,7 @@
         "url": "https://bsc.rpc.blxrbdn.com/"
       },
       {
-        "url": "https://bsc.blockpi.network/v1/rpc/public"
+        "url": "https://bsc.blockpi.network/v1/rpc/private"
       },
       {
         "url": "https://bnb.api.onfinality.io/public"
@@ -514,6 +514,9 @@
       },
       {
         "url": "https://endpoints.omniatech.io/v1/bsc/mainnet/public"
+      },
+      {
+        "url": "https://node.histori.xyz/bsc-mainnet/8ry9f6t9dct1se2hlagxnd9n2a"
       },
       {
         "url": "https://bsc-dataseed1.bnbchain.org"
@@ -612,7 +615,7 @@
         "url": "https://rpc.ap-southeast-1.gateway.fm/v4/gnosis/non-archival/mainnet"
       },
       {
-        "url": "https://gnosis.blockpi.network/v1/rpc/public"
+        "url": "https://gnosis.blockpi.network/v1/rpc/private"
       },
       {
         "url": "https://gnosis.api.onfinality.io/public"
@@ -633,7 +636,13 @@
         "url": "https://gno-mainnet.gateway.tatum.io"
       },
       {
+        "url": "https://node.histori.xyz/gnosis-mainnet/8ry9f6t9dct1se2hlagxnd9n2a"
+      },
+      {
         "url": "https://gnosischain-rpc.gateway.pokt.network"
+      },
+      {
+        "url": "https://gnosis.blockpi.network/v1/rpc/public"
       },
       {
         "url": "https://web3endpoints.com/gnosischain-mainnet"
@@ -671,7 +680,7 @@
         "url": "https://polygon-mainnet.g.alchemy.com/v2/demo"
       },
       {
-        "url": "https://polygon.blockpi.network/v1/rpc/public"
+        "url": "https://polygon.blockpi.network/v1/rpc/private"
       },
       {
         "url": "https://go.getblock.io/02667b699f05444ab2c64f9bff28f027"
@@ -716,6 +725,9 @@
         "url": "https://polygon.lava.build"
       },
       {
+        "url": "https://node.histori.xyz/matic-mainnet/8ry9f6t9dct1se2hlagxnd9n2a"
+      },
+      {
         "url": "https://polygon-rpc.com/"
       },
       {
@@ -755,6 +767,9 @@
       },
       {
         "url": "https://endpoints.omniatech.io/v1/manta-pacific/mainnet/public"
+      },
+      {
+        "url": "https://node.histori.xyz/manta-mainnet/8ry9f6t9dct1se2hlagxnd9n2a"
       }
     ],
     "204": [
@@ -805,6 +820,9 @@
         "url": "https://fantom-pokt.nodies.app"
       },
       {
+        "url": "https://node.histori.xyz/fantom-mainnet/8ry9f6t9dct1se2hlagxnd9n2a"
+      },
+      {
         "url": "https://rpc.ftm.tools/"
       },
       {
@@ -826,7 +844,7 @@
         "url": "https://1rpc.io/ftm"
       },
       {
-        "url": "https://fantom.blockpi.network/v1/rpc/public"
+        "url": "https://fantom.blockpi.network/v1/rpc/private"
       },
       {
         "url": "https://fantom-rpc.publicnode.com"
@@ -865,6 +883,12 @@
       },
       {
         "url": "https://fraxtal.gateway.tenderly.co"
+      },
+      {
+        "url": "https://node.histori.xyz/fraxtal-mainnet/8ry9f6t9dct1se2hlagxnd9n2a"
+      },
+      {
+        "url": "https://fraxtal-rpc.publicnode.com"
       }
     ],
     "288": [
@@ -930,7 +954,7 @@
         "url": "https://mainnet.era.zksync.io"
       },
       {
-        "url": "https://zksync-era.blockpi.network/v1/rpc/public"
+        "url": "https://zksync-era.blockpi.network/v1/rpc/private"
       },
       {
         "url": "https://go.getblock.io/f76c09905def4618a34946bf71851542"
@@ -949,11 +973,17 @@
       },
       {
         "url": "https://api.zan.top/zksync-mainnet"
+      },
+      {
+        "url": "https://node.histori.xyz/zksync-mainnet/8ry9f6t9dct1se2hlagxnd9n2a"
       }
     ],
     "388": [
       {
         "url": "https://mainnet.zkevm.cronos.org"
+      },
+      {
+        "url": "https://cronos-zkevm.drpc.org"
       }
     ],
     "463": [
@@ -982,6 +1012,15 @@
       },
       {
         "url": "https://worldchain-mainnet.gateway.tenderly.co"
+      },
+      {
+        "url": "https://node.histori.xyz/worldchain-mainnet/8ry9f6t9dct1se2hlagxnd9n2a"
+      },
+      {
+        "url": "https://sparkling-autumn-dinghy.worldchain-mainnet.quiknode.pro"
+      },
+      {
+        "url": "https://worldchain.drpc.org"
       }
     ],
     "592": [
@@ -1014,11 +1053,17 @@
       },
       {
         "url": "https://astar.public.curie.radiumblock.co/ws"
+      },
+      {
+        "url": "https://node.histori.xyz/astar-mainnet/8ry9f6t9dct1se2hlagxnd9n2a"
       }
     ],
     "747": [
       {
         "url": "https://mainnet.evm.nodes.onflow.org"
+      },
+      {
+        "url": "https://node.histori.xyz/flow-evm-mainnet/8ry9f6t9dct1se2hlagxnd9n2a"
       }
     ],
     "1088": [
@@ -1036,6 +1081,24 @@
       },
       {
         "url": "https://metis.drpc.org"
+      },
+      {
+        "url": "https://metis-pokt.nodies.app/"
+      },
+      {
+        "url": "https://metis-andromeda.rpc.thirdweb.com/"
+      },
+      {
+        "url": "https://metis-andromeda.gateway.tenderly.co"
+      },
+      {
+        "url": "https://api.blockeden.xyz/metis/67nCBdZQSH9z3YqDDjdm"
+      },
+      {
+        "url": "https://metis.rpc.hypersync.xyz/"
+      },
+      {
+        "url": "https://metis-rpc.publicnode.com"
       }
     ],
     "1101": [
@@ -1049,7 +1112,7 @@
         "url": "https://1rpc.io/polygon/zkevm"
       },
       {
-        "url": "https://polygon-zkevm.blockpi.network/v1/rpc/public"
+        "url": "https://polygon-zkevm.blockpi.network/v1/rpc/private"
       },
       {
         "url": "https://polygon-zkevm-mainnet.public.blastapi.io"
@@ -1059,6 +1122,9 @@
       },
       {
         "url": "https://endpoints.omniatech.io/v1/polygon-zkevm/mainnet/public"
+      },
+      {
+        "url": "https://node.histori.xyz/polygon-zkevm-mainnet/8ry9f6t9dct1se2hlagxnd9n2a"
       },
       {
         "url": "https://zkevm-rpc.com"
@@ -1102,6 +1168,9 @@
         "url": "https://moonbeam.drpc.org"
       },
       {
+        "url": "https://node.histori.xyz/moonbeam-mainnet/8ry9f6t9dct1se2hlagxnd9n2a"
+      },
+      {
         "url": "https://moonbeam.unitedbloc.com"
       }
     ],
@@ -1134,6 +1203,9 @@
         "url": "https://moonriver.drpc.org"
       },
       {
+        "url": "https://node.histori.xyz/moonriver-mainnet/8ry9f6t9dct1se2hlagxnd9n2a"
+      },
+      {
         "url": "https://moonriver.unitedbloc.com"
       }
     ],
@@ -1143,11 +1215,22 @@
       },
       {
         "url": "https://sei.drpc.org"
+      },
+      {
+        "url": "https://node.histori.xyz/sei-mainnet/8ry9f6t9dct1se2hlagxnd9n2a"
       }
     ],
     "1729": [
       {
         "url": "https://rpc.reya.network"
+      }
+    ],
+    "1923": [
+      {
+        "url": "https://swell-mainnet.alt.technology"
+      },
+      {
+        "url": "https://rpc.ankr.com/swell"
       }
     ],
     "1992": [
@@ -1181,6 +1264,9 @@
       },
       {
         "url": "https://edgeware.api.onfinality.io/public"
+      },
+      {
+        "url": "https://node.histori.xyz/lens-testnet/8ry9f6t9dct1se2hlagxnd9n2a"
       },
       {
         "url": "https://edgeware-evm.jelliedowl.net"
@@ -1222,6 +1308,9 @@
       },
       {
         "url": "https://kava.drpc.org"
+      },
+      {
+        "url": "https://node.histori.xyz/kava-mainnet/8ry9f6t9dct1se2hlagxnd9n2a"
       },
       {
         "url": "https://kava-rpc.gateway.pokt.network"
@@ -1276,6 +1365,12 @@
         "url": "https://babel-api.fastblocks.io"
       },
       {
+        "url": "https://rpc.depinscan.io/iotex"
+      },
+      {
+        "url": "https://rpc.chainanalytics.org/iotex"
+      },
+      {
         "url": "https://iotexrpc.com"
       },
       {
@@ -1312,6 +1407,9 @@
       },
       {
         "url": "https://endpoints.omniatech.io/v1/mantle/mainnet/public"
+      },
+      {
+        "url": "https://node.histori.xyz/mantle-mainnet/8ry9f6t9dct1se2hlagxnd9n2a"
       }
     ],
     "6001": [
@@ -1334,6 +1432,9 @@
       },
       {
         "url": "https://7000.rpc.thirdweb.com"
+      },
+      {
+        "url": "https://node.histori.xyz/zetachain-mainnet/8ry9f6t9dct1se2hlagxnd9n2a"
       }
     ],
     "7560": [
@@ -1397,6 +1498,9 @@
       },
       {
         "url": "https://rpc.ankr.com/klaytn "
+      },
+      {
+        "url": "https://node.histori.xyz/kaia-mainnet/8ry9f6t9dct1se2hlagxnd9n2a"
       }
     ],
     "8453": [
@@ -1461,6 +1565,12 @@
         "url": "https://base.lava.build"
       },
       {
+        "url": "https://rpc.numa.network/base"
+      },
+      {
+        "url": "https://node.histori.xyz/base-mainnet/8ry9f6t9dct1se2hlagxnd9n2a"
+      },
+      {
         "url": "https://mainnet.base.org/"
       },
       {
@@ -1484,6 +1594,9 @@
       },
       {
         "url": "https://immutable.gateway.tenderly.co"
+      },
+      {
+        "url": "https://node.histori.xyz/immutable-mainnet/8ry9f6t9dct1se2hlagxnd9n2a"
       }
     ],
     "32520": [
@@ -1530,6 +1643,9 @@
       },
       {
         "url": "https://apechain.drpc.org"
+      },
+      {
+        "url": "https://node.histori.xyz/apechain-mainnet/8ry9f6t9dct1se2hlagxnd9n2a"
       }
     ],
     "34443": [
@@ -1605,7 +1721,7 @@
         "url": "https://arb1.lava.build"
       },
       {
-        "url": "https://arbitrum-one.publicnode.com"
+        "url": "https://node.histori.xyz/arbitrum-mainnet/8ry9f6t9dct1se2hlagxnd9n2a"
       }
     ],
     "42220": [
@@ -1626,14 +1742,14 @@
       },
       {
         "url": "https://celo.drpc.org"
+      },
+      {
+        "url": "https://node.histori.xyz/celo-mainnet/8ry9f6t9dct1se2hlagxnd9n2a"
       }
     ],
     "42793": [
       {
         "url": "https://node.mainnet.etherlink.com"
-      },
-      {
-        "url": "https://etherlink-mainnet-pub-l5p9tu.zeeve.net/rpc"
       }
     ],
     "43114": [
@@ -1659,7 +1775,7 @@
         "url": "https://1rpc.io/avax/c"
       },
       {
-        "url": "https://avalanche.blockpi.network/v1/rpc/public"
+        "url": "https://avalanche.blockpi.network/v1/rpc/private"
       },
       {
         "url": "https://avax-pokt.nodies.app/ext/bc/C/rpc"
@@ -1687,6 +1803,9 @@
       },
       {
         "url": "https://avalanche-mainnet.gateway.tenderly.co"
+      },
+      {
+        "url": "https://node.histori.xyz/avalanche-mainnet/8ry9f6t9dct1se2hlagxnd9n2a"
       }
     ],
     "48900": [
@@ -1698,6 +1817,9 @@
       },
       {
         "url": "https://zircuit1-mainnet.liquify.com"
+      },
+      {
+        "url": "https://node.histori.xyz/zircuit-mainnet/8ry9f6t9dct1se2hlagxnd9n2a"
       },
       {
         "url": "https://zircuit1-mainnet.p2pify.com/"
@@ -1728,7 +1850,7 @@
         "url": "https://rpc.linea.build"
       },
       {
-        "url": "https://linea.blockpi.network/v1/rpc/public"
+        "url": "https://linea.blockpi.network/v1/rpc/private"
       },
       {
         "url": "https://1rpc.io/linea"
@@ -1738,6 +1860,9 @@
       },
       {
         "url": "https://linea.decubate.com"
+      },
+      {
+        "url": "https://node.histori.xyz/linea-mainnet/8ry9f6t9dct1se2hlagxnd9n2a"
       },
       {
         "url": "https://linea-rpc.publicnode.com"
@@ -1773,6 +1898,9 @@
         "url": "https://berat2.lava.build"
       },
       {
+        "url": "https://node.histori.xyz/berachain-testnet/8ry9f6t9dct1se2hlagxnd9n2a"
+      },
+      {
         "url": "https://bera-testnet.nodeinfra.com"
       },
       {
@@ -1790,7 +1918,7 @@
         "url": "https://blastl2-mainnet.public.blastapi.io"
       },
       {
-        "url": "https://blast.blockpi.network/v1/rpc/public"
+        "url": "https://blast.blockpi.network/v1/rpc/private"
       },
       {
         "url": "https://rpc.ankr.com/blast"
@@ -1812,6 +1940,12 @@
       },
       {
         "url": "https://endpoints.omniatech.io/v1/blast/mainnet/public"
+      },
+      {
+        "url": "https://node.histori.xyz/blast-mainnet/8ry9f6t9dct1se2hlagxnd9n2a"
+      },
+      {
+        "url": "https://blast.blockpi.network/v1/rpc/public"
       }
     ],
     "88888": [
@@ -1862,6 +1996,9 @@
         "url": "https://taiko-json-rpc.stakely.io/"
       },
       {
+        "url": "https://node.histori.xyz/taiko-mainnet/8ry9f6t9dct1se2hlagxnd9n2a"
+      },
+      {
         "url": "https://rpc.mainnet.taiko.xyz"
       },
       {
@@ -1901,7 +2038,7 @@
         "url": "https://scroll-mainnet-public.unifra.io"
       },
       {
-        "url": "https://scroll.blockpi.network/v1/rpc/public"
+        "url": "https://scroll.blockpi.network/v1/rpc/private"
       },
       {
         "url": "https://1rpc.io/scroll"
@@ -1917,6 +2054,9 @@
       },
       {
         "url": "https://endpoints.omniatech.io/v1/scroll/mainnet/public"
+      },
+      {
+        "url": "https://node.histori.xyz/scroll-mainnet/8ry9f6t9dct1se2hlagxnd9n2a"
       },
       {
         "url": "https://rpc.ankr.com/scroll"
@@ -1938,7 +2078,7 @@
         "url": "https://eth-sepolia.g.alchemy.com/v2/demo"
       },
       {
-        "url": "https://ethereum-sepolia.blockpi.network/v1/rpc/public"
+        "url": "https://ethereum-sepolia.blockpi.network/v1/rpc/private"
       },
       {
         "url": "https://eth-sepolia.public.blastapi.io"
@@ -1999,6 +2139,20 @@
       },
       {
         "url": "https://sepolia.drpc.org"
+      },
+      {
+        "url": "https://eth-sepolia.g.alchemy.com/v2/WddzdzI2o9S3COdT73d5w6AIogbKq4X-"
+      }
+    ],
+    "21000000": [
+      {
+        "url": "https://mainnet.corn-rpc.com"
+      },
+      {
+        "url": "https://rpc.ankr.com/corn_maizenet"
+      },
+      {
+        "url": "https://maizenet-rpc.usecorn.com"
       }
     ],
     "1313161554": [
@@ -2016,6 +2170,9 @@
       },
       {
         "url": "https://endpoints.omniatech.io/v1/aurora/mainnet/public"
+      },
+      {
+        "url": "https://node.histori.xyz/aurora-mainnet/8ry9f6t9dct1se2hlagxnd9n2a"
       }
     ]
   }

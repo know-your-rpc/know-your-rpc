@@ -12,7 +12,7 @@ const s3 = new AWS.S3(
 const uploadFile = async (filePath) => {
     const fileContent = fs.readFileSync(filePath);
     const params = {
-        Bucket: "know-your-rpc-users",
+        Bucket: "know-your-rpc-users-2",
         Key: "public.json",
         Body: fileContent
     };
