@@ -1,37 +1,63 @@
 <!doctype html>
 <html lang="en" data-theme="light">
-
-<head>
+  <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1"
+    />
 
     <meta name="color-scheme" content="light" />
 
     <!-- Preload critical resources -->
-    <link rel="preload" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.amber.min.css" as="style" />
+    <link
+      rel="preload"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.amber.min.css"
+      as="style"
+    />
     <link rel="preload" href="./main.css" as="style" />
     <link rel="preload" href="./app.js" as="script" />
 
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.amber.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.amber.min.css"
+    />
     <link rel="stylesheet" href="./main.css" />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap"
-        rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap"
+      rel="stylesheet"
+    />
 
     <!-- Defer non-critical scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/moment@^2" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-moment@^1" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-autocolors" defer></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js" defer></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-zoom/2.0.1/chartjs-plugin-zoom.min.js"
-        defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/web3@4.12.1/dist/web3.min.js" defer></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/chartjs-adapter-moment@^1"
+      defer
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/chartjs-plugin-autocolors"
+      defer
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"
+      defer
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-zoom/2.0.1/chartjs-plugin-zoom.min.js"
+      defer
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/web3@4.12.1/dist/web3.min.js"
+      defer
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts" defer></script>
 
     <!-- Main application script -->
     <script type="module" src="./app.js"></script>
@@ -40,40 +66,40 @@
     <script type="module" src="./lib/render_top_table.js"></script>
 
     <title>Know your rpc</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <main class="container-fluid">
+      <header>
+        <div class="header-grid">
+          <div class="header-item">
+            <a href="/methodology.html" target="_blank">METHODOLOGY</a>
+            <a href="https://discord.gg/YaAtNQPb" target="_blank">DISCORD</a>
+          </div>
+          <div class="header-item center">
+            <a style="text-decoration: none" target="_self" href="/index.html">
+              <img id="kyr_banner" src="./kyr_banner.svg" alt="KNOW YOUR RPC" />
+            </a>
+          </div>
+          <div class="header-item right">
+            <a href="/custom_rpcs.html" target="_self">CUSTOM RPC</a>
+            <log-in-btn />
+          </div>
+        </div>
+      </header>
+
+      <chain-search></chain-search>
+
+      <time-range-selector></time-range-selector>
+
+      <subscription-modal> </subscription-modal>
+
+      <article>
         <header>
-            <div class="header-grid">
-                <div class="header-item">
-                    <a href="/methodology.html" target="_blank">METHODOLOGY</a>
-                    <a href="https://discord.gg/YaAtNQPb" target="_blank">DISCORD</a>
-                </div>
-                <div class="header-item center">
-                    <a style="text-decoration: none" target="_self" href="/index.html">
-                        <img id="kyr_banner" src="./kyr_banner.svg" alt="KNOW YOUR RPC" />
-                    </a>
-                </div>
-                <div class="header-item right">
-                    <a href="/custom_rpcs.html" target="_self">CUSTOM RPC</a>
-                    <log-in-btn />
-                </div>
-            </div>
-        </header>
-
-        <chain-search></chain-search>
-
-        <time-range-selector></time-range-selector>
-
-        <subscription-modal> </subscription-modal>
-
-        <article>
-            <header>
-                <div style="text-align: center">
-                    <h3>RPCS RANKING</h3>
-                </div>
-                <!-- <div class="grid">
+          <div style="text-align: center">
+            <h3>RPCS RANKING</h3>
+          </div>
+          <!-- <div class="grid">
                     <div style="text-align: left;">
                         <button id="${this.canvasId}-btn-reset-zoom" class="small-button">Reset zoom</button>
                     </div>
@@ -82,53 +108,58 @@
                         <button id="${this.canvasId}-btn-toggle" class="small-button">Toggle all</button>
                     </div>
                 </div> -->
-            </header>
+        </header>
 
-            <div class="overflow-auto">
-                <table style="font-size: small">
-                    <thead>
-                        <tr>
-                            <th scope="col">LP</th>
-                            <th scope="col">RPC URL</th>
-                            <th scope="col">ERROR RATE</th>
-                            <th scope="col">DURATION</th>
-                            <th scope="col">BLOCKS BEHIND</th>
-                        </tr>
-                    </thead>
-                    <tbody id="top_table_body">
-                        <!-- here is injected js table -->
-                    </tbody>
-                </table>
-            </div>
+        <div class="overflow-auto">
+          <table style="font-size: small">
+            <thead>
+              <tr>
+                <th scope="col">LP</th>
+                <th scope="col">RPC URL</th>
+                <th scope="col">ERROR RATE</th>
+                <th scope="col">DURATION</th>
+                <th scope="col">BLOCKS BEHIND</th>
+              </tr>
+            </thead>
+            <tbody id="top_table_body">
+              <!-- here is injected js table -->
+            </tbody>
+          </table>
+        </div>
+      </article>
 
-            <footer>
-                <small>
-                    rpcs sorted by: <br />
-                    1) error rate with precision 0.01% <br />
-                    2) block number diff from median precision 0.5 block
-                    <br />
-                    3) avg request duration <br />
-                </small>
-            </footer>
-        </article>
+      <timeseries-chart
+        id="block-numbers-duration"
+        data-url="/api/stats/block-numbers/duration"
+        data-stepsize="10"
+        data-title="BLOCK NUMBER DURATION"
+        data-info="- duration of eth_getBlockNumber request till reading last byte in milliseconds <br/> - capped to [0;3000] <br /> - zoomable"
+      />
 
-        <timeseries-chart id="block-numbers-duration" data-url="/api/stats/block-numbers/duration" data-stepsize="10"
-            data-title="BLOCK NUMBER DURATION"
-            data-info="- duration of eth_getBlockNumber request till reading last byte in milliseconds <br/> - capped to [0;3000] <br /> - zoomable" />
+      <timeseries-chart
+        id="block-numbers-median"
+        data-url="/api/stats/block-numbers/median-diff"
+        data-stepsize="1"
+        data-title="BLOCK NUMBER SYNC"
+        data-info="- block number deviation from median <br/> - capped to [-30;10]<br /> - zoomable"
+      />
 
-        <timeseries-chart id="block-numbers-median" data-url="/api/stats/block-numbers/median-diff" data-stepsize="1"
-            data-title="BLOCK NUMBER SYNC"
-            data-info="- block number deviation from median <br/> - capped to [-30;10]<br /> - zoomable" />
+      <timeseries-chart
+        id="block-numbers-height"
+        data-url="/api/stats/block-numbers/block-height"
+        data-stepsize="1"
+        data-title="BLOCK NUMBER HEIGHT"
+        data-info="- zoomable"
+      />
 
-        <timeseries-chart id="block-numbers-height" data-url="/api/stats/block-numbers/block-height" data-stepsize="1"
-            data-title="BLOCK NUMBER HEIGHT" data-info="- zoomable" />
-
-        <timeseries-chart id="block-numbers-error-rate" data-url="/api/stats/block-numbers/error-rate"
-            data-stepsize="0.01" data-title="BLOCK NUMBER ERROR RATE"
-            data-info="- error rate of eth_getBlockNumber <br/> - zoomable" />
+      <heatmap-chart
+        id="error-rate-heatmap"
+        data-url="/api/stats/block-numbers/error-rate"
+        data-title="ERROR RATE HEATMAP"
+        data-info="- error rate of eth_getBlockNumber displayed as heatmap <br/> - green: <1%, yellow: 1-5%, red: >5% <br/> - zoom by dragging to select an area (scroll disabled)"
+      />
     </main>
 
     <footer></footer>
-</body>
-
+  </body>
 </html>

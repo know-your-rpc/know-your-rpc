@@ -89,9 +89,6 @@ class TimeSeriesChart extends HTMLElement {
 
                 </header>
                 <canvas id="${this.canvasId}"></canvas>                
-                <footer>
-                    <small>${this.dataset.info}</small>
-                </footer>
             </article>
         `;
         this.appendChild(this.container);
