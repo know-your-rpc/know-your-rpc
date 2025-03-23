@@ -76,6 +76,73 @@ class HeatmapChart extends HTMLElement {
             });
             this.connectedCallback();
         });
+
+        // Add theme change listener
+        window.addEventListener("_theme_changed", () => {
+            if (this.chart) {
+                this.updateChartTheme();
+            }
+        });
+    }
+
+    getChartTheme() {
+        const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+        return {
+            background: isDark ? '#1a1a1a' : '#ffffff',
+            textColor: isDark ? '#ffffff' : '#000000',
+            gridColor: isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)',
+            axisColor: isDark ? '#ffffff' : '#000000',
+            tooltipBackground: isDark ? '#2d2d2d' : '#ffffff',
+            tooltipText: isDark ? '#ffffff' : '#000000'
+        };
+    }
+
+    updateChartTheme() {
+        const theme = this.getChartTheme();
+        if (this.chart) {
+            this.chart.updateOptions({
+                chart: {
+                    background: theme.background,
+                    foreColor: theme.textColor
+                },
+                grid: {
+                    borderColor: theme.gridColor
+                },
+                xaxis: {
+                    labels: {
+                        style: {
+                            colors: theme.textColor
+                        }
+                    },
+                    axisBorder: {
+                        color: theme.axisColor
+                    },
+                    axisTicks: {
+                        color: theme.axisColor
+                    }
+                },
+                yaxis: {
+                    labels: {
+                        style: {
+                            colors: theme.textColor
+                        }
+                    }
+                },
+                tooltip: {
+                    theme: theme.tooltipBackground,
+                    y: {
+                        formatter: function(value) {
+                            return value + '%';
+                        }
+                    }
+                },
+                legend: {
+                    labels: {
+                        colors: theme.textColor
+                    }
+                }
+            });
+        }
     }
 
     async fetchDataSets() {
@@ -153,6 +220,8 @@ class HeatmapChart extends HTMLElement {
         // Update chart container height
         document.getElementById(this.chartId).style.height = `${dynamicHeight}px`;
         
+        const theme = this.getChartTheme();
+        
         // Create ApexCharts heatmap
         const options = {
             series: heatmapData,
@@ -166,6 +235,8 @@ class HeatmapChart extends HTMLElement {
                 animations: {
                     enabled: false
                 },
+                background: theme.background,
+                foreColor: theme.textColor,
                 events: {
                     zoomed: this.onZoom.bind(this),
                     legendClick: this.onLegendClick.bind(this)
@@ -190,7 +261,6 @@ class HeatmapChart extends HTMLElement {
             },
             dataLabels: {
                 enabled: false
-
             },
             colors: ["#008FFB"],
             plotOptions: {
@@ -231,21 +301,25 @@ class HeatmapChart extends HTMLElement {
                     format: 'MMM dd, HH:mm',
                     style: {
                         fontSize: '11px',
-                        fontFamily: 'JetBrains Mono, monospace'
+                        fontFamily: 'JetBrains Mono, monospace',
+                        colors: theme.textColor
                     }
                 },
                 axisBorder: {
-                    show: false
+                    show: false,
+                    color: theme.axisColor
                 },
                 axisTicks: {
-                    show: true
+                    show: true,
+                    color: theme.axisColor
                 }
             },
             yaxis: {
                 labels: {
                     style: {
                         fontSize: '11px',
-                        fontFamily: 'JetBrains Mono, monospace'
+                        fontFamily: 'JetBrains Mono, monospace',
+                        colors: theme.textColor
                     },
                     maxWidth: 300,
                     trim: false,
@@ -254,11 +328,12 @@ class HeatmapChart extends HTMLElement {
                 }
             },
             grid: {
-                borderColor: 'rgba(0,0,0,0.05)',
+                borderColor: theme.gridColor,
                 strokeDashArray: 3,
                 position: 'back'
             },
             tooltip: {
+                theme: theme.tooltipBackground,
                 x: {
                     format: 'MMM dd, HH:mm'
                 },
@@ -273,6 +348,9 @@ class HeatmapChart extends HTMLElement {
                 horizontalAlign: 'center',
                 fontSize: '11px',
                 fontFamily: 'JetBrains Mono, monospace',
+                labels: {
+                    colors: theme.textColor
+                },
                 onItemClick: {
                     toggleDataSeries: true
                 },

@@ -1,43 +1,63 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="color-scheme" content="light" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.amber.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.amber.min.css"
+    />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap"
-        rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap"
+      rel="stylesheet"
+    />
 
     <link rel="stylesheet" href="./main.css" />
 
     <title>Know your rpc</title>
-</head>
+  </head>
 
-<body>
-
+  <body>
     <main class="container-fluid">
+      <header>
+        <div class="header-grid">
+          <div class="header-item">
+            <a href="/methodology.html" target="_blank">METHODOLOGY</a>
+            <a href="https://discord.gg/YaAtNQPb" target="_blank">DISCORD</a>
+          </div>
+          <div class="header-item center">
+            <a style="text-decoration: none" target="_self" href="/index.html">
+              <img id="kyr_banner" src="./kyr_banner.svg" alt="KNOW YOUR RPC" />
+            </a>
+          </div>
+          <div class="header-item right">
+            <a href="/index.html" target="_self">HOME</a>
+            <theme-toggle />
+            <log-in-btn />
+          </div>
+        </div>
+      </header>
 
-        <article>
-            <header>
-                <div style="text-align: center;">
-                    <h3>METHODOLOGY</h3>
-                </div>
-            </header>
+      <article>
+        <header>
+          <div style="text-align: center">
+            <h3>METHODOLOGY</h3>
+          </div>
+        </header>
 
-            <p>
-                - Data is collected every 10 seconds via parallel requests to rpcs.<br>
-                - No rate limits handling - rate limited request are treated as errors. <br>
-                - At the moment results are collected from digital ocean droplets located in central EU.
-            </p>
-
-        </article>
-
+        <p>
+          - Data is collected every 10 seconds via parallel requests to rpcs.<br />
+          - No rate limits handling - rate limited request are treated as
+          errors. <br />
+          - At the moment results are collected from digital ocean droplets
+          located in central EU.
+        </p>
+      </article>
     </main>
     <footer></footer>
-</body>
-
+  </body>
 </html>

@@ -1,7 +1,7 @@
 :root {
-  --pico-font-family-sans-serif: "JetBrains Mono", system-ui, "Segoe UI", Roboto,
-    Oxygen, Ubuntu, Cantarell, Helvetica, Arial, "Helvetica Neue", sans-serif,
-    var(--pico-font-family-emoji);
+  --pico-font-family-sans-serif: "JetBrains Mono", system-ui, "Segoe UI",
+    Roboto, Oxygen, Ubuntu, Cantarell, Helvetica, Arial, "Helvetica Neue",
+    sans-serif, var(--pico-font-family-emoji);
   --pico-font-family: var(--pico-font-family-sans-serif);
 }
 
@@ -9,7 +9,6 @@ body {
   min-width: 1180px;
   overflow-x: auto;
 }
-
 
 .container-fluid {
   padding-left: 5rem;
@@ -50,10 +49,6 @@ body {
 
 .header-item.right {
   text-align: right;
-}
-
-.header-item a {
-  margin-right: 1rem;
 }
 
 .header-item a:last-child {
