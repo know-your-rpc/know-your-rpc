@@ -107,7 +107,7 @@ func CreateCustomRpcAddQuery(serverContext *server.ServerContext) func(w http.Re
 				}
 			}
 
-			newRpc := types.RpcInfo{URL: request.RpcUrl, Headers: request.Headers}
+			newRpc := types.RpcInfo{URL: request.RpcUrl}
 			userStore.RpcInfo[request.ChainId] = append(chainRpcs, newRpc)
 			return nil
 		})
