@@ -2,6 +2,11 @@ import { Wallet } from "@ethersproject/wallet";
 
 const ONE_YEAR = 365 * 24 * 3600;
 
+export type RpcInfo = {
+  url: string;
+  headers: Record<string, string>;
+};
+
 export class Api {
   #baseUrl: string;
   #privateKey: string;
@@ -15,7 +20,7 @@ export class Api {
   async #makeRequest(endpoint: string, data: any) {
     if (!this.#authData || this.#authData.validUntil < Date.now() / 1000) {
       this.#authData = await this.#generateAuthToken(
-        new URL(this.#baseUrl).hostname
+        new URL(this.#baseUrl).hostname,
       );
     }
 
@@ -35,8 +40,16 @@ export class Api {
     return response;
   }
 
-  async addCustomRpc(rpcUrl: string, chainId: string) {
-    return this.#makeRequest("/api/custom-rpc/add", { rpcUrl, chainId });
+  async addCustomRpc(
+    rpcUrl: string,
+    chainId: string,
+    headers?: Record<string, string>,
+  ) {
+    return this.#makeRequest("/api/custom-rpc/add", {
+      rpcUrl,
+      chainId,
+      headers,
+    });
   }
 
   async removeCustomRpc(rpcUrl: string, chainId: string) {
@@ -47,8 +60,8 @@ export class Api {
     return this.#makeRequest("/api/custom-rpc/remove-all", { chainId });
   }
 
-  async syncCustomRpcs(rpcUrls: string[], chainId: string) {
-    return this.#makeRequest("/api/custom-rpc/sync", { chainId, rpcUrls });
+  async syncCustomRpcs(rpcInfos: RpcInfo[], chainId: string) {
+    return this.#makeRequest("/api/custom-rpc/sync", { chainId, rpcInfos });
   }
 
   async #generateAuthToken(domain: string, period = ONE_YEAR) {

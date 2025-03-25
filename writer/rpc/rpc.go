@@ -42,9 +42,7 @@ var rpcHttpClient = http.Client{
 	Timeout: RPC_CALL_TIMEOUT,
 }
 
-// TODO: use better tracking with http request context
-// https://pkg.go.dev/net/http/httptrace
-func RpcCall(rpcUrl string, method string, params []string) (RpcCallResult, error) {
+func RpcCall(rpcUrl string, method string, params []string, headers map[string]string) (RpcCallResult, error) {
 	rpcRequest := makeRpcCall(method, params)
 
 	reqBody, err := json.Marshal(rpcRequest)
@@ -55,7 +53,16 @@ func RpcCall(rpcUrl string, method string, params []string) (RpcCallResult, erro
 
 	startTime := time.Now()
 
-	resp, err := rpcHttpClient.Post(rpcUrl, "application/json", bytes.NewBuffer(reqBody))
+	httpRequest, err := http.NewRequest("POST", rpcUrl, bytes.NewBuffer(reqBody))
+	if err != nil {
+		return RpcCallResult{}, err
+	}
+	for k, v := range headers {
+		httpRequest.Header.Set(k, v)
+	}
+	httpRequest.Header.Set("Content-Type", "application/json")
+
+	resp, err := rpcHttpClient.Do(httpRequest)
 	if err != nil {
 		return RpcCallResult{}, err
 	}

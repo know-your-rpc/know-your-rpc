@@ -30,6 +30,7 @@ func main() {
 	rpcInfoReader := utils.CreateChainRpcInfoReader(5 * time.Minute)
 	rpcInfoReader.Start()
 
+	// TODO: we should use here worker pool
 	for _, chain := range config.SUPPORTED_CHAINS {
 		time.Sleep(2 * time.Second)
 		go func(chainId string) {
@@ -43,7 +44,7 @@ func main() {
 
 				startTime := time.Now()
 
-				collectBlockNumberStats(influxClient, &rpcInfoMap, chainId)
+				collectBlockNumberStats(influxClient, rpcInfoMap, chainId)
 
 				duration := time.Since(startTime)
 
@@ -61,8 +62,8 @@ func main() {
 	select {}
 }
 
-func collectBlockNumberStats(influxClient *influxdb3.Client, rpcsMap *types.RpcInfoMap, chainId string) {
-	rpcs, exists := (*rpcsMap)[chainId]
+func collectBlockNumberStats(influxClient *influxdb3.Client, rpcsMap types.RpcInfoMap, chainId string) {
+	rpcs, exists := rpcsMap[chainId]
 
 	fmt.Printf("Collecting block number stats for chainId=%s\n", chainId)
 

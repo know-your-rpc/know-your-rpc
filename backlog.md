@@ -1,6 +1,7 @@
-- [ ] network stats { status: OK | ERROR, add to metamask } + heat map
-- [ ] only healthy button
+- [ ] heatmap chart is too slow
+- [ ] network stats { status: OK | ERROR, add to metamask }
+- [ ] limit results to 10/20/30/50
 - [ ] fix sql injecion in rpcUrl
 - [ ] click vs click+cmd vs toggle all
 - [ ] add health checks (based on logs)
-- [ ] add swell and one more network from Maciej
+- [ ] minimize data-in (blacklist) rpcs which constatly are failiing

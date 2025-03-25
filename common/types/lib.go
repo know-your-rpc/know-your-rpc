@@ -3,7 +3,8 @@ package types
 import "time"
 
 type RpcInfo struct {
-	URL string `json:"url"`
+	URL     string            `json:"url"`
+	Headers map[string]string `json:"headers,omitempty"`
 }
 
 type RpcInfoMap = map[string][]RpcInfo

@@ -109,7 +109,8 @@ func BenchmarkBlockNumber(rpcs []types.RpcInfo, chainId string) PerChainBlockNum
 	}
 }
 
-func benchGetBlocNumber(rpcUrl string) PerRpcBlockNumberBenchmark {
+func benchGetBlocNumber(rpcInfo types.RpcInfo) PerRpcBlockNumberBenchmark {
+	rpcUrl := rpcInfo.URL
 	result, err := rpc.RpcCall(rpcUrl, "eth_blockNumber", []string{})
 
 	if err != nil {
