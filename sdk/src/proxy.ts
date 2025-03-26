@@ -8,14 +8,14 @@ export class Proxy {
     this.#rpcMapping = rpcMapping;
   }
 
-  public async start(hostname: string, port = 3000): Promise<void> {
+  public async start(prefixUrl: string, port = 3000): Promise<void> {
     const app = express();
 
     app.use(express.raw({ type: "*/*" }));
 
     app.post("/*", async (req: Request, res: Response) => {
       try {
-        const fullUrl = `https://${hostname}${req.url}`;
+        const fullUrl = `${prefixUrl}${req.url}`;
         const mappedPath = this.#rpcMapping[fullUrl];
 
         if (!mappedPath) {
