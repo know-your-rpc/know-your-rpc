@@ -159,7 +159,7 @@ func GetRpcUrlsForQuery(r *http.Request, chainId string) ([]types.RpcInfo, error
 	}
 
 	if !types.IsPublicUser(userAddress) && !userStore.IsSubscriptionValid() {
-		return nil, fmt.Errorf("user_address=%s is not public and has no valid subscription", userAddress)
+		return nil, fmt.Errorf("user_address=%s is not public and has no valid subscription was valid_until=%d", userAddress, userStore.Subscription.ValidUntil)
 	}
 
 	rpcUrls, ok := userStore.GetRpcUrlsForChainId(chainId)

@@ -51,7 +51,6 @@ class HeatmapChart extends HTMLElement {
     }
 
     attachListeners() {
-        window.document.getElementById(`${this.chartId}-btn-toggle`).addEventListener('click', this.toggleVisibilityAll.bind(this));
         window.document.getElementById(`${this.chartId}-btn-reset-zoom`).addEventListener('click', this.resetZoom.bind(this));
         
         window.addEventListener("_update_chain_id", ({ detail: { chainId } }) => {
@@ -79,70 +78,8 @@ class HeatmapChart extends HTMLElement {
 
         // Add theme change listener
         window.addEventListener("_theme_changed", () => {
-            if (this.chart) {
-                this.updateChartTheme();
-            }
+            this.connectedCallback()
         });
-    }
-
-    getChartTheme() {
-        const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-        return {
-            background: isDark ? '#1a1a1a' : '#ffffff',
-            textColor: isDark ? '#ffffff' : '#000000',
-            gridColor: isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)',
-            axisColor: isDark ? '#ffffff' : '#000000',
-            tooltipBackground: isDark ? '#2d2d2d' : '#ffffff',
-            tooltipText: isDark ? '#ffffff' : '#000000'
-        };
-    }
-
-    updateChartTheme() {
-        const theme = this.getChartTheme();
-        if (this.chart) {
-            this.chart.updateOptions({
-                chart: {
-                    background: theme.background,
-                    foreColor: theme.textColor
-                },
-                grid: {
-                    borderColor: theme.gridColor
-                },
-                xaxis: {
-                    labels: {
-                        style: {
-                            colors: theme.textColor
-                        }
-                    },
-                    axisBorder: {
-                        color: theme.axisColor
-                    },
-                    axisTicks: {
-                        color: theme.axisColor
-                    }
-                },
-                yaxis: {
-                    labels: {
-                        style: {
-                            colors: theme.textColor
-                        }
-                    }
-                },
-                tooltip: {
-                    theme: theme.tooltipBackground,
-                    y: {
-                        formatter: function(value) {
-                            return value + '%';
-                        }
-                    }
-                },
-                legend: {
-                    labels: {
-                        colors: theme.textColor
-                    }
-                }
-            });
-        }
     }
 
     async fetchDataSets() {
@@ -210,19 +147,15 @@ class HeatmapChart extends HTMLElement {
         const fetchedDataSets = await this.fetchDataSets();
         const heatmapData = this.transformDataToHeatmap(fetchedDataSets);
         
-        // Calculate dynamic height based on number of RPCs (min 350px, max 800px)
-        // Each RPC needs about 25px of height for good visibility
+        // Calculate dynamic height based on number of RPCs
         const rpcsCount = heatmapData.length;
         const baseHeight = 350;
-        const heightPerRpc = 25;
-        const dynamicHeight = Math.max(baseHeight, Math.min(800, rpcsCount * heightPerRpc));
+        const heightPerRpc = 35;
+        const dynamicHeight = Math.max(baseHeight, Math.min(1200, rpcsCount * heightPerRpc));
         
-        // Update chart container height
         document.getElementById(this.chartId).style.height = `${dynamicHeight}px`;
         
-        const theme = this.getChartTheme();
-        
-        // Create ApexCharts heatmap
+        const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
         const options = {
             series: heatmapData,
             chart: {
@@ -235,11 +168,9 @@ class HeatmapChart extends HTMLElement {
                 animations: {
                     enabled: false
                 },
-                background: theme.background,
-                foreColor: theme.textColor,
+                background: 'transparent',
                 events: {
                     zoomed: this.onZoom.bind(this),
-                    legendClick: this.onLegendClick.bind(this)
                 },
                 zoom: {
                     enabled: true,
@@ -259,6 +190,10 @@ class HeatmapChart extends HTMLElement {
                     }
                 }
             },
+            theme: {
+                mode: isDark ? 'dark' : 'light',
+                palette: 'palette1'
+            },
             dataLabels: {
                 enabled: false
             },
@@ -266,10 +201,10 @@ class HeatmapChart extends HTMLElement {
             plotOptions: {
                 heatmap: {
                     radius: 0,
-                    enableShades: true,
-                    shadeIntensity: 0.5,
+                    enableShades: false,
                     distributed: false,
                     useFillColorAsStroke: false,
+                    strokeWidth: 0.5,
                     colorScale: {
                         ranges: [
                             {
@@ -302,16 +237,16 @@ class HeatmapChart extends HTMLElement {
                     style: {
                         fontSize: '11px',
                         fontFamily: 'JetBrains Mono, monospace',
-                        colors: theme.textColor
+                        colors: isDark ? '#ffffff' : '#000000'
                     }
                 },
                 axisBorder: {
                     show: false,
-                    color: theme.axisColor
+                    color: isDark ? '#ffffff' : '#000000'
                 },
                 axisTicks: {
                     show: true,
-                    color: theme.axisColor
+                    color: isDark ? '#ffffff' : '#000000'
                 }
             },
             yaxis: {
@@ -319,7 +254,7 @@ class HeatmapChart extends HTMLElement {
                     style: {
                         fontSize: '11px',
                         fontFamily: 'JetBrains Mono, monospace',
-                        colors: theme.textColor
+                        colors: isDark ? '#ffffff' : '#000000'
                     },
                     maxWidth: 300,
                     trim: false,
@@ -327,13 +262,7 @@ class HeatmapChart extends HTMLElement {
                     offsetX: 15
                 }
             },
-            grid: {
-                borderColor: theme.gridColor,
-                strokeDashArray: 3,
-                position: 'back'
-            },
             tooltip: {
-                theme: theme.tooltipBackground,
                 x: {
                     format: 'MMM dd, HH:mm'
                 },
@@ -341,6 +270,11 @@ class HeatmapChart extends HTMLElement {
                     formatter: function(value) {
                         return value + '%';
                     }
+                },
+                theme: isDark ? 'dark' : 'light',
+                style: {
+                    fontSize: '12px',
+                    fontFamily: 'JetBrains Mono, monospace'
                 }
             },
             legend: {
@@ -349,7 +283,7 @@ class HeatmapChart extends HTMLElement {
                 fontSize: '11px',
                 fontFamily: 'JetBrains Mono, monospace',
                 labels: {
-                    colors: theme.textColor
+                    colors: isDark ? '#ffffff' : '#000000'
                 },
                 onItemClick: {
                     toggleDataSeries: true
@@ -396,36 +330,7 @@ class HeatmapChart extends HTMLElement {
         }
     }
 
-    toggleVisibilityAll() {
-        // Check if all series are currently hidden
-        const allHidden = this.chart.w.globals.collapsedSeriesIndices.length === 
-                          this.chart.w.globals.series.length;
-        
-        // Get all series indices
-        const allSeriesIndices = Array.from(
-            { length: this.chart.w.globals.series.length }, 
-            (_, i) => i
-        );
-        
-        if (allHidden) {
-            // If all are hidden, show all
-            allSeriesIndices.forEach(index => {
-                this.chart.showSeries(index);
-            });
-        } else {
-            // If some are shown, hide all
-            allSeriesIndices.forEach(index => {
-                this.chart.hideSeries(index);
-            });
-        }
-        
-        // Force chart update
-        this.chart.update();
-    }
     
-    onLegendClick(chartContext, seriesIndex) {
-        // Handle legend click (already handled by ApexCharts by default)
-    }
 }
 
 // Helper functions (same as in TimeSeriesChart)
