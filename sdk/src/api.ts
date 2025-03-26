@@ -40,15 +40,10 @@ export class Api {
     return response;
   }
 
-  async addCustomRpc(
-    rpcUrl: string,
-    chainId: string,
-    headers?: Record<string, string>,
-  ) {
+  async addCustomRpc(rpcUrl: string, chainId: string) {
     return this.#makeRequest("/api/custom-rpc/add", {
       rpcUrl,
       chainId,
-      headers,
     });
   }
 
