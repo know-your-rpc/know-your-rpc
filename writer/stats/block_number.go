@@ -66,9 +66,9 @@ func BenchmarkBlockNumber(rpcs []types.RpcInfo, chainId string) PerChainBlockNum
 	startTimestamp := time.Now()
 
 	for i := range rpcs {
-		go func(url string) {
-			blockNumbersCh <- benchGetBlocNumber(url)
-		}(rpcs[i].URL)
+		go func(rpcInfo types.RpcInfo) {
+			blockNumbersCh <- benchGetBlocNumber(rpcInfo)
+		}(rpcs[i])
 	}
 
 	blockNumberBenchmarks := make([]PerRpcBlockNumberBenchmark, 0, len(rpcs))
@@ -111,7 +111,7 @@ func BenchmarkBlockNumber(rpcs []types.RpcInfo, chainId string) PerChainBlockNum
 
 func benchGetBlocNumber(rpcInfo types.RpcInfo) PerRpcBlockNumberBenchmark {
 	rpcUrl := rpcInfo.URL
-	result, err := rpc.RpcCall(rpcUrl, "eth_blockNumber", []string{})
+	result, err := rpc.RpcCall(rpcUrl, "eth_blockNumber", []string{}, rpcInfo.Headers)
 
 	if err != nil {
 		fmt.Printf("rpcUrl=%s failed error=%s\n", rpcUrl, err)

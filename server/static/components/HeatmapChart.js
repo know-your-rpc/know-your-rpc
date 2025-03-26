@@ -166,7 +166,10 @@ class HeatmapChart extends HTMLElement {
                     show: false
                 },
                 animations: {
-                    enabled: false
+                    enabled: false,
+                    dynamicAnimation: {
+                        enabled: false
+                    }
                 },
                 background: 'transparent',
                 events: {
